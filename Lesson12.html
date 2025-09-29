@@ -1,0 +1,1690 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macroeconomic Policy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #134e4a 0%, #155e75 50%, #1e40af 100%);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .slide {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        h1 {
+            color: #134e4a;
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #155e75;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #1e40af;
+            padding-bottom: 12px;
+        }
+
+        h3 {
+            color: #134e4a;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #155e75;
+            font-size: 1.2em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            color: #333;
+            font-size: 1.08em;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #555;
+            font-size: 1.25em;
+            text-align: center;
+            margin-bottom: 35px;
+            font-style: italic;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 35px;
+            gap: 15px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #134e4a 0%, #1e40af 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1.05em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(19, 78, 74, 0.4);
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(19, 78, 74, 0.6);
+        }
+
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            text-align: center;
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 5px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .info-box:hover {
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 5px solid #dc2626;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 5px solid #10b981;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .purple-box {
+            background: linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 100%);
+            border-left: 5px solid #9333ea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            border-color: #1e40af;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #134e4a 0%, #1e40af 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .example {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 8px;
+        }
+
+        .formula-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+            border: 3px solid #1e40af;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .icon-card {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .icon-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-color: #1e40af;
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #134e4a;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #134e4a 0%, #155e75 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.05em;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        tr:hover {
+            background: #dbeafe;
+        }
+
+        .tool-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border: 2px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>🏛️ Macroeconomic Policy</h1>
+            <p class="subtitle">Monetary Policy, Inflation, and Exchange Rates</p>
+            
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon">🎯</div>
+                    <h4>Monetary Objectives</h4>
+                    <p>Policy goals & targets</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">🏦</div>
+                    <h4>Federal Reserve</h4>
+                    <p>Tools & implementation</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">📊</div>
+                    <h4>Inflation</h4>
+                    <p>Expectations & dynamics</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">⚠️</div>
+                    <h4>Policy Challenges</h4>
+                    <p>Limitations & trade-offs</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">💱</div>
+                    <h4>Exchange Rates</h4>
+                    <p>Determination & systems</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">🌍</div>
+                    <h4>Government Intervention</h4>
+                    <p>Currency market actions</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">📈</div>
+                    <h4>Macro Effects</h4>
+                    <p>Exchange rate impacts</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">⚖️</div>
+                    <h4>Trade Deficit</h4>
+                    <p>Balance of payments</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Focus:</strong> Long-run macroeconomic policy examines how monetary authorities maintain price stability, promote growth, and manage international currency relationships over extended periods.
+            </div>
+
+            <div class="navigation">
+                <button id="prev" disabled>← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">1</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 2: Objectives of Monetary Policy -->
+        <div class="slide">
+            <h2>🎯 Objectives of Monetary Policy</h2>
+            
+            <h3>What is Monetary Policy?</h3>
+            <p>Monetary policy involves actions by a central bank to <span class="highlight">manage the money supply and interest rates</span> to achieve macroeconomic objectives.</p>
+
+            <h3>Primary Objectives (The Dual Mandate)</h3>
+            
+            <div class="grid-2">
+                <div class="success-box">
+                    <h4>1. Price Stability 💰</h4>
+                    <p><strong>Goal:</strong> Low and stable inflation (Fed targets 2% annually)</p>
+                    <p><strong>Why Important:</strong></p>
+                    <ul>
+                        <li>Preserves purchasing power</li>
+                        <li>Facilitates long-term planning</li>
+                        <li>Reduces uncertainty for businesses</li>
+                        <li>Protects fixed-income earners</li>
+                        <li>Maintains credibility of currency</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>2. Maximum Employment 👥</h4>
+                    <p><strong>Goal:</strong> Achieve full employment (unemployment at natural rate ~4-5%)</p>
+                    <p><strong>Why Important:</strong></p>
+                    <ul>
+                        <li>Maximizes productive capacity</li>
+                        <li>Reduces poverty and inequality</li>
+                        <li>Increases tax revenues</li>
+                        <li>Improves social welfare</li>
+                        <li>Promotes economic stability</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Secondary Objectives</h3>
+
+            <div class="card">
+                <h4>3. Moderate Long-Term Interest Rates 📊</h4>
+                <p>Keep real interest rates at levels that promote sustainable growth without causing excessive inflation or deflation.</p>
+            </div>
+
+            <div class="card">
+                <h4>4. Financial System Stability 🏦</h4>
+                <p>Ensure banking system remains sound and prevents financial crises. Includes:</p>
+                <ul>
+                    <li>Banking supervision and regulation</li>
+                    <li>Lender of last resort function</li>
+                    <li>Maintaining payment system integrity</li>
+                    <li>Preventing asset bubbles</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>5. Economic Growth 📈</h4>
+                <p>Support conditions for sustainable long-term growth through:</p>
+                <ul>
+                    <li>Stable macroeconomic environment</li>
+                    <li>Access to credit for productive investment</li>
+                    <li>Confidence in monetary system</li>
+                </ul>
+            </div>
+
+            <h3>The Trade-Off: Short-Run Phillips Curve</h3>
+            <div class="warning-box">
+                <strong>⚠️ The Central Challenge:</strong> In the short run, there's often a trade-off between inflation and unemployment. Lowering unemployment may increase inflation, and vice versa.
+                <div class="formula-box" style="font-size: 1em; margin-top: 15px;">
+                    π = π<sup>e</sup> - β(u - u<sub>n</sub>)
+                </div>
+                <p style="text-align: center; color: #666; font-size: 0.9em; margin-top: 10px;">
+                    Inflation = Expected Inflation - β(Unemployment - Natural Rate)
+                </p>
+            </div>
+
+            <div class="example">
+                <strong>🎯 Policy in Action - 2022-2023:</strong><br>
+                The Federal Reserve faced high inflation (9.1% peak in June 2022) and aggressively raised interest rates:
+                <ul>
+                    <li>Prioritized price stability over employment</li>
+                    <li>Raised rates from 0% to 5.5% in 18 months</li>
+                    <li>Accepted risk of higher unemployment</li>
+                    <li>Successfully reduced inflation to ~3% by 2024</li>
+                    <li>Unemployment remained relatively low (~3.5-4%)</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <strong>🔑 Long-Run Reality:</strong> In the long run, there's no trade-off. The economy returns to natural unemployment regardless of inflation. Best strategy: Maintain price stability to create conditions for sustainable maximum employment.
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">2</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 3: Federal Reserve Policy -->
+        <div class="slide">
+            <h2>🏦 Federal Reserve Policy</h2>
+            
+            <h3>The Federal Reserve System</h3>
+            <p>The <span class="highlight">Federal Reserve (the Fed)</span> is the central bank of the United States, established in 1913. It consists of 12 regional banks coordinated by the Board of Governors in Washington, D.C.</p>
+
+            <h3>Key Decision-Making Body: FOMC</h3>
+            <div class="info-box">
+                <strong>Federal Open Market Committee (FOMC)</strong><br>
+                • 12 members: 7 Board Governors + 5 Reserve Bank Presidents<br>
+                • Meets 8 times per year<br>
+                • Sets monetary policy, especially the federal funds rate target<br>
+                • Most powerful monetary policy body in the world
+            </div>
+
+            <h3>Three Main Tools of Monetary Policy</h3>
+
+            <div class="tool-box">
+                <h4>1. Open Market Operations (OMO) - Primary Tool 📊</h4>
+                <p><strong>What:</strong> Buying or selling government securities (Treasury bonds) in open markets</p>
+                
+                <p><strong>Expansionary Policy (Lower rates):</strong></p>
+                <ul>
+                    <li>Fed <strong>buys</strong> Treasury securities from banks</li>
+                    <li>Increases bank reserves</li>
+                    <li>Banks have more money to lend</li>
+                    <li>Interest rates fall</li>
+                    <li>Borrowing and spending increase</li>
+                </ul>
+
+                <p><strong>Contractionary Policy (Raise rates):</strong></p>
+                <ul>
+                    <li>Fed <strong>sells</strong> Treasury securities to banks</li>
+                    <li>Decreases bank reserves</li>
+                    <li>Banks have less money to lend</li>
+                    <li>Interest rates rise</li>
+                    <li>Borrowing and spending decrease</li>
+                </ul>
+            </div>
+
+            <div class="tool-box">
+                <h4>2. Discount Rate 🏦</h4>
+                <p><strong>What:</strong> Interest rate charged when banks borrow directly from the Fed (discount window)</p>
+                
+                <p><strong>How it works:</strong></p>
+                <ul>
+                    <li>Lower discount rate → cheaper for banks to borrow → more lending → expansionary</li>
+                    <li>Higher discount rate → expensive for banks to borrow → less lending → contractionary</li>
+                </ul>
+
+                <p><strong>Note:</strong> Mostly symbolic—banks prefer not to use discount window (signals weakness). OMO is more important.</p>
+            </div>
+
+            <div class="tool-box">
+                <h4>3. Reserve Requirements 💵</h4>
+                <p><strong>What:</strong> Percentage of deposits banks must hold as reserves (not lend out)</p>
+                
+                <p><strong>How it works:</strong></p>
+                <ul>
+                    <li>Lower reserve requirement → banks can lend more → expansionary</li>
+                    <li>Higher reserve requirement → banks must hold more → contractionary</li>
+                </ul>
+
+                <p><strong>Current Status:</strong> As of March 2020, reserve requirement is 0% (suspended during COVID, not reinstated). Relies on other tools instead.</p>
+            </div>
+
+            <h3>Modern Tools: Quantitative Easing (QE)</h3>
+            <div class="purple-box">
+                <strong>Quantitative Easing - Unconventional Monetary Policy</strong><br>
+                Used when interest rates hit zero lower bound:
+                <ul>
+                    <li>Fed buys <strong>massive quantities</strong> of securities (not just short-term Treasuries)</li>
+                    <li>Includes long-term bonds, mortgage-backed securities</li>
+                    <li>Directly targets long-term interest rates</li>
+                    <li>Expands Fed's balance sheet dramatically</li>
+                </ul>
+                <p><strong>Used During:</strong> 2008-2014 (QE1, QE2, QE3), 2020-2022 (COVID response)</p>
+            </div>
+
+            <h3>The Federal Funds Rate</h3>
+            <div class="success-box">
+                <strong>The Key Rate Everyone Watches 👀</strong><br>
+                • Interest rate banks charge each other for overnight loans<br>
+                • FOMC sets a <strong>target range</strong> (e.g., 5.25-5.50%)<br>
+                • Influences all other interest rates in economy<br>
+                • When Fed "raises rates," it means raising fed funds target<br>
+                • Affects mortgages, car loans, business loans, savings rates
+            </div>
+
+            <div class="example">
+                <strong>📈 Transmission Mechanism Example:</strong><br>
+                Fed raises federal funds rate by 0.25%:
+                <ul>
+                    <li><strong>→</strong> Banks raise prime rate (affects credit cards, business loans)</li>
+                    <li><strong>→</strong> Mortgage rates increase (reduces home buying)</li>
+                    <li><strong>→</strong> Corporate bond yields rise (companies borrow less for investment)</li>
+                    <li><strong>→</strong> Consumers save more (higher savings account rates)</li>
+                    <li><strong>→</strong> Overall spending decreases</li>
+                    <li><strong>→</strong> Aggregate demand shifts left</li>
+                    <li><strong>→</strong> Inflation pressure eases</li>
+                </ul>
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">3</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 4: Expected and Ongoing Inflation -->
+        <div class="slide">
+            <h2>📊 Expected and Ongoing Inflation</h2>
+            
+            <h3>Understanding Inflation Dynamics</h3>
+            <p>Inflation isn't just about current prices—<span class="highlight">expectations about future inflation</span> critically influence actual inflation outcomes.</p>
+
+            <div class="formula-box">
+                Actual Inflation = Expected Inflation + Demand Shocks + Supply Shocks
+            </div>
+
+            <h3>Expected Inflation (π<sup>e</sup>)</h3>
+            <div class="info-box">
+                <strong>What:</strong> The inflation rate people anticipate for the future
+                
+                <p><strong>Why It Matters:</strong></p>
+                <ul>
+                    <li><strong>Wage Negotiations:</strong> Workers demand higher wages if they expect higher prices</li>
+                    <li><strong>Price Setting:</strong> Businesses set prices based on expected costs</li>
+                    <li><strong>Interest Rates:</strong> Lenders demand higher rates if inflation expected</li>
+                    <li><strong>Investment Decisions:</strong> Real return expectations drive capital allocation</li>
+                </ul>
+            </div>
+
+            <h3>The Expectations-Inflation Spiral</h3>
+            <div class="warning-box">
+                <strong>⚠️ Self-Fulfilling Prophecy</strong><br>
+                High inflation expectations can cause actual inflation:
+                <ol>
+                    <li>People expect 5% inflation</li>
+                    <li>Workers demand 5% raises</li>
+                    <li>Businesses raise prices 5% to cover wage costs</li>
+                    <li>Actual inflation becomes 5%</li>
+                    <li>Expectations confirmed → cycle continues!</li>
+                </ol>
+            </div>
+
+            <h3>Anchored vs. Unanchored Expectations</h3>
+
+            <div class="grid-2">
+                <div class="success-box">
+                    <h4>✅ Anchored Expectations</h4>
+                    <p>Public believes central bank will maintain ~2% inflation long-term</p>
+                    <p><strong>Benefits:</strong></p>
+                    <ul>
+                        <li>Temporary inflation shocks don't spiral</li>
+                        <li>Central bank credibility high</li>
+                        <li>Easier to control actual inflation</li>
+                        <li>Stable long-term interest rates</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>❌ Unanchored Expectations</h4>
+                    <p>Public doubts central bank's commitment or ability</p>
+                    <p><strong>Dangers:</strong></p>
+                    <ul>
+                        <li>Small shocks trigger large inflation moves</li>
+                        <li>Wage-price spiral risk</li>
+                        <li>Difficult to control inflation</li>
+                        <li>May require severe recession to fix</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Measuring Inflation Expectations</h3>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                    <th>Source</th>
+                </tr>
+                <tr>
+                    <td><strong>Survey Data</strong></td>
+                    <td>Ask consumers and businesses what they expect</td>
+                    <td>University of Michigan, Survey of Professional Forecasters</td>
+                </tr>
+                <tr>
+                    <td><strong>TIPS Spreads</strong></td>
+                    <td>Difference between regular and inflation-protected Treasury bonds</td>
+                    <td>Financial markets (breakeven inflation rate)</td>
+                </tr>
+                <tr>
+                    <td><strong>Professional Forecasts</strong></td>
+                    <td>Economist predictions</td>
+                    <td>Fed Survey, Bloomberg consensus</td>
+                </tr>
+            </table>
+
+            <h3>Types of Inflation</h3>
+
+            <div class="card">
+                <h4>1. Demand-Pull Inflation 📈</h4>
+                <p>"Too much money chasing too few goods"</p>
+                <ul>
+                    <li>Aggregate demand exceeds productive capacity</li>
+                    <li>Economy operating above potential GDP</li>
+                    <li>Unemployment below natural rate</li>
+                    <li><strong>Solution:</strong> Contractionary monetary policy (raise rates)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>2. Cost-Push Inflation 🛢️</h4>
+                <p>"Supply-side shocks raise production costs"</p>
+                <ul>
+                    <li>Oil price spikes, supply chain disruptions</li>
+                    <li>Wage increases exceeding productivity growth</li>
+                    <li>Rising import prices</li>
+                    <li><strong>Problem:</strong> Monetary policy can't fix supply issues!</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>3. Built-In Inflation 🔄</h4>
+                <p>"Expectations become embedded in wage-price contracts"</p>
+                <ul>
+                    <li>Past inflation leads to expectations of future inflation</li>
+                    <li>Automatic cost-of-living adjustments (COLAs)</li>
+                    <li>Wage indexation to inflation</li>
+                    <li><strong>Persistence:</strong> Hard to break without credible policy change</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>📚 Historical Case: The Volcker Disinflation (1979-1982)</strong><br>
+                Paul Volcker became Fed Chair when inflation hit 13%:
+                <ul>
+                    <li>Inflation expectations were unanchored—public didn't believe Fed would control prices</li>
+                    <li>Volcker raised federal funds rate to 20% (unprecedented!)</li>
+                    <li>Caused severe 1981-1982 recession (unemployment 10.8%)</li>
+                    <li>But broke inflation expectations</li>
+                    <li>Inflation fell to 3% by 1983</li>
+                    <li>Established Fed credibility for next 40 years</li>
+                </ul>
+            </div>
+
+            <h3>Central Bank Credibility is Key</h3>
+            <div class="success-box">
+                <strong>🔑 The Credibility Dividend:</strong> When central banks have strong credibility, they can control inflation more easily with smaller interest rate changes and less economic pain. This is why the Fed fiercely protects its independence and reputation.
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">4</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 5: Challenges for Monetary Policy -->
+        <div class="slide">
+            <h2>⚠️ Challenges for Monetary Policy</h2>
+            
+            <h3>Inherent Difficulties in Conducting Monetary Policy</h3>
+            <p>Despite powerful tools, central banks face <span class="highlight">significant challenges</span> that limit their ability to perfectly stabilize the economy.</p>
+
+            <h3>1. Information and Time Lags ⏰</h3>
+            
+            <div class="warning-box">
+                <h4>Recognition Lag (Data Lag)</h4>
+                <p><strong>Problem:</strong> Economic data comes with delays. GDP figures are released quarterly with 1-month lag and subject to revisions.</p>
+                <ul>
+                    <li>By the time recession is confirmed, economy may be deep in downturn</li>
+                    <li>Real-time economic conditions are uncertain</li>
+                    <li>Difficult to distinguish temporary fluctuations from persistent trends</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>Implementation Lag</h4>
+                <p><strong>Problem:</strong> FOMC meets only 8 times per year; takes time to decide and implement policy.</p>
+                <ul>
+                    <li>Emergency meetings possible but rare</li>
+                    <li>Need consensus among committee members</li>
+                    <li>Markets may already have moved on expectations</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>Effect Lag (Transmission Lag)</h4>
+                <p><strong>Problem:</strong> Monetary policy takes 6-18 months to fully affect the economy</p>
+                <ul>
+                    <li>Interest rate changes don't immediately affect spending</li>
+                    <li>Businesses take time to adjust investment plans</li>
+                    <li>Households take time to adjust consumption</li>
+                    <li><strong>Risk:</strong> By the time policy has full effect, economy may need opposite policy!</li>
+                </ul>
+            </div>
+
+            <h3>2. The Zero Lower Bound (ZLB) Problem 🔒</h3>
+            <div class="warning-box">
+                <strong>The Constraint:</strong> Interest rates can't go significantly below zero
+                
+                <p><strong>Why This Matters:</strong></p>
+                <ul>
+                    <li>During severe recessions, Fed may want negative rates to stimulate economy</li>
+                    <li>But people would just hold cash rather than accept negative returns</li>
+                    <li>Conventional monetary policy becomes impotent</li>
+                    <li>Fed "runs out of ammunition"</li>
+                </ul>
+
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Quantitative Easing (buy long-term assets)</li>
+                    <li>Forward guidance (promise to keep rates low)</li>
+                    <li>Negative rates on bank reserves (some countries tried)</li>
+                    <li>Rely more on fiscal policy</li>
+                </ul>
+            </div>
+
+            <h3>3. Uncertainty About Natural Rate 🤔</h3>
+            <div class="card">
+                <p>The Fed doesn't know the exact "neutral" interest rate (r*) that neither stimulates nor restrains economy.</p>
+                <ul>
+                    <li>Natural rate changes over time (demographics, productivity, global savings)</li>
+                    <li>Can only be estimated, not observed</li>
+                    <li>Estimates range from 0.5% to 3%</li>
+                    <li><strong>Problem:</strong> If Fed thinks r* = 2% but it's actually 1%, policy will be too tight</li>
+                </ul>
+            </div>
+
+            <h3>4. Supply-Side Shocks Dilemma 🛢️</h3>
+            <div class="warning-box">
+                <strong>Stagflation Problem:</strong> When supply shocks cause both high inflation AND high unemployment
+                
+                <p><strong>The Impossible Choice:</strong></p>
+                <ul>
+                    <li><strong>Fight inflation:</strong> Raise rates → Makes recession worse</li>
+                    <li><strong>Fight unemployment:</strong> Lower rates → Makes inflation worse</li>
+                    <li>Monetary policy can't fix supply problems (destroyed factories, oil shortages)</li>
+                    <li>Fed must choose which evil to tolerate</li>
+                </ul>
+
+                <div class="example" style="margin-top: 15px;">
+                    <strong>Example:</strong> 2021-2022 inflation partly caused by supply chain disruptions. Raising rates couldn't fix chip shortages or shipping bottlenecks, but was necessary to control demand-side inflation.
+                </div>
+            </div>
+
+            <h3>5. Political Pressures 🏛️</h3>
+            <div class="card">
+                <p><strong>Fed Independence is Critical but Threatened:</strong></p>
+                <ul>
+                    <li>Politicians prefer low interest rates (easy money wins votes)</li>
+                    <li>Fighting inflation requires unpopular rate hikes</li>
+                    <li>Presidents may publicly criticize Fed decisions</li>
+                    <li>Congress could revoke Fed independence (rarely happens)</li>
+                    <li><strong>History:</strong> Fed gave in to political pressure in 1970s → high inflation</li>
+                </ul>
+            </div>
+
+            <h3>6. Financial Innovation and Instability 💳</h3>
+            <div class="card">
+                <p>Modern financial system is complex and evolving:</p>
+                <ul>
+                    <li>Shadow banking (non-bank financial intermediaries) outside Fed control</li>
+                    <li>Cryptocurrencies and digital payments complicate money supply measurement</li>
+                    <li>Global financial linkages spread crises rapidly</li>
+                    <li>Asset bubbles (stocks, housing) hard to identify in real-time</li>
+                    <li>New financial products create unexpected risks (2008 mortgage-backed securities)</li>
+                </ul>
+            </div>
+
+            <h3>7. Global Factors and Capital Flows 🌍</h3>
+            <div class="card">
+                <p>Domestic monetary policy effectiveness reduced by globalization:</p>
+                <ul>
+                    <li>Capital flows across borders quickly</li>
+                    <li>Foreign central bank policies affect US economy</li>
+                    <li>Global savings glut can keep rates low despite Fed actions</li>
+                    <li>Exchange rate changes can offset policy intentions</li>
+                </ul>
+            </div>
+
+            <h3>8. Measurement Problems 📊</h3>
+            <div class="card">
+                <p>Hard to measure key economic variables accurately:</p>
+                <ul>
+                    <li><strong>Output Gap:</strong> How far is economy from potential? Unknown in real-time</li>
+                    <li><strong>Inflation:</strong> CPI vs. PCE, core vs. headline—which to target?</li>
+                    <li><strong>Employment:</strong> Unemployment rate may not reflect true labor market slack</li>
+                    <li><strong>Money Supply:</strong> What counts as "money" in digital age?</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <strong>🎯 The Bottom Line:</strong> Monetary policy is more art than science. Despite sophisticated models and massive resources, Fed officials must make decisions under radical uncertainty, with imperfect information, using tools that work with long and variable lags. Success requires judgment, experience, and sometimes luck.
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">5</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 6: Foreign Exchange Rates -->
+        <div class="slide">
+            <h2>💱 Foreign Exchange Rates and Exchange Rate Systems</h2>
+            
+            <h3>What is an Exchange Rate?</h3>
+            <p>The <span class="highlight">exchange rate</span> is the price of one currency in terms of another currency.</p>
+
+            <div class="formula-box">
+                Exchange Rate = Units of Domestic Currency per Unit of Foreign Currency
+            </div>
+
+            <div class="example">
+                <strong>Example:</strong> If $1 USD = 0.85 EUR, then €1 EUR = $1.18 USD<br>
+                You need $1.18 to buy one euro.
+            </div>
+
+            <h3>Key Concepts</h3>
+
+            <div class="grid-2">
+                <div class="info-box">
+                    <h4>Appreciation 📈</h4>
+                    <p><strong>Currency becomes stronger</strong></p>
+                    <ul>
+                        <li>Can buy more foreign currency</li>
+                        <li>Dollar appreciates: $1 = €0.85 → $1 = €0.95</li>
+                        <li>Foreign goods become cheaper</li>
+                        <li>Exports become more expensive</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Depreciation 📉</h4>
+                    <p><strong>Currency becomes weaker</strong></p>
+                    <ul>
+                        <li>Can buy less foreign currency</li>
+                        <li>Dollar depreciates: $1 = €0.85 → $1 = €0.75</li>
+                        <li>Foreign goods become more expensive</li>
+                        <li>Exports become cheaper</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Determinants of Exchange Rates</h3>
+
+            <div class="card">
+                <h4>1. Interest Rate Differentials 💰</h4>
+                <ul>
+                    <li>Higher domestic interest rates → capital inflows → currency appreciates</li>
+                    <li>Investors move money to countries with higher returns</li>
+                    <li>Fed raising rates typically strengthens dollar</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>2. Inflation Differentials 📊</h4>
+                <ul>
+                    <li>Higher domestic inflation → currency depreciates</li>
+                    <li>Purchasing Power Parity (PPP) theory: exchange rates adjust to equalize prices</li>
+                    <li>Country with 5% inflation vs. 2% abroad → currency should depreciate ~3%</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>3. Economic Growth and Performance 📈</h4>
+                <ul>
+                    <li>Strong economic growth → attracts investment → currency appreciates</li>
+                    <li>But also increases import demand → currency depreciates</li>
+                    <li>Net effect depends on capital flows vs. trade flows</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>4. Trade Balance 📦</h4>
+                <ul>
+                    <li>Trade surplus (exports > imports) → currency appreciates</li>
+                    <li>Trade deficit (imports > exports) → currency depreciates</li>
+                    <li>High demand for domestic goods → high demand for domestic currency</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>5. Political Stability and Economic Policy 🏛️</h4>
+                <ul>
+                    <li>Political uncertainty → capital flight → currency depreciates</li>
+                    <li>Sound fiscal policy → confidence → currency appreciates</li>
+                    <li>Risk of default or expropriation → currency collapses</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>6. Speculation and Market Psychology 💭</h4>
+                <ul>
+                    <li>Expected future appreciation → buying today → self-fulfilling</li>
+                    <li>Herd behavior can cause overshooting</li>
+                    <li>Central bank credibility affects expectations</li>
+                </ul>
+            </div>
+
+            <h3>Exchange Rate Systems</h3>
+
+            <table>
+                <tr>
+                    <th>System</th>
+                    <th>Description</th>
+                    <th>Examples</th>
+                </tr>
+                <tr>
+                    <td><strong>Floating (Flexible)</strong></td>
+                    <td>Market determines rate through supply and demand. Government doesn't intervene.</td>
+                    <td>USA, Eurozone, Japan, UK</td>
+                </tr>
+                <tr>
+                    <td><strong>Managed Float</strong></td>
+                    <td>Mostly market-determined, but government intervenes occasionally to smooth volatility.</td>
+                    <td>Most major economies actually do this</td>
+                </tr>
+                <tr>
+                    <td><strong>Fixed (Pegged)</strong></td>
+                    <td>Government commits to maintaining specific rate vs. another currency or gold.</td>
+                    <td>Hong Kong (pegged to USD), Saudi Arabia</td>
+                </tr>
+                <tr>
+                    <td><strong>Currency Board</strong></td>
+                    <td>Extreme fixed system—domestic currency fully backed by foreign reserves.</td>
+                    <td>Bulgaria (pegged to Euro)</td>
+                </tr>
+                <tr>
+                    <td><strong>Dollarization</strong></td>
+                    <td>Country abandons own currency, adopts another country's currency.</td>
+                    <td>Ecuador, El Salvador (use USD)</td>
+                </tr>
+            </table>
+
+            <h3>Advantages and Disadvantages</h3>
+
+            <div class="grid-2">
+                <div class="success-box">
+                    <h4>✅ Floating Rates</h4>
+                    <p><strong>Advantages:</strong></p>
+                    <ul>
+                        <li>Automatic adjustment to shocks</li>
+                        <li>Monetary policy independence</li>
+                        <li>No need for foreign reserves</li>
+                    </ul>
+                    <p><strong>Disadvantages:</strong></p>
+                    <ul>
+                        <li>Exchange rate volatility</li>
+                        <li>Uncertainty for trade/investment</li>
+                        <li>Potential for destabilizing speculation</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>⚖️ Fixed Rates</h4>
+                    <p><strong>Advantages:</strong></p>
+                    <ul>
+                        <li>Exchange rate certainty</li>
+                        <li>Inflation discipline</li>
+                        <li>Facilitates trade and investment</li>
+                    </ul>
+                    <p><strong>Disadvantages:</strong></p>
+                    <ul>
+                        <li>Loss of monetary policy independence</li>
+                        <li>Requires large foreign reserves</li>
+                        <li>Vulnerable to speculative attacks</li>
+                        <li>Can't adjust to asymmetric shocks</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example">
+                <strong>🌍 The Euro:</strong> Ultimate fixed rate—countries abandoned national currencies entirely. Benefits include no exchange rate risk within Eurozone, but costs include inability to devalue during crisis (Greece 2010s couldn't devalue to boost competitiveness).
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">6</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 7: Government Intervention in Foreign Exchange Markets -->
+        <div class="slide">
+            <h2>🌍 Government Intervention in Foreign Exchange Markets</h2>
+            
+            <h3>Why Governments Intervene</h3>
+            <p>Even with floating rates, governments and central banks sometimes <span class="highlight">intervene in currency markets</span> to influence exchange rates.</p>
+
+            <h3>Reasons for Intervention</h3>
+
+            <div class="card">
+                <h4>1. Prevent Excessive Volatility 📊</h4>
+                <p>Smooth out short-term fluctuations that disrupt trade and investment</p>
+                <ul>
+                    <li>Rapid swings create uncertainty for businesses</li>
+                    <li>Can trigger financial crises</li>
+                    <li>Intervention signals commitment to stability</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>2. Correct Misalignment 🎯</h4>
+                <p>When exchange rate diverges significantly from "fundamental" value</p>
+                <ul>
+                    <li>Overvalued currency hurts exports and jobs</li>
+                    <li>Undervalued currency causes inflation</li>
+                    <li>Bubbles and speculation can cause misalignment</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>3. Accumulate Reserves 💰</h4>
+                <p>Build foreign currency reserves as insurance against crises</p>
+                <ul>
+                    <li>Reserves can defend currency during speculative attacks</li>
+                    <li>Provide cushion for import payments</li>
+                    <li>Signal creditworthiness to international markets</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>4. Maintain Competitiveness 🏭</h4>
+                <p>Keep currency weak to boost exports (controversial!)</p>
+                <ul>
+                    <li>Weak currency makes exports cheaper</li>
+                    <li>Can protect domestic industries</li>
+                    <li>Criticized as "currency manipulation"</li>
+                </ul>
+            </div>
+
+            <h3>Methods of Intervention</h3>
+
+            <div class="tool-box">
+                <h4>1. Direct Market Intervention (Sterilized/Unsterilized)</h4>
+                
+                <p><strong>To Strengthen Currency (Appreciate):</strong></p>
+                <ul>
+                    <li>Central bank <strong>sells</strong> foreign currency reserves</li>
+                    <li>Central bank <strong>buys</strong> domestic currency</li>
+                    <li>Increases demand for domestic currency → appreciation</li>
+                </ul>
+
+                <p><strong>To Weaken Currency (Depreciate):</strong></p>
+                <ul>
+                    <li>Central bank <strong>buys</strong> foreign currency</li>
+                    <li>Central bank <strong>sells</strong> domestic currency</li>
+                    <li>Increases supply of domestic currency → depreciation</li>
+                </ul>
+
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <strong>Sterilized vs. Unsterilized:</strong><br>
+                    • <strong>Unsterilized:</strong> Intervention affects domestic money supply<br>
+                    • <strong>Sterilized:</strong> Central bank offsets money supply effect with domestic operations (buying/selling bonds)
+                </div>
+            </div>
+
+            <div class="tool-box">
+                <h4>2. Interest Rate Policy 📈</h4>
+                <p>Raising domestic interest rates attracts foreign capital → currency appreciates</p>
+                <ul>
+                    <li>Higher rates make domestic assets more attractive</li>
+                    <li>Capital inflows increase demand for domestic currency</li>
+                    <li><strong>Tradeoff:</strong> May conflict with domestic economic goals</li>
+                </ul>
+            </div>
+
+            <div class="tool-box">
+                <h4>3. Capital Controls 🚧</h4>
+                <p>Restrictions on international capital flows</p>
+                <ul>
+                    <li>Limits on foreign investment</li>
+                    <li>Taxes on currency transactions (Tobin tax)</li>
+                    <li>Restrictions on repatriating profits</li>
+                    <li><strong>Used by:</strong> China, India (historical), Malaysia (1998 crisis)</li>
+                </ul>
+            </div>
+
+            <div class="tool-box">
+                <h4>4. Verbal Intervention ("Jawboning") 🗣️</h4>
+                <p>Officials make statements to influence market expectations</p>
+                <ul>
+                    <li>"The dollar is too weak/strong"</li>
+                    <li>"We are prepared to intervene if necessary"</li>
+                    <li>Sometimes effective without actual intervention</li>
+                    <li>Loses credibility if not backed by action</li>
+                </ul>
+            </div>
+
+            <h3>Case Studies</h3>
+
+            <div class="example">
+                <strong>🇨🇳 China's Currency Management</strong><br>
+                China has historically intervened massively to keep yuan weak:
+                <ul>
+                    <li>Buys hundreds of billions in US dollars annually</li>
+                    <li>Accumulates world's largest foreign reserves ($3+ trillion)</li>
+                    <li>Keeps yuan undervalued to boost exports</li>
+                    <li>Criticized by US as currency manipulation</li>
+                    <li>Recently allowed more flexibility, but still managed</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>🇨🇭 Swiss National Bank (SNB)</strong><br>
+                Switzerland faces challenges from strong franc:
+                <ul>
+                    <li>Safe-haven status → capital inflows during crises</li>
+                    <li>2011-2015: SNB set floor at 1.20 francs per euro</li>
+                    <li>Bought massive amounts of foreign currency to defend peg</li>
+                    <li>January 2015: Abandoned peg → franc surged 30% in minutes!</li>
+                    <li>Caused chaos for Swiss exporters and European borrowers</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>🇯🇵 Japan's Intervention</strong><br>
+                Japan periodically intervenes to weaken yen:
+                <ul>
+                    <li>Strong yen hurts export-dependent economy</li>
+                    <li>2022: Intervened for first time in 24 years when yen weakened excessively</li>
+                    <li>Spent $60+ billion buying yen to prevent inflation from weak currency</li>
+                    <li>Limited effectiveness against market forces</li>
+                </ul>
+            </div>
+
+            <h3>Limits to Intervention Effectiveness</h3>
+
+            <div class="warning-box">
+                <strong>⚠️ Intervention Often Has Limited Impact</strong>
+                <ul>
+                    <li><strong>Size Matters:</strong> Daily forex trading = $7 trillion; even large interventions are tiny</li>
+                    <li><strong>Market Expectations:</strong> If fundamentals don't support target rate, markets will overwhelm intervention</li>
+                    <li><strong>Reserve Constraints:</strong> Can't defend currency indefinitely if reserves run out</li>
+                    <li><strong>Coordination Needed:</strong> Most effective when multiple central banks intervene together</li>
+                    <li><strong>Trilemma:</strong> Can't have fixed exchange rate, free capital flows, AND independent monetary policy simultaneously</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ When Intervention Works Best:</strong>
+                <ul>
+                    <li>Correcting temporary overshooting</li>
+                    <li>When backed by credible policy changes</li>
+                    <li>Coordinated international action</li>
+                    <li>Large reserves available</li>
+                    <li>Market already uncertain about direction</li>
+                </ul>
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">7</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 8: Exchange Rates and Macroeconomy -->
+        <div class="slide">
+            <h2>📈 Exchange Rates and the Macroeconomy</h2>
+            
+            <h3>How Exchange Rates Affect the Economy</h3>
+            <p>Exchange rate changes have <span class="highlight">significant impacts</span> on economic growth, inflation, and employment through multiple channels.</p>
+
+            <h3>1. Trade Channel (Net Exports) 📦</h3>
+
+            <div class="grid-2">
+                <div class="success-box">
+                    <h4>Currency Depreciation 📉</h4>
+                    <p><strong>Domestic currency becomes cheaper</strong></p>
+                    <p><strong>Effects:</strong></p>
+                    <ul>
+                        <li>Exports become cheaper for foreigners → exports rise ↑</li>
+                        <li>Imports become more expensive → imports fall ↓</li>
+                        <li>Net exports (NX) increase → AD shifts right</li>
+                        <li>GDP rises, unemployment falls</li>
+                        <li>But domestic inflation may increase</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h4>Currency Appreciation 📈</h4>
+                    <p><strong>Domestic currency becomes expensive</strong></p>
+                    <p><strong>Effects:</strong></p>
+                    <ul>
+                        <li>Exports become expensive → exports fall ↓</li>
+                        <li>Imports become cheaper → imports rise ↑</li>
+                        <li>Net exports (NX) decrease → AD shifts left</li>
+                        <li>GDP falls, unemployment rises</li>
+                        <li>But import prices fall, reducing inflation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example">
+                <strong>🇺🇸 US Dollar Strength 2022-2023:</strong><br>
+                Dollar appreciated 10-15% against major currencies:
+                <ul>
+                    <li>Made US exports less competitive globally</li>
+                    <li>US manufacturers faced pressure from cheaper imports</li>
+                    <li>But cheaper imports helped reduce inflation</li>
+                    <li>Trade deficit widened as imports surged</li>
+                </ul>
+            </div>
+
+            <h3>2. The J-Curve Effect ⤵️</h3>
+            <div class="warning-box">
+                <strong>Short-Run vs. Long-Run Trade Response</strong><br>
+                When currency depreciates, trade balance initially worsens before improving!
+                
+                <p><strong>Why?</strong></p>
+                <ul>
+                    <li><strong>Short run:</strong> Contracts already signed at old prices; quantities don't adjust immediately</li>
+                    <li>Paying more for same amount of imports → trade deficit increases</li>
+                    <li><strong>Long run:</strong> Quantities adjust; export volumes rise, import volumes fall</li>
+                    <li>Trade balance improves</li>
+                </ul>
+                
+                <p style="margin-top: 10px;"><strong>Implication:</strong> Depreciation may hurt trade balance for 6-12 months before helping!</p>
+            </div>
+
+            <h3>3. Inflation Channel 💰</h3>
+
+            <div class="card">
+                <h4>Currency Depreciation → Higher Inflation</h4>
+                <ul>
+                    <li>Import prices rise (oil, consumer goods, intermediate inputs)</li>
+                    <li>Businesses pass higher input costs to consumers</li>
+                    <li>Less competition from cheap imports allows domestic price increases</li>
+                    <li>If workers expect inflation, wage-price spiral can develop</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>Currency Appreciation → Lower Inflation</h4>
+                <ul>
+                    <li>Import prices fall</li>
+                    <li>Domestic producers face competition from cheap imports</li>
+                    <li>Reduces cost pressures throughout economy</li>
+                    <li>Central bank has more room to keep rates low</li>
+                </ul>
+            </div>
+
+            <h3>4. Capital Flows and Investment 💼</h3>
+
+            <div class="card">
+                <p><strong>Exchange Rate Expectations Affect Investment:</strong></p>
+                <ul>
+                    <li>Expected appreciation → attracts foreign investment (capital inflows)</li>
+                    <li>Foreign investors want assets denominated in appreciating currency</li>
+                    <li>Increases aggregate demand through financial account</li>
+                    <li>Can offset trade balance effects</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <p><strong>Currency Risk and Foreign Direct Investment (FDI):</strong></p>
+                <ul>
+                    <li>Volatile exchange rates deter long-term investment</li>
+                    <li>Companies may use hedging strategies (currency futures)</li>
+                    <li>Stable currency encourages FDI</li>
+                </ul>
+            </div>
+
+            <h3>5. Wealth Effects 💎</h3>
+
+            <div class="card">
+                <p>Exchange rates affect the value of international assets:</p>
+                <ul>
+                    <li>Appreciation makes foreign assets worth less in domestic currency</li>
+                    <li>Households with foreign investments feel poorer → consume less</li>
+                    <li>Depreciation has opposite effect</li>
+                    <li>Important for countries with significant foreign holdings</li>
+                </ul>
+            </div>
+
+            <h3>6. Monetary Policy Transmission 🏦</h3>
+
+            <div class="info-box">
+                <strong>Exchange Rate Channel of Monetary Policy</strong><br>
+                
+                <p>When Fed raises interest rates:</p>
+                <ol>
+                    <li>Higher US rates → dollar more attractive</li>
+                    <li>Capital inflows → dollar appreciates</li>
+                    <li>Exports fall, imports rise → NX decreases</li>
+                    <li>AD shifts left → inflation falls, GDP slows</li>
+                </ol>
+                
+                <p style="margin-top: 10px;"><strong>Implication:</strong> Exchange rate changes amplify monetary policy effects in open economies!</p>
+            </div>
+
+            <h3>The International Trilemma (Impossible Trinity) ⚠️</h3>
+
+            <div class="purple-box">
+                <strong>🔺 Countries Can Choose Only TWO of Three Goals:</strong>
+                <ol>
+                    <li><strong>Fixed Exchange Rate:</strong> Stable currency value</li>
+                    <li><strong>Free Capital Flows:</strong> No restrictions on international investment</li>
+                    <li><strong>Independent Monetary Policy:</strong> Set interest rates for domestic objectives</li>
+                </ol>
+
+                <p style="margin-top: 15px;"><strong>Examples:</strong></p>
+                <ul>
+                    <li><strong>USA:</strong> Floating rate + free capital + independent policy (chose #2 and #3)</li>
+                    <li><strong>Hong Kong:</strong> Fixed to USD + free capital → no independent policy (chose #1 and #2)</li>
+                    <li><strong>China (historical):</strong> Fixed rate + independent policy → capital controls (chose #1 and #3)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>🇬🇧 UK Experience - Brexit and Currency:</strong><br>
+                After Brexit vote (June 2016), pound fell 15-20%:
+                <ul>
+                    <li><strong>Positive:</strong> UK exports became more competitive, tourism boomed</li>
+                    <li><strong>Negative:</strong> Import prices surged, inflation rose from 0.5% to 3%</li>
+                    <li><strong>Mixed:</strong> Trade deficit remained high initially (J-curve)</li>
+                    <li><strong>Overall:</strong> Weaker pound cushioned Brexit's economic impact but raised living costs</li>
+                </ul>
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">8</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 9: Exchange Rates and Trade Deficit -->
+        <div class="slide">
+            <h2>⚖️ Exchange Rates and the Trade Deficit</h2>
+            
+            <h3>Understanding the Trade Deficit</h3>
+            <p>The <span class="highlight">trade deficit</span> occurs when a country imports more goods and services than it exports. Its relationship with exchange rates is complex and often misunderstood.</p>
+
+            <div class="formula-box">
+                Trade Balance = Exports - Imports
+            </div>
+            <p style="text-align: center; color: #666; font-size: 0.95em;">
+                If negative → Trade Deficit<br>
+                If positive → Trade Surplus
+            </p>
+
+            <h3>The US Trade Deficit Context</h3>
+            <div class="info-box">
+                <strong>US Trade Deficit Facts:</strong>
+                <ul>
+                    <li>US has run trade deficits continuously since 1975</li>
+                    <li>Deficit peaked at ~$800 billion in 2006 (6% of GDP)</li>
+                    <li>Current deficit ~$700-900 billion (~3-4% of GDP)</li>
+                    <li>Largest bilateral deficit with China (~$300-400 billion)</li>
+                    <li>Reflects US role as global consumer and importer of capital</li>
+                </ul>
+            </div>
+
+            <h3>How Exchange Rates Affect Trade Balance</h3>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Currency Depreciation Effects</h4>
+                    <p><strong>Theory:</strong> Should improve trade balance</p>
+                    <ul>
+                        <li>✅ Exports become cheaper → quantity rises</li>
+                        <li>✅ Imports become expensive → quantity falls</li>
+                        <li>❌ But J-curve effect delays improvement</li>
+                        <li>❌ If demand inelastic, may not help much</li>
+                        <li>❌ Trading partners may retaliate (competitive devaluation)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Currency Appreciation Effects</h4>
+                    <p><strong>Theory:</strong> Should worsen trade balance</p>
+                    <ul>
+                        <li>❌ Exports become expensive → quantity falls</li>
+                        <li>❌ Imports become cheaper → quantity rises</li>
+                        <li>✅ But cheaper imports benefit consumers</li>
+                        <li>✅ Reduces inflation pressure</li>
+                        <li>✅ Allows higher living standards</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>The Marshall-Lerner Condition</h3>
+            <div class="purple-box">
+                <strong>When Does Depreciation Improve Trade Balance?</strong><br><br>
+                Trade balance improves only if export and import demand are sufficiently elastic:
+                
+                <div class="formula-box" style="font-size: 1em; margin-top: 15px;">
+                    |ε<sub>x</sub>| + |ε<sub>m</sub>| > 1
+                </div>
+                
+                <p style="text-align: center; color: #666; margin-top: 10px;">
+                    Absolute value of (export elasticity + import elasticity) must exceed 1
+                </p>
+
+                <p><strong>Interpretation:</strong></p>
+                <ul>
+                    <li>If demand is elastic → quantity changes are large → depreciation helps trade balance</li>
+                    <li>If demand is inelastic → quantity changes are small → depreciation may worsen balance</li>
+                    <li>Empirically, condition is met in long run for most countries</li>
+                </ul>
+            </div>
+
+            <h3>Common Misconceptions About Trade Deficits</h3>
+
+            <div class="warning-box">
+                <h4>❌ Myth 1: Trade Deficits Are Always Bad</h4>
+                <p><strong>Reality:</strong> Trade deficits aren't inherently harmful. They reflect capital inflows—foreigners investing in US.</p>
+                <ul>
+                    <li>US deficit = Rest of world's surplus with US</li>
+                    <li>Means foreigners want to invest in US assets (sign of strength!)</li>
+                    <li>Allows US to consume more than it produces</li>
+                    <li>Problem only if financing unsustainable consumption or if sudden stops in capital flows</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>❌ Myth 2: Devaluing Currency Will Fix Trade Deficit</h4>
+                <p><strong>Reality:</strong> Exchange rates are only one factor. Trade balance depends on many things:</p>
+                <ul>
+                    <li><strong>Savings-Investment Balance:</strong> If domestic saving < investment, must import capital (and run trade deficit)</li>
+                    <li><strong>Income Levels:</strong> Rich countries tend to import more</li>
+                    <li><strong>Productivity:</strong> Competitiveness matters more than exchange rate</li>
+                    <li><strong>Trade Policy:</strong> Tariffs, quotas affect trade</li>
+                    <li><strong>Demographics:</strong> Aging populations affect saving rates</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>❌ Myth 3: China's Currency Manipulation Causes US Deficit</h4>
+                <p><strong>Reality:</strong> Oversimplified. Multiple factors drive US deficit:</p>
+                <ul>
+                    <li>US has low savings rate relative to investment needs</li>
+                    <li>Dollar's reserve currency status encourages capital inflows</li>
+                    <li>US is attractive investment destination (strong property rights, innovation)</li>
+                    <li>Even if yuan appreciated, US deficit would shift to other countries, not disappear</li>
+                </ul>
+            </div>
+
+            <h3>The Twin Deficits Hypothesis</h3>
+            <div class="highlight-box">
+                <strong>Trade Deficit ↔ Budget Deficit Connection</strong><br><br>
+                <strong>Theory:</strong> Government budget deficits cause trade deficits
+                
+                <p><strong>Mechanism:</strong></p>
+                <ol>
+                    <li>Government runs budget deficit (spending > taxes)</li>
+                    <li>Government borrows, driving up interest rates</li>
+                    <li>Higher rates attract foreign capital</li>
+                    <li>Currency appreciates</li>
+                    <li>Trade balance worsens</li>
+                </ol>
+
+                <p><strong>Reality:</strong> Connection exists but isn't one-to-one. Many other factors matter.</p>
+            </div>
+
+            <h3>The Balance of Payments Identity</h3>
+            <div class="info-box">
+                <strong>Fundamental Accounting Identity:</strong>
+                
+                <div class="formula-box" style="font-size: 1em; margin-top: 15px;">
+                    Current Account + Financial Account + Capital Account = 0
+                </div>
+
+                <p style="margin-top: 15px;"><strong>Key Insight:</strong> Trade deficit must be financed by capital inflows!</p>
+                <ul>
+                    <li>If US runs $800B trade deficit, foreigners must invest $800B in US</li>
+                    <li>They buy US stocks, bonds, real estate, businesses</li>
+                    <li>This is borrowing from abroad—sustainable if investments are productive</li>
+                    <li>Danger: If foreigners lose confidence, capital flows reverse → crisis</li>
+                </ul>
+            </div>
+
+            <h3>Policy Options for Addressing Trade Deficits</h3>
+
+            <table>
+                <tr>
+                    <th>Policy</th>
+                    <th>Mechanism</th>
+                    <th>Challenges</th>
+                </tr>
+                <tr>
+                    <td><strong>Currency Depreciation</strong></td>
+                    <td>Makes exports cheaper, imports expensive</td>
+                    <td>J-curve delay, may trigger inflation, other countries may retaliate</td>
+                </tr>
+                <tr>
+                    <td><strong>Increase National Savings</strong></td>
+                    <td>Reduce budget deficit, encourage private saving</td>
+                    <td>Politically difficult, may slow growth short-term</td>
+                </tr>
+                <tr>
+                    <td><strong>Improve Competitiveness</strong></td>
+                    <td>Invest in education, R&D, infrastructure</td>
+                    <td>Takes years to show results, requires sustained investment</td>
+                </tr>
+                <tr>
+                    <td><strong>Trade Barriers</strong></td>
+                    <td>Tariffs, quotas reduce imports directly</td>
+                    <td>Retaliation, inefficiency, higher consumer prices, violates trade agreements</td>
+                </tr>
+                <tr>
+                    <td><strong>Contractionary Macro Policy</strong></td>
+                    <td>Reduce income → reduce imports</td>
+                    <td>Causes recession—terrible cure!</td>
+                </tr>
+            </table>
+
+            <div class="example">
+                <strong>🌏 East Asian Experience - Surplus Countries:</strong><br>
+                Countries like China, Japan, South Korea run persistent surpluses:
+                <ul>
+                    <li><strong>Strategy:</strong> Export-led growth model</li>
+                    <li><strong>Method:</strong> High savings rates, undervalued currencies, investment in manufacturing</li>
+                    <li><strong>Result:</strong> Rapid industrialization, rising living standards</li>
+                    <li><strong>Tradeoff:</strong> Dependence on foreign demand, accumulation of foreign reserves</li>
+                    <li><strong>Sustainability:</strong> Model eventually requires rebalancing toward domestic consumption</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <strong>🎯 Bottom Line on Trade Deficits:</strong>
+                <ul>
+                    <li>Trade deficits aren't inherently good or bad—context matters</li>
+                    <li>Reflect international capital flows as much as trade competitiveness</li>
+                    <li>Exchange rate is one tool, but not a magic bullet</li>
+                    <li>Sustainable deficits are fine if foreign investment is productive</li>
+                    <li>Problem arises if deficit finances consumption rather than investment</li>
+                    <li>Long-run solution: increase productivity and competitiveness, not currency manipulation</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <strong>💡 Final Thought:</strong> The obsession with trade deficits often misses the bigger picture. What matters more is whether a country is investing in its future (education, infrastructure, innovation) and maintaining sustainable fiscal policy. A trade deficit in a growing, innovative economy is very different from one in a stagnant, debt-ridden economy.
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next" disabled>Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">9</span> of <span class="total">9</span></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            
+            updateButtons();
+            updateCounters();
+        }
+
+        function updateButtons() {
+            const prevBtns = document.querySelectorAll('#prev');
+            const nextBtns = document.querySelectorAll('#next');
+            
+            prevBtns.forEach(btn => {
+                btn.disabled = currentSlide === 0;
+            });
+            
+            nextBtns.forEach(btn => {
+                btn.disabled = currentSlide === totalSlides - 1;
+            });
+        }
+
+        function updateCounters() {
+            document.querySelectorAll('.current').forEach(el => {
+                el.textContent = currentSlide + 1;
+            });
+            document.querySelectorAll('.total').forEach(el => {
+                el.textContent = totalSlides;
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'next' && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (e.target.id === 'prev' && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        });
+
+        updateCounters();
+    </script>
+</body>
+</html>

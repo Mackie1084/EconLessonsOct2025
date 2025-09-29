@@ -1,0 +1,1296 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macroeconomics Overview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d3561 0%, #c05c7e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2d3561 0%, #c05c7e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '🌍📊💹';
+            position: absolute;
+            font-size: 8em;
+            opacity: 0.1;
+            top: -20px;
+            left: -20px;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide-container {
+            position: relative;
+            padding: 45px;
+            min-height: 580px;
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+            }
+        }
+
+        .slide h2 {
+            color: #2d3561;
+            font-size: 2.3em;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #c05c7e;
+            padding-bottom: 12px;
+            display: inline-block;
+        }
+
+        .slide h3 {
+            color: #c05c7e;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #2d3561;
+        }
+
+        .slide p, .slide li {
+            color: #333;
+            line-height: 1.9;
+            margin-bottom: 16px;
+            font-size: 1.08em;
+        }
+
+        .slide ul, .slide ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 12px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #c05c7e 0%, #2d3561 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe0e8 100%);
+            border-left: 6px solid #c05c7e;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+            border-left: 6px solid #2d3561;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 6px solid #43a047;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 6px solid #fb8c00;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .goal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .goal-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        .goal-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        .goal-card h4 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .goal-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .interactive-demo {
+            background: white;
+            border: 3px solid #c05c7e;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .interactive-demo h4 {
+            color: #2d3561;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider-container label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3561;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 12px 0;
+            height: 8px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #c05c7e;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #c05c7e;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .output-value {
+            display: inline-block;
+            background: linear-gradient(135deg, #2d3561 0%, #c05c7e 100%);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-left: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .result-display {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table {
+            width: 100%;
+            margin: 25px 0;
+            border-collapse: collapse;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #2d3561 0%, #c05c7e 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .comparison-table td {
+            padding: 18px;
+            border-bottom: 1px solid #e0e0e0;
+            background: white;
+        }
+
+        .comparison-table tr:hover td {
+            background: #f5f5f5;
+        }
+
+        .controversy-card {
+            background: white;
+            border: 2px solid #2d3561;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 15px 0;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .controversy-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            border-color: #c05c7e;
+        }
+
+        .controversy-card h4 {
+            color: #2d3561;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .controversy-details {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e0e0e0;
+            animation: expandDown 0.3s ease-out;
+        }
+
+        @keyframes expandDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 1000px;
+            }
+        }
+
+        .controversy-details.show {
+            display: block;
+        }
+
+        .school-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .school-card {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+
+        .school-card:hover {
+            transform: scale(1.05);
+        }
+
+        .school-card h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 45px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-top: 3px solid #e0e0e0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #2d3561 0%, #c05c7e 100%);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.05em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            font-size: 1.2em;
+            color: #2d3561;
+            font-weight: bold;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2d3561 0%, #c05c7e 100%);
+            transition: width 0.4s ease;
+            box-shadow: 0 2px 8px rgba(192, 92, 126, 0.5);
+        }
+
+        .metric-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 2px solid #e0e0e0;
+        }
+
+        .metric-card h5 {
+            color: #2d3561;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .metric-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #c05c7e;
+        }
+
+        .formula {
+            background: #2d3561;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .approach-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .vs-divider {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: #c05c7e;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 Macroeconomics Overview</h1>
+            <p>Understanding the Big Picture of Economic Performance</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="slide-container">
+            <!-- Slide 1: Overview of Macroeconomics -->
+            <div class="slide active">
+                <h2>1. Overview of Macroeconomics</h2>
+                <p><span class="highlight">Macroeconomics</span> is the branch of economics that studies the behavior and performance of an economy as a whole, focusing on aggregate phenomena rather than individual markets.</p>
+                
+                <h3>What is Macroeconomics?</h3>
+                
+                <div class="concept-box">
+                    <h4 style="color: #c05c7e; margin-bottom: 15px;">🔍 Definition and Scope</h4>
+                    <p><strong>Macroeconomics examines:</strong></p>
+                    <ul style="margin-top: 15px;">
+                        <li>The total output of goods and services (GDP)</li>
+                        <li>Overall price levels and inflation</li>
+                        <li>Total employment and unemployment</li>
+                        <li>National income and its distribution</li>
+                        <li>Economic growth and development</li>
+                        <li>International trade and finance</li>
+                    </ul>
+                </div>
+
+                <h3>Micro vs. Macro: The Key Difference</h3>
+                
+                <div class="goal-grid">
+                    <div class="goal-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <span class="icon">🔬</span>
+                        <h4>Microeconomics</h4>
+                        <p>Studies individual units:</p>
+                        <p>• Consumers</p>
+                        <p>• Firms</p>
+                        <p>• Specific markets</p>
+                        <p>• Individual prices</p>
+                    </div>
+                    <div class="goal-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <span class="icon">🌍</span>
+                        <h4>Macroeconomics</h4>
+                        <p>Studies aggregate economy:</p>
+                        <p>• National output</p>
+                        <p>• Inflation rate</p>
+                        <p>• Unemployment rate</p>
+                        <p>• Economic growth</p>
+                    </div>
+                </div>
+
+                <h3>Why Study Macroeconomics?</h3>
+                
+                <div class="example-box">
+                    <strong>🎯 Importance:</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Policy making:</strong> Governments use macro principles to design fiscal and monetary policies</li>
+                        <li><strong>Business decisions:</strong> Companies forecast demand and plan investments based on macroeconomic conditions</li>
+                        <li><strong>Personal finance:</strong> Understanding inflation, interest rates, and employment trends helps individuals make better financial choices</li>
+                        <li><strong>Global understanding:</strong> International trade, exchange rates, and global crises require macro analysis</li>
+                    </ul>
+                </div>
+
+                <h3>Key Macroeconomic Variables:</h3>
+                
+                <div class="metric-display">
+                    <div class="metric-card">
+                        <h5>GDP</h5>
+                        <div class="value">$</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Total value of output</p>
+                    </div>
+                    <div class="metric-card">
+                        <h5>Inflation</h5>
+                        <div class="value">%</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Price level changes</p>
+                    </div>
+                    <div class="metric-card">
+                        <h5>Unemployment</h5>
+                        <div class="value">%</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Jobless rate</p>
+                    </div>
+                    <div class="metric-card">
+                        <h5>Interest Rate</h5>
+                        <div class="value">%</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Cost of borrowing</p>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>💡 Core Insight:</strong> Macroeconomics provides the framework for understanding how economies grow, why recessions occur, what causes inflation, and how government policies can influence overall economic performance.
+                </div>
+            </div>
+
+            <!-- Slide 2: Macroeconomic Goals - Economic Growth -->
+            <div class="slide">
+                <h2>2. Macroeconomic Goals: Economic Growth</h2>
+                <p><span class="highlight">Economic growth</span> is the increase in the production of goods and services over time, typically measured by the growth rate of real GDP.</p>
+                
+                <h3>Why Economic Growth Matters:</h3>
+                
+                <div class="concept-box">
+                    <h4 style="color: #c05c7e; margin-bottom: 15px;">📈 Benefits of Economic Growth</h4>
+                    <ul>
+                        <li><strong>Higher living standards:</strong> More goods and services available per person</li>
+                        <li><strong>Job creation:</strong> Growing economy generates employment opportunities</li>
+                        <li><strong>Increased incomes:</strong> Real wages tend to rise with productivity</li>
+                        <li><strong>Poverty reduction:</strong> Economic expansion helps lift people out of poverty</li>
+                        <li><strong>Government revenue:</strong> More tax revenue for public services</li>
+                        <li><strong>Technological advancement:</strong> Investment in innovation and R&D</li>
+                    </ul>
+                </div>
+
+                <h3>Measuring Economic Growth:</h3>
+                
+                <div class="formula">
+                    Growth Rate = [(GDP_current - GDP_previous) / GDP_previous] × 100%
+                </div>
+
+                <div class="interactive-demo">
+                    <h4>Economic Growth Calculator</h4>
+                    <div class="slider-container">
+                        <label>Previous Year GDP: $<span class="output-value" id="prevGDPValue">20</span> trillion</label>
+                        <input type="range" id="prevGDPSlider" min="10" max="30" step="0.5" value="20">
+                    </div>
+                    <div class="slider-container">
+                        <label>Current Year GDP: $<span class="output-value" id="currGDPValue">21</span> trillion</label>
+                        <input type="range" id="currGDPSlider" min="10" max="35" step="0.5" value="21">
+                    </div>
+                    <div class="result-display">
+                        <h4>Economic Growth Rate: <span id="growthRate">5.0</span>%</h4>
+                        <p style="margin-top: 15px;" id="growthAnalysis"></p>
+                    </div>
+                </div>
+
+                <h3>Sources of Economic Growth:</h3>
+                
+                <div class="school-grid">
+                    <div class="school-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        <h4>💼 Labor</h4>
+                        <p>More workers or more hours worked</p>
+                    </div>
+                    <div class="school-card" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                        <h4>🏭 Capital</h4>
+                        <p>Investment in machinery, buildings, infrastructure</p>
+                    </div>
+                    <div class="school-card" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
+                        <h4>🔬 Technology</h4>
+                        <p>Innovation and productivity improvements</p>
+                    </div>
+                    <div class="school-card" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);">
+                        <h4>📚 Human Capital</h4>
+                        <p>Education and skill development</p>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Challenges:</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Environmental concerns:</strong> Growth may deplete resources and increase pollution</li>
+                        <li><strong>Inequality:</strong> Benefits may not be evenly distributed</li>
+                        <li><strong>Sustainability:</strong> Need to balance current growth with future needs</li>
+                        <li><strong>Quality vs. quantity:</strong> GDP doesn't measure well-being or happiness</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <strong>🌟 Real-World Example:</strong> China averaged 10% annual GDP growth from 1980-2010, lifting hundreds of millions out of poverty. However, this came with environmental costs and increasing inequality, highlighting the trade-offs in pursuing rapid growth.
+                </div>
+            </div>
+
+            <!-- Slide 3: High Employment / Low Unemployment -->
+            <div class="slide">
+                <h2>3. Macroeconomic Goals: Employment</h2>
+                <p>Achieving <span class="highlight">high employment</span> (or low unemployment) is a crucial macroeconomic goal, ensuring that resources are fully utilized and people can support themselves.</p>
+                
+                <h3>Understanding Unemployment:</h3>
+                
+                <div class="concept-box">
+                    <h4 style="color: #c05c7e; margin-bottom: 15px;">📊 Unemployment Rate</h4>
+                    <div class="formula" style="margin: 20px 0;">
+                        Unemployment Rate = (Unemployed / Labor Force) × 100%
+                    </div>
+                    <p><strong>Labor Force:</strong> Employed + Unemployed (actively seeking work)</p>
+                    <p><strong>Not in Labor Force:</strong> Students, retirees, homemakers, discouraged workers</p>
+                </div>
+
+                <h3>Types of Unemployment:</h3>
+                
+                <div class="controversy-card" onclick="toggleUnemployment('frictional')">
+                    <h4>🔄 Frictional Unemployment</h4>
+                    <p><strong>Short-term unemployment during job transitions</strong></p>
+                    <div id="frictional" class="controversy-details">
+                        <p><strong>Cause:</strong> People moving between jobs, entering workforce, or searching for better opportunities</p>
+                        <p><strong>Duration:</strong> Temporary (weeks to months)</p>
+                        <p><strong>Concern Level:</strong> Low - natural and healthy in dynamic economy</p>
+                        <p><strong>Example:</strong> Recent graduate searching for first job, worker relocating to new city</p>
+                    </div>
+                </div>
+
+                <div class="controversy-card" onclick="toggleUnemployment('structural')">
+                    <h4>⚙️ Structural Unemployment</h4>
+                    <p><strong>Mismatch between skills and job requirements</strong></p>
+                    <div id="structural" class="controversy-details">
+                        <p><strong>Cause:</strong> Technological change, industry decline, geographical mismatch</p>
+                        <p><strong>Duration:</strong> Long-term (months to years)</p>
+                        <p><strong>Concern Level:</strong> Moderate to high - requires retraining and adjustment</p>
+                        <p><strong>Example:</strong> Factory workers displaced by automation, coal miners when industry shrinks</p>
+                    </div>
+                </div>
+
+                <div class="controversy-card" onclick="toggleUnemployment('cyclical')">
+                    <h4>📉 Cyclical Unemployment</h4>
+                    <p><strong>Unemployment due to economic recession</strong></p>
+                    <div id="cyclical" class="controversy-details">
+                        <p><strong>Cause:</strong> Insufficient aggregate demand during economic downturns</p>
+                        <p><strong>Duration:</strong> Varies with business cycle</p>
+                        <p><strong>Concern Level:</strong> High - represents waste of resources</p>
+                        <p><strong>Example:</strong> Mass layoffs during 2008 financial crisis or 2020 pandemic recession</p>
+                    </div>
+                </div>
+
+                <h3>Natural Rate of Unemployment:</h3>
+                
+                <div class="success-box">
+                    <h4 style="color: #2e7d32; margin-bottom: 15px;">🎯 Full Employment Concept</h4>
+                    <p><strong>Natural Rate (NAIRU):</strong> The unemployment rate when the economy is at full employment, consisting only of frictional and structural unemployment.</p>
+                    <br>
+                    <p><strong>Typically:</strong> 4-6% in developed economies</p>
+                    <p><strong>Not zero:</strong> Some unemployment is normal due to job searching and transitions</p>
+                    <p><strong>Cyclical unemployment = 0:</strong> When economy operates at potential output</p>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4>Unemployment Calculator</h4>
+                    <div class="slider-container">
+                        <label>Labor Force: <span class="output-value" id="laborForceValue">160</span> million</label>
+                        <input type="range" id="laborForceSlider" min="100" max="200" value="160">
+                    </div>
+                    <div class="slider-container">
+                        <label>Unemployed: <span class="output-value" id="unemployedValue">8</span> million</label>
+                        <input type="range" id="unemployedSlider" min="3" max="20" value="8">
+                    </div>
+                    <div class="result-display">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
+                            <div>
+                                <p><strong>Unemployment Rate</strong></p>
+                                <p style="font-size: 1.8em; color: #c05c7e;"><span id="unempRate">5.0</span>%</p>
+                            </div>
+                            <div>
+                                <p><strong>Employed</strong></p>
+                                <p style="font-size: 1.8em; color: #2d3561;"><span id="employed">152</span>M</p>
+                            </div>
+                        </div>
+                        <p id="unempAnalysis"></p>
+                    </div>
+                </div>
+
+                <h3>Costs of Unemployment:</h3>
+                
+                <div class="warning-box">
+                    <strong>📉 Economic and Social Costs:</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Lost output:</strong> Economy produces below potential GDP</li>
+                        <li><strong>Lost income:</strong> Unemployed workers and their families suffer financially</li>
+                        <li><strong>Skill erosion:</strong> Workers lose skills during prolonged unemployment</li>
+                        <li><strong>Psychological costs:</strong> Depression, stress, loss of self-esteem</li>
+                        <li><strong>Social problems:</strong> Increased crime, family breakdown, health issues</li>
+                        <li><strong>Government costs:</strong> Unemployment benefits and social services</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <strong>📊 Historical Context:</strong> During the Great Depression (1933), U.S. unemployment reached 25%. The 2008 financial crisis saw it peak at 10%. The COVID-19 pandemic briefly pushed it to 14.7% in April 2020, demonstrating how economic shocks can rapidly increase unemployment.
+                </div>
+            </div>
+
+            <!-- Slide 4: The Macroeconomic Approach -->
+            <div class="slide">
+                <h2>4. The Macroeconomic Approach</h2>
+                <p>Macroeconomics uses <span class="highlight">models and frameworks</span> to understand how the economy works and to predict the effects of policy changes.</p>
+                
+                <h3>Key Analytical Tools:</h3>
+                
+                <div class="approach-section">
+                    <h4 style="color: #2d3561; margin-bottom: 15px;">🔧 Macroeconomic Models</h4>
+                    <p><strong>Purpose:</strong> Simplify complex economic reality to understand cause-and-effect relationships</p>
+                    <br>
+                    <p><strong>Common Models:</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Aggregate Demand-Aggregate Supply (AD-AS):</strong> Shows price level and output determination</li>
+                        <li><strong>IS-LM Model:</strong> Analyzes interaction between goods and money markets</li>
+                        <li><strong>Phillips Curve:</strong> Relationship between inflation and unemployment</li>
+                        <li><strong>Solow Growth Model:</strong> Long-run economic growth determinants</li>
+                    </ul>
+                </div>
+
+                <h3>The Circular Flow of Income:</h3>
+                
+                <div class="concept-box">
+                    <h4 style="color: #c05c7e; margin-bottom: 15px;">🔄 How Money Flows Through the Economy</h4>
+                    <p><strong>Households:</strong></p>
+                    <ul>
+                        <li>Supply factors of production (labor, capital, land)</li>
+                        <li>Receive income (wages, rent, interest, profits)</li>
+                        <li>Spend on goods and services</li>
+                    </ul>
+                    <br>
+                    <p><strong>Firms:</strong></p>
+                    <ul>
+                        <li>Hire factors of production</li>
+                        <li>Pay income to households</li>
+                        <li>Produce goods and services</li>
+                        <li>Receive revenue from sales</li>
+                    </ul>
+                    <br>
+                    <p><strong>Key Insight:</strong> One person's spending is another person's income. Total spending = Total income = Total output (GDP)</p>
+                </div>
+
+                <h3>Short-Run vs. Long-Run Analysis:</h3>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Short-Run</th>
+                            <th>Long-Run</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Time Horizon</strong></td>
+                            <td>Months to 2-3 years</td>
+                            <td>Decades</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Price Flexibility</strong></td>
+                            <td>Sticky (slow to adjust)</td>
+                            <td>Flexible (fully adjusted)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Focus</strong></td>
+                            <td>Business cycles, fluctuations</td>
+                            <td>Growth, productivity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Output Level</strong></td>
+                            <td>Can deviate from potential</td>
+                            <td>At potential (full employment)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Policy Effectiveness</strong></td>
+                            <td>Monetary and fiscal policy work</td>
+                            <td>Only supply-side policies matter</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Policy Tools:</h3>
+                
+                <div class="goal-grid">
+                    <div class="goal-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                        <span class="icon">💵</span>
+                        <h4>Fiscal Policy</h4>
+                        <p><strong>Tool:</strong> Government spending and taxation</p>
+                        <p><strong>Conducted by:</strong> Congress and President</p>
+                        <p><strong>Examples:</strong> Stimulus packages, tax cuts, infrastructure spending</p>
+                    </div>
+                    <div class="goal-card" style="background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);">
+                        <span class="icon">🏦</span>
+                        <h4>Monetary Policy</h4>
+                        <p><strong>Tool:</strong> Money supply and interest rates</p>
+                        <p><strong>Conducted by:</strong> Central bank (Federal Reserve)</p>
+                        <p><strong>Examples:</strong> Rate changes, quantitative easing</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>🎯 Application Example:</strong> During the 2008 financial crisis, policymakers used both tools: The Fed lowered interest rates to near zero (monetary policy), while Congress passed the $787 billion stimulus package (fiscal policy) to combat the recession.
+                </div>
+
+                <div class="success-box">
+                    <strong>💡 The Macroeconomic Method:</strong>
+                    <ol style="margin-top: 15px; line-height: 2;">
+                        <li>Identify the problem (recession, inflation, etc.)</li>
+                        <li>Build or use a model to understand causes</li>
+                        <li>Analyze policy options and their effects</li>
+                        <li>Make predictions about outcomes</li>
+                        <li>Test predictions against real-world data</li>
+                        <li>Refine models based on evidence</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Slide 5: Aggregation in Macroeconomics -->
+            <div class="slide">
+                <h2>5. Aggregation in Macroeconomics</h2>
+                <p><span class="highlight">Aggregation</span> is the process of combining individual economic variables into economy-wide totals, which is fundamental to macroeconomic analysis.</p>
+                
+                <h3>What is Aggregation?</h3>
+                
+                <div class="concept-box">
+                    <h4 style="color: #c05c7e; margin-bottom: 15px;">📊 From Micro to Macro</h4>
+                    <p><strong>Definition:</strong> Aggregation combines millions of individual decisions and transactions into meaningful economy-wide measures.</p>
+                    <br>
+                    <p><strong>Why aggregate?</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li>Simplifies complex reality into manageable concepts</li>
+                        <li>Reveals patterns not visible at individual level</li>
+                        <li>Enables policy analysis and forecasting</li>
+                        <li>Allows international comparisons</li>
+                    </ul>
+                </div>
+
+                <h3>Key Aggregate Variables:</h3>
+                
+                <div class="metric-display">
+                    <div class="metric-card" style="border-color: #43a047;">
+                        <h5>Aggregate Output</h5>
+                        <div class="value" style="color: #43a047;">GDP</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Sum of all final goods and services</p>
+                    </div>
+                    <div class="metric-card" style="border-color: #e53935;">
+                        <h5>Price Level</h5>
+                        <div class="value" style="color: #e53935;">CPI</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Average of all prices</p>
+                    </div>
+                    <div class="metric-card" style="border-color: #fb8c00;">
+                        <h5>Aggregate Demand</h5>
+                        <div class="value" style="color: #fb8c00;">C+I+G+NX</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Total spending in economy</p>
+                    </div>
+                    <div class="metric-card" style="border-color: #2196f3;">
+                        <h5>Aggregate Supply</h5>
+                        <div class="value" style="color: #2196f3;">AS</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Total production capacity</p>
+                    </div>
+                </div>
+
+                <h3>Components of Aggregate Demand:</h3>
+                
+                <div class="formula">
+                    AD = C + I + G + (X - M)
+                </div>
+
+                <div class="interactive-demo">
+                    <h4>Aggregate Demand Calculator</h4>
+                    <div class="slider-container">
+                        <label>Consumption (C): $<span class="output-value" id="consValue">14</span> trillion</label>
+                        <input type="range" id="consSlider" min="8" max="20" step="0.5" value="14">
+                    </div>
+                    <div class="slider-container">
+                        <label>Investment (I): $<span class="output-value" id="invValue">3</span> trillion</label>
+                        <input type="range" id="invSlider" min="1" max="6" step="0.5" value="3">
+                    </div>
+                    <div class="slider-container">
+                        <label>Government Spending (G): $<span class="output-value" id="govValue">3.5</span> trillion</label>
+                        <input type="range" id="govSlider" min="2" max="6" step="0.5" value="3.5">
+                    </div>
+                    <div class="slider-container">
+                        <label>Net Exports (X-M): $<span class="output-value" id="nexValue">-0.5</span> trillion</label>
+                        <input type="range" id="nexSlider" min="-2" max="2" step="0.5" value="-0.5">
+                    </div>
+                    <div class="result-display">
+                        <h4>Total Aggregate Demand: $<span id="totalAD">20.0</span> trillion</h4>
+                        <div class="metric-display" style="margin-top: 20px;">
+                            <div class="metric-card">
+                                <h5>C Share</h5>
+                                <div class="value"><span id="cShare">70</span>%</div>
+                            </div>
+                            <div class="metric-card">
+                                <h5>I Share</h5>
+                                <div class="value"><span id="iShare">15</span>%</div>
+                            </div>
+                            <div class="metric-card">
+                                <h5>G Share</h5>
+                                <div class="value"><span id="gShare">18</span>%</div>
+                            </div>
+                            <div class="metric-card">
+                                <h5>NX Share</h5>
+                                <div class="value"><span id="nxShare">-3</span>%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Challenges of Aggregation:</h3>
+                
+                <div class="warning-box">
+                    <strong>⚠️ Aggregation Problems:</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Loss of detail:</strong> Individual variations and heterogeneity are hidden</li>
+                        <li><strong>Composition fallacy:</strong> What's true for individuals may not be true for the aggregate</li>
+                        <li><strong>Measurement issues:</strong> Quality changes, new products, underground economy</li>
+                        <li><strong>Index number problems:</strong> Choosing appropriate weights and base years</li>
+                        <li><strong>Distribution effects:</strong> Average masks inequality and distributional impacts</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <strong>🔍 Paradox of Thrift Example:</strong> If one person saves more, they're better off (micro). But if everyone saves more simultaneously, consumption falls, causing a recession, and everyone may be worse off (macro). This illustrates how aggregation reveals different dynamics.
+                </div>
+
+                <div class="success-box">
+                    <strong>✓ Benefits Despite Challenges:</strong> While aggregation has limitations, it remains essential for understanding economy-wide trends, making policy decisions, and comparing economic performance across time and countries.
+                </div>
+            </div>
+
+            <!-- Slide 6: Macroeconomic Controversies -->
+            <div class="slide">
+                <h2>6. Macroeconomic Controversies</h2>
+                <p>Economists often <span class="highlight">disagree</span> about how the economy works and what policies are most effective, leading to ongoing debates that shape policy decisions.</p>
+                
+                <h3>Major Schools of Thought:</h3>
+                
+                <div class="school-grid">
+                    <div class="school-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <h4>Classical Economics</h4>
+                        <p><strong>Core belief:</strong> Markets self-correct</p>
+                        <p><strong>Policy view:</strong> Minimal government intervention</p>
+                        <p><strong>Focus:</strong> Long-run, supply-side</p>
+                    </div>
+                    <div class="school-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                        <h4>Keynesian Economics</h4>
+                        <p><strong>Core belief:</strong> Markets can fail</p>
+                        <p><strong>Policy view:</strong> Active government intervention</p>
+                        <p><strong>Focus:</strong> Short-run, demand-side</p>
+                    </div>
+                    <div class="school-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <h4>Monetarism</h4>
+                        <p><strong>Core belief:</strong> Money supply matters most</p>
+                        <p><strong>Policy view:</strong> Stable, rule-based monetary policy</p>
+                        <p><strong>Focus:</strong> Inflation control</p>
+                    </div>
+                    <div class="school-card" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); color: white;">
+                        <h4>New Classical</h4>
+                        <p><strong>Core belief:</strong> Rational expectations</p>
+                        <p><strong>Policy view:</strong> Policy ineffective if anticipated</p>
+                        <p><strong>Focus:</strong> Micro foundations</p>
+                    </div>
+                </div>
+
+                <h3>Key Controversies:</h3>
+                
+                <div class="controversy-card" onclick="toggleControversy('fiscal')">
+                    <h4>💰 Fiscal Policy Effectiveness</h4>
+                    <p><strong>Does government spending stimulate the economy?</strong></p>
+                    <div id="fiscal" class="controversy-details">
+                        <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <strong style="color: #2e7d32;">✓ Keynesian View:</strong>
+                            <p>Yes! Government spending increases aggregate demand, especially during recessions when private sector is weak. Multiplier effect amplifies impact.</p>
+                        </div>
+                        <div style="background: #ffebee; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <strong style="color: #c62828;">✗ Classical View:</strong>
+                            <p>Limited effect. Crowding out: Government borrowing raises interest rates, reducing private investment. Also, people save in anticipation of future taxes (Ricardian equivalence).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controversy-card" onclick="toggleControversy('inflation')">
+                    <h4>📈 Inflation-Unemployment Trade-off</h4>
+                    <p><strong>Can we reduce unemployment by accepting higher inflation?</strong></p>
+                    <div id="inflation" class="controversy-details">
+                        <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <strong style="color: #2e7d32;">✓ Short-Run Phillips Curve:</strong>
+                            <p>Yes, in the short run. Unexpected inflation can reduce real wages, encouraging firms to hire more workers. Trade-off exists temporarily.</p>
+                        </div>
+                        <div style="background: #ffebee; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <strong style="color: #c62828;">✗ Long-Run View:</strong>
+                            <p>No long-run trade-off. Once people adjust expectations, unemployment returns to natural rate. Only inflation remains higher. Can't permanently reduce unemployment with inflation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controversy-card" onclick="toggleControversy('deficits')">
+                    <h4>📊 Budget Deficits</h4>
+                    <p><strong>Are budget deficits harmful to the economy?</strong></p>
+                    <div id="deficits" class="controversy-details">
+                        <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <strong style="color: #2e7d32;">✓ Deficit Spending Acceptable:</strong>
+                            <p>During recessions, deficits are appropriate to maintain demand. If spent on productive investments (infrastructure, education), future growth can handle the debt.</p>
+                        </div>
+                        <div style="background: #ffebee; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <strong style="color: #c62828;">✗ Deficits Are Harmful:</strong>
+                            <p>Large deficits lead to higher interest rates, crowd out private investment, burden future generations with debt, and risk fiscal crisis if unsustainable.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controversy-card" onclick="toggleControversy('rules')">
+                    <h4>⚖️ Rules vs. Discretion</h4>
+                    <p><strong>Should policy follow fixed rules or allow flexibility?</strong></p>
+                    <div id="rules" class="controversy-details">
+                        <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <strong style="color: #2e7d32;">✓ Discretionary Policy:</strong>
+                            <p>Each situation is unique. Policymakers need flexibility to respond to unforeseen circumstances. Rules are too rigid for complex, changing economy.</p>
+                        </div>
+                        <div style="background: #ffebee; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            <strong style="color: #c62828;">✗ Rule-Based Policy:</strong>
+                            <p>Discretion leads to time-inconsistency problems, political pressures, and uncertainty. Clear rules provide stability, credibility, and better expectations management.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Why Controversies Persist:</h3>
+                
+                <div class="concept-box">
+                    <h4 style="color: #c05c7e; margin-bottom: 15px;">🤔 Reasons for Ongoing Debates</h4>
+                    <ul>
+                        <li><strong>Complex systems:</strong> Economy involves millions of interacting agents</li>
+                        <li><strong>Limited experiments:</strong> Can't run controlled experiments on whole economies</li>
+                        <li><strong>Value judgments:</strong> Normative questions about equity vs. efficiency</li>
+                        <li><strong>Different assumptions:</strong> Models built on different behavioral assumptions</li>
+                        <li><strong>Data limitations:</strong> Measurement challenges and incomplete information</li>
+                        <li><strong>Changing economy:</strong> Structural changes alter how policies work</li>
+                        <li><strong>Time lags:</strong> Effects appear over different time horizons</li>
+                    </ul>
+                </div>
+
+                <div class="success-box" style="text-align: center;">
+                    <h4 style="margin-bottom: 15px;">🌟 Key Takeaway</h4>
+                    <p>Macroeconomic controversies reflect genuine uncertainty about how complex economies function. While economists disagree on many issues, they share common analytical frameworks and broadly agree on basic principles. Policy debates often involve trade-offs between competing goals rather than clear right or wrong answers.</p>
+                </div>
+
+                <div class="example-box">
+                    <strong>💼 Practical Implication:</strong> These controversies matter for real-world policy. Different administrations adopt different approaches based on their economic philosophy—stimulus spending vs. austerity, inflation targeting vs. employment focus, regulation vs. free markets. Understanding these debates helps citizens evaluate policy proposals.
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">6</span>
+            </div>
+            <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (n > totalSlides) { currentSlide = totalSlides; }
+            if (n < 1) { currentSlide = 1; }
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('totalSlides').textContent = totalSlides;
+            
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+            
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Slide 2: Economic Growth Calculator
+        const prevGDPSlider = document.getElementById('prevGDPSlider');
+        const currGDPSlider = document.getElementById('currGDPSlider');
+
+        function updateGrowthRate() {
+            const prevGDP = parseFloat(prevGDPSlider.value);
+            const currGDP = parseFloat(currGDPSlider.value);
+            
+            document.getElementById('prevGDPValue').textContent = prevGDP.toFixed(1);
+            document.getElementById('currGDPValue').textContent = currGDP.toFixed(1);
+            
+            const growthRate = ((currGDP - prevGDP) / prevGDP) * 100;
+            document.getElementById('growthRate').textContent = growthRate.toFixed(1);
+            
+            const analysis = document.getElementById('growthAnalysis');
+            if (growthRate > 4) {
+                analysis.innerHTML = '<strong style="color: #43a047;">🚀 Strong Growth</strong><br>The economy is expanding rapidly. This indicates robust economic health, job creation, and rising incomes.';
+            } else if (growthRate > 2) {
+                analysis.innerHTML = '<strong style="color: #2196f3;">📈 Moderate Growth</strong><br>Healthy, sustainable growth rate. The economy is expanding at a steady pace without overheating.';
+            } else if (growthRate > 0) {
+                analysis.innerHTML = '<strong style="color: #fb8c00;">📊 Slow Growth</strong><br>Weak expansion. May indicate economic headwinds or need for policy stimulus.';
+            } else {
+                analysis.innerHTML = '<strong style="color: #e53935;">📉 Contraction (Recession)</strong><br>Negative growth indicates economic decline. Unemployment likely rising, incomes falling.';
+            }
+        }
+
+        if (prevGDPSlider) {
+            prevGDPSlider.addEventListener('input', updateGrowthRate);
+            currGDPSlider.addEventListener('input', updateGrowthRate);
+            updateGrowthRate();
+        }
+
+        // Slide 3: Unemployment Calculator
+        const laborForceSlider = document.getElementById('laborForceSlider');
+        const unemployedSlider = document.getElementById('unemployedSlider');
+
+        function updateUnemployment() {
+            const laborForce = parseFloat(laborForceSlider.value);
+            const unemployed = parseFloat(unemployedSlider.value);
+            
+            document.getElementById('laborForceValue').textContent = laborForce;
+            document.getElementById('unemployedValue').textContent = unemployed;
+            
+            const unempRate = (unemployed / laborForce) * 100;
+            const employed = laborForce - unemployed;
+            
+            document.getElementById('unempRate').textContent = unempRate.toFixed(1);
+            document.getElementById('employed').textContent = employed;
+            
+            const analysis = document.getElementById('unempAnalysis');
+            if (unempRate < 4) {
+                analysis.innerHTML = '<strong style="color: #43a047;">✓ Very Low Unemployment</strong><br>Below natural rate. Economy may be overheating. Potential wage inflation pressures.';
+            } else if (unempRate < 6) {
+                analysis.innerHTML = '<strong style="color: #2196f3;">✓ Healthy Employment Level</strong><br>Near full employment. Mostly frictional and structural unemployment.';
+            } else if (unempRate < 8) {
+                analysis.innerHTML = '<strong style="color: #fb8c00;">⚠️ Elevated Unemployment</strong><br>Some cyclical unemployment present. Economy not at full capacity.';
+            } else {
+                analysis.innerHTML = '<strong style="color: #e53935;">⚠️ High Unemployment</strong><br>Significant economic distress. Large output gap, substantial cyclical unemployment.';
+            }
+        }
+
+        if (laborForceSlider) {
+            laborForceSlider.addEventListener('input', updateUnemployment);
+            unemployedSlider.addEventListener('input', updateUnemployment);
+            updateUnemployment();
+        }
+
+        // Slide 5: Aggregate Demand Calculator
+        const consSlider = document.getElementById('consSlider');
+        const invSlider = document.getElementById('invSlider');
+        const govSlider = document.getElementById('govSlider');
+        const nexSlider = document.getElementById('nexSlider');
+
+        function updateAD() {
+            const c = parseFloat(consSlider.value);
+            const i = parseFloat(invSlider.value);
+            const g = parseFloat(govSlider.value);
+            const nx = parseFloat(nexSlider.value);
+            
+            document.getElementById('consValue').textContent = c.toFixed(1);
+            document.getElementById('invValue').textContent = i.toFixed(1);
+            document.getElementById('govValue').textContent = g.toFixed(1);
+            document.getElementById('nexValue').textContent = nx.toFixed(1);
+            
+            const totalAD = c + i + g + nx;
+            document.getElementById('totalAD').textContent = totalAD.toFixed(1);
+            
+            // Calculate shares
+            document.getElementById('cShare').textContent = ((c / totalAD) * 100).toFixed(0);
+            document.getElementById('iShare').textContent = ((i / totalAD) * 100).toFixed(0);
+            document.getElementById('gShare').textContent = ((g / totalAD) * 100).toFixed(0);
+            document.getElementById('nxShare').textContent = ((nx / totalAD) * 100).toFixed(0);
+        }
+
+        if (consSlider) {
+            consSlider.addEventListener('input', updateAD);
+            invSlider.addEventListener('input', updateAD);
+            govSlider.addEventListener('input', updateAD);
+            nexSlider.addEventListener('input', updateAD);
+            updateAD();
+        }
+
+        // Toggle functions for unemployment types
+        function toggleUnemployment(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('show');
+        }
+
+        // Toggle functions for controversies
+        function toggleControversy(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('show');
+        }
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics Presentation: Long-Run Macroeconomics</title>
+    <style>
+        /* --- CSS for Styling the Presentation --- */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f5f5dc; /* Beige/Cream Background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .presentation-container {
+            width: 90%;
+            max-width: 1000px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #ffffff;
+            border: 2px solid #a0522d; /* Sienna Border */
+        }
+
+        .slide {
+            padding: 40px 50px;
+            display: none; /* Hidden by default */
+            animation: slideIn 0.7s ease-out;
+            min-height: 480px;
+            box-sizing: border-box;
+        }
+
+        .slide.active {
+            display: block; /* Show the active slide */
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- Title and Header Styling --- */
+        .slide h1 {
+            color: #8b4513; /* Saddle Brown */
+            border-bottom: 3px solid #deb887; /* Light Brown Accent */
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 2.5em;
+        }
+
+        .slide h2 {
+            color: #a0522d; /* Sienna */
+            font-size: 1.6em;
+            margin-top: 20px;
+        }
+
+        .slide p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .slide ul {
+            list-style: square;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+
+        .slide ul li {
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .slide-content strong {
+            color: #8b4513;
+            font-weight: 700;
+        }
+
+        .model-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .model-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .model-list li::before {
+            content: '★';
+            position: absolute;
+            left: 0;
+            color: #a0522d;
+            font-size: 1.2em;
+        }
+
+
+        /* --- Navigation Buttons --- */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #f8f8e8; /* Off-White Background */
+            border-top: 1px solid #deb887;
+        }
+
+        .nav-btn {
+            background-color: #a0522d; /* Sienna */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            font-weight: bold;
+        }
+
+        .nav-btn:hover {
+            background-color: #8b4513;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.98);
+        }
+
+        .nav-btn:disabled {
+            background-color: #d2b48c;
+            cursor: not-allowed;
+        }
+
+        .slide-number {
+            font-size: 1em;
+            font-weight: 600;
+            color: #8b4513;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="presentation-container">
+
+    <div class="slide active" id="slide1">
+        <h1>1. Macroeconomic Models ⚖️</h1>
+        <div class="slide-content">
+            <p>Macroeconomics uses models to analyze the economy as a whole. The two primary models differ mainly in their assumptions about **wage/price flexibility** and the **time horizon**.</p>
+            <ul class="model-list">
+                <li>
+                    <h2>Classical Model (Long-Run)</h2>
+                    <p>Assumes **flexible** wages and prices. The economy naturally gravitates toward **full employment** because markets always clear. Output is determined by factors of production and technology.</p>
+                </li>
+                <li>
+                    <h2>Keynesian Model (Short-Run)</h2>
+                    <p>Assumes **sticky** wages and prices. Output and employment are primarily determined by **aggregate demand** (spending), especially during recessions. Government intervention is often necessary.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide" id="slide2">
+        <h1>2. Determining the Economy’s Output ($\text{Y}$) 🏭</h1>
+        <div class="slide-content">
+            <p>In the **Classical Long-Run Model**, the economy's total output, or **potential GDP** ($\text{Y}$), is determined by the supply-side factors, not by spending.</p>
+            <h2>The Production Function:</h2>
+            <p>$$Y = F(\bar{K}, \bar{L})$$</p>
+            <ul>
+                <li>$\bar{K}$ (Capital) and $\bar{L}$ (Labor) are assumed to be **fixed** (or at their natural levels) in the long run.</li>
+                <li>Technology is also fixed.</li>
+                <li>Therefore, the total output ($\text{Y}$) is fixed at the **full-employment level of output** by the available resources. This makes the Long-Run Aggregate Supply (LRAS) curve vertical.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide" id="slide3">
+        <h1>3. The Role of Spending (Aggregate Demand) 🛒</h1>
+        <div class="slide-content">
+            <p>While the long-run output ($\text{Y}$) is fixed by supply, **Aggregate Demand ($\text{AD}$)** (total spending) determines **prices and inflation** in the Classical model, not output.</p>
+            <h2>Components of Aggregate Demand:</h2>
+            <p>Total Spending ($\text{E}$) in the economy consists of four main sectors:</p>
+            <ul>
+                <li>**Consumption ($\text{C}$):** Household spending on goods and services.</li>
+                <li>**Investment ($\text{I}$):** Firm spending on new capital (factories, equipment).</li>
+                <li>**Government Purchases ($\text{G}$):** Government spending on goods and services.</li>
+                <li>**Net Exports ($\text{NX}$):** Exports minus Imports (assumed zero in early models).</li>
+            </ul>
+            <p>The economy is in equilibrium when **Total Spending ($\text{E}$) = Total Output ($\text{Y}$)**.</p>
+        </div>
+    </div>
+
+    <div class="slide" id="slide4">
+        <h1>4. Total Spending in a Simple Economy ($\text{C} + \text{I} + \text{G}$) 🏡</h1>
+        <div class="slide-content">
+            <p>A "simple" closed economy (no trade: $\text{NX}=0$) model focuses on the domestic components of spending. $\text{Y}$ is both **Output** and **Income**.</p>
+            <h2>Equilibrium Condition:</h2>
+            <p>$$Y = C + I + G$$</p>
+            <ul>
+                <li>Consumption ($\text{C}$) is a function of **Disposable Income** ($\text{Y} - \text{T}$, where $\text{T}$ is taxes).</li>
+                <li>Investment ($\text{I}$) is a function of the **real interest rate** ($\text{r}$).</li>
+                <li>Government Purchases ($\text{G}$) and Taxes ($\text{T}$) are assumed to be **exogenously fixed** by policy.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide" id="slide5">
+        <h1>5. Total Spending in a Realistic Economy (Open) 🚢</h1>
+        <div class="slide-content">
+            <p>An **Open Economy** includes international trade and finance, adding **Net Exports ($\text{NX}$)** to total spending.</p>
+            <h2>Open Economy Equilibrium:</h2>
+            <p>$$Y = C + I + G + NX$$</p>
+            <ul>
+                <li>$\text{NX}$ is determined by the **real exchange rate** and by the difference between national saving and investment.</li>
+                <li>In the long run, net exports must equal **Net Capital Outflow ($\text{NCO}$)**, where $\text{NCO}$ is the difference between domestic saving and domestic investment ($\text{S} - \text{I}$).</li>
+            </ul>
+            <p>Therefore, the equilibrium condition is also seen in the financial markets: $\text{S} = \text{I} + \text{NCO}$.</p>
+        </div>
+    </div>
+
+    <div class="slide" id="slide6">
+        <h1>6. Loanable Funds Market 🏦</h1>
+        <div class="slide-content">
+            <p>The **Loanable Funds Market** is the mechanism that equates the supply of funds (saving) with the demand for funds (investment) via the **real interest rate ($\text{r}$)**.</p>
+            <h2>Market Mechanics:</h2>
+            <ul>
+                <li>**Supply of Funds (Saving, $\text{S}$):** Comes from **Private Saving** ($\text{Y} - \text{T} - \text{C}$) and **Public Saving** ($\text{T} - \text{G}$). Saving is assumed to be fixed in the long run.</li>
+                <li>**Demand for Funds (Investment, $\text{I}$):** Firms' demand for borrowing to fund new capital projects. Investment is **inversely related** to the real interest rate ($\text{r}$).</li>
+                <li>The real interest rate ($\text{r}$) adjusts to ensure $\text{Saving} = \text{Investment}$.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide" id="slide7">
+        <h1>7. Fiscal Policy: Increase in Government Purchases ($\Delta\text{G}$) 🛡️</h1>
+        <div class="slide-content">
+            <p>An increase in government purchases ($\Delta\text{G}$) requires funding, which affects the Loanable Funds Market, specifically **Public Saving** ($\text{T} - \text{G}$).</p>
+            <h2>Impact:</h2>
+            <ul>
+                <li>**Effect on Saving:** $\Delta\text{G}$ causes **Public Saving to fall** (or the budget deficit to increase). This shifts the **Supply of Loanable Funds** ($\text{S}$) curve **left**.</li>
+                <li>**Effect on Interest Rate:** The leftward shift in supply drives the **real interest rate ($\text{r}$) up**.</li>
+                <li>**Crowding Out:** The higher $\text{r}$ discourages private **Investment ($\text{I}$)**. The decrease in $\text{I}$ offsets the increase in $\text{G}$. This is known as **Crowding Out**. Output ($\text{Y}$) remains fixed.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="slide" id="slide8">
+        <h1>8. Fiscal Policy: Decrease in Net Taxes ($\Delta\text{T}$) 📉</h1>
+        <div class="slide-content">
+            <p>A decrease in net taxes ($\Delta\text{T}$) also impacts the Loanable Funds Market and the economy's equilibrium.</p>
+            <h2>Impact:</h2>
+            <ul>
+                <li>**Effect on Saving:** $\Delta\text{T}$ (tax cut) reduces **Public Saving** ($\text{T} - \text{G}$). It also increases **Private Saving** ($\text{Y} - \text{T} - \text{C}$) as disposable income rises, but the net effect on total $\text{S}$ is negative. The Supply curve shifts **left**.</li>
+                <li>**Effect on Interest Rate:** The reduction in total saving drives the **real interest rate ($\text{r}$) up**.</li>
+                <li>**Crowding Out:** The higher $\text{r}$ reduces private **Investment ($\text{I}$)**. Just like with $\Delta\text{G}$, the fiscal policy action crowds out private investment. Output ($\text{Y}$) remains fixed at the full-employment level.</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="navigation">
+        <button id="prevBtn" class="nav-btn" disabled>← Previous</button>
+        <span id="slideNumber" class="slide-number">Slide 1 of 8</span>
+        <button id="nextBtn" class="nav-btn">Next →</button>
+    </div>
+
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const slideNumberSpan = document.getElementById('slideNumber');
+
+    // Function to show a specific slide
+    function showSlide(n) {
+        // Hide all slides
+        slides.forEach(slide => slide.classList.remove('active'));
+
+        // Show the current slide
+        slides[n].classList.add('active');
+
+        // Update slide counter
+        slideNumberSpan.textContent = `Slide ${n + 1} of ${totalSlides}`;
+
+        // Update button states
+        prevBtn.disabled = n === 0;
+        nextBtn.disabled = n === totalSlides - 1;
+    }
+
+    // Event listeners for navigation
+    nextBtn.addEventListener('click', () => {
+        if (currentSlide < totalSlides - 1) {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentSlide > 0) {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    });
+
+    // Initial call to set up the first slide
+    showSlide(currentSlide);
+
+</script>
+
+</body>
+</html>

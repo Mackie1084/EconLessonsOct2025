@@ -1,0 +1,1279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short-Run Macroeconomics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .slide {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        h1 {
+            color: #0f2027;
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #203a43;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #2c5364;
+            padding-bottom: 12px;
+        }
+
+        h3 {
+            color: #0f2027;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #203a43;
+            font-size: 1.2em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            color: #333;
+            font-size: 1.08em;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #555;
+            font-size: 1.25em;
+            text-align: center;
+            margin-bottom: 35px;
+            font-style: italic;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 35px;
+            gap: 15px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1.05em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(15, 32, 39, 0.4);
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(15, 32, 39, 0.6);
+        }
+
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            text-align: center;
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            border-left: 5px solid #0284c7;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .info-box:hover {
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px rgba(2, 132, 199, 0.2);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 5px solid #dc2626;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 5px solid #10b981;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            border-color: #2c5364;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #0f2027 0%, #2c5364 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .example {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 18px;
+            margin: 18px 0;
+            border-radius: 8px;
+        }
+
+        .formula-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+            border: 3px solid #2c5364;
+            box-shadow: 0 4px 12px rgba(44, 83, 100, 0.2);
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .icon-card {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .icon-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-color: #2c5364;
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #0f2027;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.05em;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        tr:hover {
+            background: #e0f2fe;
+        }
+
+        .arrow-up {
+            color: #10b981;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .arrow-down {
+            color: #dc2626;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .cycle-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 15px;
+        }
+
+        .cycle-phase {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            flex: 1;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>📊 Short-Run Macroeconomics</h1>
+            <p class="subtitle">Understanding Economic Fluctuations and Policy Responses</p>
+            
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon">👷</div>
+                    <h4>Labor Demand</h4>
+                    <p>Shifts and determinants</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">👥</div>
+                    <h4>Labor Supply</h4>
+                    <p>Market dynamics</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">📉</div>
+                    <h4>Economic Fluctuations</h4>
+                    <p>Cycles and patterns</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">⚡</div>
+                    <h4>Triggers</h4>
+                    <p>What causes recessions</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">🔧</div>
+                    <h4>Macro Model</h4>
+                    <p>Aggregate demand analysis</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">💰</div>
+                    <h4>Consumption</h4>
+                    <p>Spending behavior</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">🎯</div>
+                    <h4>Total Spending</h4>
+                    <p>GDP components</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">🏛️</div>
+                    <h4>Fiscal Policy</h4>
+                    <p>Government intervention</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 Core Focus:</strong> Short-run macroeconomics examines how economies deviate from full employment and potential output, and how policy can stabilize these fluctuations.
+            </div>
+
+            <div class="navigation">
+                <button id="prev" disabled>← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">1</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 2: Shifts in Labor Demand -->
+        <div class="slide">
+            <h2>👷 Shifts in Labor Demand</h2>
+            
+            <h3>What is Labor Demand?</h3>
+            <p>Labor demand represents the <span class="highlight">quantity of workers firms are willing to hire</span> at various wage rates. Firms hire workers up to the point where the marginal revenue product equals the wage.</p>
+
+            <div class="formula-box">
+                Labor Demand: MRP<sub>L</sub> = MPP<sub>L</sub> × P
+            </div>
+            <p style="text-align: center; color: #666; font-size: 0.95em;">
+                Marginal Revenue Product = Marginal Physical Product × Output Price
+            </p>
+
+            <h3>Factors That Shift Labor Demand:</h3>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4><span class="arrow-up">↑</span> Increases in Labor Demand</h4>
+                    <ul>
+                        <li><strong>Output Price Rises:</strong> Higher prices make labor more valuable</li>
+                        <li><strong>Productivity Gains:</strong> Better technology, training, or capital</li>
+                        <li><strong>Demand for Product Rises:</strong> More output needed</li>
+                        <li><strong>Complementary Input Prices Fall:</strong> Cheaper capital equipment</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4><span class="arrow-down">↓</span> Decreases in Labor Demand</h4>
+                    <ul>
+                        <li><strong>Output Price Falls:</strong> Revenue per worker declines</li>
+                        <li><strong>Productivity Declines:</strong> Workers produce less</li>
+                        <li><strong>Demand for Product Falls:</strong> Less output needed</li>
+                        <li><strong>Substitute Input Prices Fall:</strong> Automation becomes cheaper</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example">
+                <strong>📱 Example - Tech Industry Boom:</strong><br>
+                During the smartphone revolution, demand for software engineers surged because:
+                <ul>
+                    <li>Product demand exploded (millions buying smartphones)</li>
+                    <li>Output prices remained high (profitable app market)</li>
+                    <li>Productivity tools improved (better development software)</li>
+                    <li>Result: Wages for developers increased dramatically as firms competed for talent</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <strong>🔑 Key Insight:</strong> In the short run, labor demand shifts cause immediate changes in employment and wages. These shifts are often the first sign of broader economic changes affecting specific industries or the entire economy.
+            </div>
+
+            <h3>Macroeconomic Implications:</h3>
+            <p>Aggregate labor demand shifts affect overall employment levels. During economic expansions, labor demand shifts right across many industries. During contractions, it shifts left, leading to unemployment.</p>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">2</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 3: Shifts in Labor Supply -->
+        <div class="slide">
+            <h2>👥 Shifts in Labor Supply</h2>
+            
+            <h3>What is Labor Supply?</h3>
+            <p>Labor supply represents the <span class="highlight">quantity of labor workers are willing to provide</span> at various wage rates. It reflects the work-leisure tradeoff faced by individuals.</p>
+
+            <h3>Factors That Shift Labor Supply:</h3>
+
+            <div class="card">
+                <h4><span class="arrow-up">↑</span> Increases in Labor Supply (Rightward Shift)</h4>
+                <ul>
+                    <li><strong>Population Growth:</strong> Immigration or natural increase</li>
+                    <li><strong>Labor Force Participation Rises:</strong> More people enter workforce (e.g., women's participation)</li>
+                    <li><strong>Changes in Preferences:</strong> Greater willingness to work</li>
+                    <li><strong>Reduced Non-Wage Income:</strong> Less investment income or government transfers</li>
+                    <li><strong>Lower Tax Rates:</strong> Higher take-home pay incentivizes work</li>
+                    <li><strong>Education and Training:</strong> More qualified workers available</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4><span class="arrow-down">↓</span> Decreases in Labor Supply (Leftward Shift)</h4>
+                <ul>
+                    <li><strong>Population Decline:</strong> Aging populations, emigration</li>
+                    <li><strong>Labor Force Participation Falls:</strong> Early retirements, staying in school longer</li>
+                    <li><strong>Preference for Leisure:</strong> Cultural shifts toward work-life balance</li>
+                    <li><strong>Increased Non-Wage Income:</strong> Higher investment returns, lottery winnings</li>
+                    <li><strong>Higher Tax Rates:</strong> Discourages work effort</li>
+                    <li><strong>Regulatory Barriers:</strong> Licensing requirements, immigration restrictions</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>👩‍💼 Historical Example - Women Entering the Workforce:</strong><br>
+                Between 1950-2000, female labor force participation in the US rose from 34% to 60%:
+                <ul>
+                    <li>Social attitudes changed regarding women working</li>
+                    <li>Labor-saving household appliances freed time</li>
+                    <li>Educational attainment of women increased</li>
+                    <li>Legal barriers removed (equal pay laws, anti-discrimination)</li>
+                    <li><strong>Effect:</strong> Massive rightward shift in labor supply, contributing to economic growth while putting downward pressure on wages in some sectors</li>
+                </ul>
+            </div>
+
+            <h3>Short-Run vs. Long-Run Supply:</h3>
+            <div class="grid-2">
+                <div class="info-box">
+                    <h4>Short-Run Supply</h4>
+                    <p>Relatively inelastic - workers can't easily change hours or skills. Changes come from:
+                    <ul>
+                        <li>Overtime decisions</li>
+                        <li>Second jobs</li>
+                        <li>Labor force entry/exit</li>
+                    </ul>
+                </div>
+                <div class="success-box">
+                    <h4>Long-Run Supply</h4>
+                    <p>More elastic - workers can:
+                    <ul>
+                        <li>Acquire new skills</li>
+                        <li>Change careers</li>
+                        <li>Relocate geographically</li>
+                        <li>Complete education</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Modern Concern - Aging Populations:</strong> Many developed countries face declining labor supply as baby boomers retire, creating labor shortages and upward wage pressure in certain sectors.
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">3</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 4: Economic Fluctuations -->
+        <div class="slide">
+            <h2>📉 Economic Fluctuations</h2>
+            
+            <h3>What are Business Cycles?</h3>
+            <p>Economic fluctuations, also called <span class="highlight">business cycles</span>, are short-run deviations of real GDP from its long-run potential output. Economies don't grow smoothly—they experience alternating periods of expansion and contraction.</p>
+
+            <div class="cycle-diagram">
+                <div class="cycle-phase">
+                    <div class="icon">📈</div>
+                    <h4 style="color: #10b981;">Expansion</h4>
+                    <p>GDP rising, unemployment falling</p>
+                </div>
+                <div style="font-size: 2em; color: #666;">→</div>
+                <div class="cycle-phase">
+                    <div class="icon">⬆️</div>
+                    <h4 style="color: #f59e0b;">Peak</h4>
+                    <p>Maximum output, lowest unemployment</p>
+                </div>
+                <div style="font-size: 2em; color: #666;">→</div>
+                <div class="cycle-phase">
+                    <div class="icon">📉</div>
+                    <h4 style="color: #dc2626;">Contraction</h4>
+                    <p>GDP falling, unemployment rising</p>
+                </div>
+                <div style="font-size: 2em; color: #666;">→</div>
+                <div class="cycle-phase">
+                    <div class="icon">⬇️</div>
+                    <h4 style="color: #dc2626;">Trough</h4>
+                    <p>Minimum output, highest unemployment</p>
+                </div>
+            </div>
+
+            <h3>Key Characteristics:</h3>
+            
+            <table>
+                <tr>
+                    <th>Phase</th>
+                    <th>GDP</th>
+                    <th>Unemployment</th>
+                    <th>Inflation</th>
+                    <th>Business Investment</th>
+                </tr>
+                <tr>
+                    <td><strong>Expansion</strong></td>
+                    <td><span class="arrow-up">↑</span> Rising</td>
+                    <td><span class="arrow-down">↓</span> Falling</td>
+                    <td><span class="arrow-up">↑</span> Rising</td>
+                    <td><span class="arrow-up">↑</span> Rising</td>
+                </tr>
+                <tr>
+                    <td><strong>Peak</strong></td>
+                    <td>At maximum</td>
+                    <td>At minimum</td>
+                    <td>Often accelerating</td>
+                    <td>High but slowing</td>
+                </tr>
+                <tr>
+                    <td><strong>Contraction</strong></td>
+                    <td><span class="arrow-down">↓</span> Falling</td>
+                    <td><span class="arrow-up">↑</span> Rising</td>
+                    <td><span class="arrow-down">↓</span> Slowing</td>
+                    <td><span class="arrow-down">↓</span> Falling</td>
+                </tr>
+                <tr>
+                    <td><strong>Trough</strong></td>
+                    <td>At minimum</td>
+                    <td>At maximum</td>
+                    <td>Very low</td>
+                    <td>Very low</td>
+                </tr>
+            </table>
+
+            <h3>Important Definitions:</h3>
+            <div class="grid-2">
+                <div class="warning-box">
+                    <h4>📉 Recession</h4>
+                    <p>Traditionally defined as two consecutive quarters of negative GDP growth. Characterized by:
+                    <ul>
+                        <li>Rising unemployment</li>
+                        <li>Falling consumer confidence</li>
+                        <li>Declining business investment</li>
+                        <li>Reduced consumer spending</li>
+                    </ul>
+                </div>
+                <div class="success-box">
+                    <h4>📈 Recovery</h4>
+                    <p>Period following trough when economy returns to growth. Features:
+                    <ul>
+                        <li>GDP growth resumes</li>
+                        <li>Unemployment begins falling</li>
+                        <li>Consumer confidence improves</li>
+                        <li>Investment picks up</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example">
+                <strong>💡 Recent Examples:</strong><br>
+                • <strong>2020 COVID-19 Recession:</strong> Sharpest but shortest recession in modern history—GDP fell 31% annualized in Q2 2020, followed by rapid recovery<br>
+                • <strong>2008-2009 Great Recession:</strong> 18-month recession triggered by financial crisis, unemployment peaked at 10%<br>
+                • <strong>2001 Dot-com Recession:</strong> 8-month recession following tech stock bubble burst
+            </div>
+
+            <div class="info-box">
+                <strong>🔑 Key Point:</strong> While long-run economic growth is driven by supply-side factors (labor, capital, technology), short-run fluctuations are primarily driven by changes in aggregate demand—what we'll explore next.
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">4</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 5: What Triggers Economic Fluctuations -->
+        <div class="slide">
+            <h2>⚡ What Triggers Economic Fluctuations?</h2>
+            
+            <h3>Sources of Economic Shocks</h3>
+            <p>Economic fluctuations are triggered by <span class="highlight">shocks</span>—unexpected events that shift aggregate demand or aggregate supply. These shocks can be demand-side or supply-side.</p>
+
+            <h3>1. Demand-Side Shocks</h3>
+            <p>Changes in aggregate demand (total spending in the economy):</p>
+
+            <div class="card">
+                <h4>📉 Negative Demand Shocks (Cause Recessions)</h4>
+                <ul>
+                    <li><strong>Consumer Confidence Collapses:</strong> Fear of job loss → reduced spending</li>
+                    <li><strong>Financial Crisis:</strong> Credit crunch → businesses can't borrow</li>
+                    <li><strong>Stock Market Crash:</strong> Wealth effect → consumers feel poorer</li>
+                    <li><strong>Tight Monetary Policy:</strong> Interest rate hikes → expensive borrowing</li>
+                    <li><strong>Fiscal Austerity:</strong> Government spending cuts or tax increases</li>
+                    <li><strong>Export Decline:</strong> Foreign recession reduces demand for exports</li>
+                    <li><strong>Housing Market Collapse:</strong> Reduced construction and home values</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>📈 Positive Demand Shocks (Cause Booms)</h4>
+                <ul>
+                    <li><strong>Consumer Optimism:</strong> Expectations of prosperity → increased spending</li>
+                    <li><strong>Easy Credit:</strong> Low interest rates → cheap borrowing</li>
+                    <li><strong>Stock Market Boom:</strong> Wealth effect → consumers spend more</li>
+                    <li><strong>Government Stimulus:</strong> Increased spending or tax cuts</li>
+                    <li><strong>Export Boom:</strong> Strong foreign demand</li>
+                    <li><strong>Technological Innovation:</strong> Investment surge in new tech</li>
+                </ul>
+            </div>
+
+            <h3>2. Supply-Side Shocks</h3>
+            <p>Changes in production costs or capacity:</p>
+
+            <div class="warning-box">
+                <h4>⚠️ Negative Supply Shocks</h4>
+                <ul>
+                    <li><strong>Oil Price Spikes:</strong> OPEC embargoes, geopolitical tensions</li>
+                    <li><strong>Natural Disasters:</strong> Hurricanes, earthquakes destroying infrastructure</li>
+                    <li><strong>Pandemics:</strong> COVID-19 disrupting production and supply chains</li>
+                    <li><strong>War:</strong> Destroying capital, disrupting trade</li>
+                    <li><strong>Bad Weather:</strong> Agricultural failures</li>
+                    <li><strong>Regulatory Changes:</strong> Costly new requirements</li>
+                </ul>
+                <p><strong>Effect:</strong> Lower output + higher prices = stagflation (a policy nightmare!)</p>
+            </div>
+
+            <div class="success-box">
+                <h4>✅ Positive Supply Shocks</h4>
+                <ul>
+                    <li><strong>Technological Breakthroughs:</strong> AI, internet, automation</li>
+                    <li><strong>Resource Discoveries:</strong> New oil fields, mineral deposits</li>
+                    <li><strong>Improved Productivity:</strong> Better management, education</li>
+                    <li><strong>Falling Input Prices:</strong> Cheap energy</li>
+                    <li><strong>Deregulation:</strong> Reducing business costs</li>
+                </ul>
+                <p><strong>Effect:</strong> Higher output + lower prices = ideal outcome!</p>
+            </div>
+
+            <div class="example">
+                <strong>🛢️ Case Study: 1973 Oil Crisis</strong><br>
+                OPEC oil embargo quadrupled oil prices:
+                <ul>
+                    <li>Production costs soared across all industries</li>
+                    <li>Aggregate supply shifted left</li>
+                    <li>Result: Recession + high inflation (stagflation)</li>
+                    <li>Unemployment rose from 4.9% to 9%</li>
+                    <li>Inflation hit 12% by 1974</li>
+                    <li>Traditional demand-side policies were ineffective</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <strong>🎯 Key Insight:</strong> Most recessions are caused by negative demand shocks. Supply shocks are rarer but more difficult to address because they create the dilemma of rising prices alongside falling output.
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">5</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 6: Short-Run Macro Model -->
+        <div class="slide">
+            <h2>🔧 Short-Run Macroeconomic Model</h2>
+            
+            <h3>The Keynesian Framework</h3>
+            <p>The short-run macro model focuses on <span class="highlight">aggregate demand (AD)</span> and assumes that prices and wages are sticky (slow to adjust) in the short run.</p>
+
+            <div class="formula-box">
+                Aggregate Demand (AD) = C + I + G + NX
+            </div>
+            <p style="text-align: center; color: #666; font-size: 0.95em;">
+                Consumption + Investment + Government Spending + Net Exports
+            </p>
+
+            <h3>Key Assumptions of the Short-Run Model:</h3>
+            <div class="grid-2">
+                <div class="info-box">
+                    <h4>1. Price Stickiness</h4>
+                    <p>Prices and wages don't adjust immediately to changes in demand. Menu costs, contracts, and psychological factors keep them rigid.</p>
+                </div>
+                <div class="info-box">
+                    <h4>2. Excess Capacity</h4>
+                    <p>During recessions, there are idle resources—unemployed workers, unused factories. Output can increase without raising prices.</p>
+                </div>
+                <div class="info-box">
+                    <h4>3. Demand Determines Output</h4>
+                    <p>Firms produce what they can sell. If demand falls, output and employment fall rather than just prices.</p>
+                </div>
+                <div class="info-box">
+                    <h4>4. Policy Can Stabilize</h4>
+                    <p>Government intervention through fiscal or monetary policy can counteract demand shocks and stabilize output.</p>
+                </div>
+            </div>
+
+            <h3>The Aggregate Demand Curve</h3>
+            <p>Shows the relationship between the price level and real GDP demanded. Slopes downward because:</p>
+            
+            <div class="card">
+                <ul>
+                    <li><strong>Wealth Effect:</strong> Lower prices increase real wealth → more consumption</li>
+                    <li><strong>Interest Rate Effect:</strong> Lower prices reduce money demand → lower interest rates → more investment</li>
+                    <li><strong>Exchange Rate Effect:</strong> Lower domestic prices make exports cheaper → higher net exports</li>
+                </ul>
+            </div>
+
+            <h3>Short-Run Aggregate Supply (SRAS)</h3>
+            <p>Shows relationship between price level and output firms are willing to supply in the short run.</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Horizontal SRAS (Extreme Keynesian)</h4>
+                    <p>During deep recessions with massive unemployment, output can expand without price increases. Firms have so much excess capacity that they'll produce more at the same price.</p>
+                </div>
+                <div class="card">
+                    <h4>Upward-Sloping SRAS</h4>
+                    <p>More realistic—as economy approaches full employment, bottlenecks emerge and costs rise, so higher output requires higher prices.</p>
+                </div>
+            </div>
+
+            <h3>Equilibrium in the Short Run</h3>
+            <div class="success-box">
+                <strong>Short-Run Equilibrium:</strong> Where AD intersects SRAS
+                <ul>
+                    <li>Determines actual GDP and price level</li>
+                    <li>May be below, at, or above potential GDP</li>
+                    <li>If below potential → recessionary gap (unemployment)</li>
+                    <li>If above potential → inflationary gap (overheating)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <strong>📊 Graphical Interpretation:</strong><br>
+                Imagine AD shifts left due to financial crisis:
+                <ul>
+                    <li>Aggregate demand curve moves leftward</li>
+                    <li>New equilibrium at lower output and lower price level</li>
+                    <li>GDP falls below potential (recessionary gap)</li>
+                    <li>Unemployment rises above natural rate</li>
+                    <li>This is where countercyclical policy comes in!</li>
+                </ul>
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">6</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 7: Consumption Spending -->
+        <div class="slide">
+            <h2>💰 Consumption Spending</h2>
+            
+            <h3>The Largest Component of GDP</h3>
+            <p>Consumption spending (C) typically accounts for <span class="highlight">60-70% of GDP</span> in developed economies. Understanding consumption behavior is crucial for predicting economic fluctuations.</p>
+
+            <div class="formula-box">
+                C = C<sub>0</sub> + MPC × (Y - T)
+            </div>
+            <p style="text-align: center; color: #666; font-size: 0.95em;">
+                Consumption = Autonomous Consumption + MPC × Disposable Income
+            </p>
+
+            <h3>Key Components:</h3>
+
+            <div class="card">
+                <h4>1. Autonomous Consumption (C<sub>0</sub>)</h4>
+                <p>Consumption that occurs regardless of income level. Even with zero income, people must consume basics (using savings or borrowing).</p>
+                <p><strong>Influenced by:</strong></p>
+                <ul>
+                    <li>Consumer confidence and expectations</li>
+                    <li>Wealth (stock market, home values)</li>
+                    <li>Credit availability</li>
+                    <li>Demographics</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>2. Marginal Propensity to Consume (MPC)</h4>
+                <p>The fraction of additional income that households spend on consumption.</p>
+                <div class="formula-box" style="font-size: 1em;">
+                    MPC = ΔC / ΔY
+                </div>
+                <p><strong>Example:</strong> If MPC = 0.8, then households spend 80¢ of each additional dollar earned.</p>
+                <p><strong>Key Facts:</strong></p>
+                <ul>
+                    <li>MPC is between 0 and 1</li>
+                    <li>Higher MPC → more responsive consumption</li>
+                    <li>Typically ranges from 0.6 to 0.9</li>
+                    <li>Lower-income households have higher MPC</li>
+                </ul>
+            </div>
+
+            <h3>The Consumption Function</h3>
+            <div class="info-box">
+                <strong>Linear Relationship:</strong> As disposable income rises, consumption rises proportionally based on MPC, starting from autonomous consumption level.
+            </div>
+
+            <h3>Factors Affecting Consumption:</h3>
+
+            <table>
+                <tr>
+                    <th>Factor</th>
+                    <th>Effect on Consumption</th>
+                    <th>Mechanism</th>
+                </tr>
+                <tr>
+                    <td><strong>Income <span class="arrow-up">↑</span></strong></td>
+                    <td>Increases</td>
+                    <td>Direct effect through consumption function</td>
+                </tr>
+                <tr>
+                    <td><strong>Wealth <span class="arrow-up">↑</span></strong></td>
+                    <td>Increases</td>
+                    <td>Stock market gains, rising home prices → feel richer</td>
+                </tr>
+                <tr>
+                    <td><strong>Interest Rates <span class="arrow-up">↑</span></strong></td>
+                    <td>Decreases</td>
+                    <td>Higher return on saving, more expensive borrowing</td>
+                </tr>
+                <tr>
+                    <td><strong>Consumer Confidence <span class="arrow-up">↑</span></strong></td>
+                    <td>Increases</td>
+                    <td>Optimism about future → spend more now</td>
+                </tr>
+                <tr>
+                    <td><strong>Taxes <span class="arrow-up">↑</span></strong></td>
+                    <td>Decreases</td>
+                    <td>Reduces disposable income</td>
+                </tr>
+                <tr>
+                    <td><strong>Credit Availability <span class="arrow-up">↑</span></strong></td>
+                    <td>Increases</td>
+                    <td>Easier to borrow for purchases</td>
+                </tr>
+            </table>
+
+            <div class="example">
+                <strong>💳 Real-World Example - 2008 Financial Crisis:</strong><br>
+                Multiple consumption shocks occurred simultaneously:
+                <ul>
+                    <li><strong>Wealth Effect:</strong> Stock market fell 50%, home values plummeted → $13 trillion in household wealth destroyed</li>
+                    <li><strong>Credit Crunch:</strong> Banks stopped lending, credit card limits cut</li>
+                    <li><strong>Confidence Collapse:</strong> Consumer confidence index fell to record lows</li>
+                    <li><strong>Income Fears:</strong> Unemployment rising created precautionary saving</li>
+                    <li><strong>Result:</strong> Consumer spending fell sharply, deepening the recession</li>
+                </ul>
+            </div>
+
+            <h3>Important Theories:</h3>
+            <div class="grid-2">
+                <div class="highlight-box">
+                    <h4>Permanent Income Hypothesis</h4>
+                    <p>Milton Friedman argued people base consumption on long-term average income, not current income. Temporary income changes → saved, not spent.</p>
+                </div>
+                <div class="highlight-box">
+                    <h4>Life-Cycle Hypothesis</h4>
+                    <p>Franco Modigliani showed people smooth consumption over lifetime—borrow when young, save middle-age, dissave in retirement.</p>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">7</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 8: Getting to Total Spending -->
+        <div class="slide">
+            <h2>🎯 Getting to Total Spending</h2>
+            
+            <h3>The Complete Aggregate Demand Picture</h3>
+            <p>Total spending in the economy consists of four components. Understanding each helps predict how shocks affect GDP.</p>
+
+            <div class="formula-box">
+                AD = C + I + G + NX
+            </div>
+
+            <h3>1. Consumption (C) - 60-70% of GDP</h3>
+            <div class="card">
+                <p>Already covered in detail. Key takeaway: Largest and most stable component, but changes in consumer confidence can cause significant fluctuations.</p>
+            </div>
+
+            <h3>2. Investment (I) - 15-20% of GDP</h3>
+            <div class="card">
+                <p><strong>Most Volatile Component!</strong> Includes:</p>
+                <ul>
+                    <li><strong>Business Fixed Investment:</strong> Equipment, structures, software</li>
+                    <li><strong>Residential Investment:</strong> New home construction</li>
+                    <li><strong>Inventory Investment:</strong> Changes in business inventories</li>
+                </ul>
+                
+                <h4>Key Determinants:</h4>
+                <ul>
+                    <li><strong>Interest Rates:</strong> Primary driver—lower rates stimulate investment</li>
+                    <li><strong>Business Expectations:</strong> Future profit outlook</li>
+                    <li><strong>Capacity Utilization:</strong> Existing unused capacity reduces need</li>
+                    <li><strong>Technology:</strong> New innovations spur investment booms</li>
+                    <li><strong>Corporate Taxes:</strong> Affect after-tax returns</li>
+                </ul>
+
+                <div class="warning-box" style="margin-top: 15px;">
+                    <strong>⚠️ Why So Volatile?</strong> Investment decisions are forward-looking and based on uncertain future returns. Small changes in expectations can cause large swings in investment spending.
+                </div>
+            </div>
+
+            <h3>3. Government Spending (G) - 15-20% of GDP</h3>
+            <div class="card">
+                <p>Government purchases of goods and services (does NOT include transfer payments like Social Security).</p>
+                
+                <p><strong>Components:</strong></p>
+                <ul>
+                    <li>Federal defense and non-defense spending</li>
+                    <li>State and local government spending</li>
+                    <li>Infrastructure, education, public services</li>
+                </ul>
+
+                <p><strong>Characteristics:</strong></p>
+                <ul>
+                    <li>Most stable component—doesn't respond to business cycles automatically</li>
+                    <li>Can be used as policy tool (countercyclical fiscal policy)</li>
+                    <li>Determined by political process, not market forces</li>
+                </ul>
+            </div>
+
+            <h3>4. Net Exports (NX) - Variable (often negative)</h3>
+            <div class="card">
+                <div class="formula-box" style="font-size: 1em;">
+                    NX = Exports - Imports
+                </div>
+                
+                <p><strong>Determinants:</strong></p>
+                <ul>
+                    <li><strong>Exchange Rates:</strong> Stronger currency → exports more expensive, imports cheaper</li>
+                    <li><strong>Foreign Income:</strong> Richer trading partners buy more exports</li>
+                    <li><strong>Domestic Income:</strong> Higher domestic income → more imports</li>
+                    <li><strong>Trade Policies:</strong> Tariffs, quotas affect trade flows</li>
+                    <li><strong>Relative Prices:</strong> Domestic vs. foreign price levels</li>
+                </ul>
+
+                <p><strong>Note:</strong> US typically runs trade deficit (NX < 0), subtracting from GDP. But this isn't necessarily bad—reflects capital inflows and strong domestic demand.</p>
+            </div>
+
+            <h3>The Multiplier Effect</h3>
+            <div class="success-box">
+                <strong>💥 Spending Multiplies Through the Economy</strong><br>
+                Initial spending triggers rounds of additional spending:
+                
+                <div class="formula-box" style="font-size: 1em; margin-top: 15px;">
+                    Multiplier = 1 / (1 - MPC) = 1 / MPS
+                </div>
+
+                <p><strong>Example with MPC = 0.8:</strong></p>
+                <ul>
+                    <li>Government spends $100 billion on infrastructure</li>
+                    <li>Recipients spend 80% ($80 billion)</li>
+                    <li>Those recipients spend 80% of $80B ($64 billion)</li>
+                    <li>And so on...</li>
+                    <li><strong>Total GDP increase = $100B × 5 = $500 billion</strong></li>
+                </ul>
+
+                <p style="margin-top: 10px;"><strong>Multiplier = 1/(1-0.8) = 1/0.2 = 5</strong></p>
+            </div>
+
+            <div class="info-box">
+                <strong>🔑 Policy Implication:</strong> Small changes in spending can have large effects on GDP due to the multiplier. This is why fiscal stimulus can be powerful—but also why negative shocks can cascade through the economy!
+            </div>
+
+            <div class="example">
+                <strong>📊 2009 American Recovery and Reinvestment Act:</strong><br>
+                $787 billion stimulus package aimed to increase G and C:
+                <ul>
+                    <li>$288 billion in tax cuts (boost C)</li>
+                    <li>$499 billion in spending (boost G)</li>
+                    <li>Multiplier effect amplified impact</li>
+                    <li>Economists estimate it saved/created 1.6-4.6 million jobs</li>
+                </ul>
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next">Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">8</span> of <span class="total">9</span></div>
+        </div>
+
+        <!-- Slide 9: Countercyclical Fiscal Policy -->
+        <div class="slide">
+            <h2>🏛️ Countercyclical Fiscal Policy</h2>
+            
+            <h3>What is Countercyclical Fiscal Policy?</h3>
+            <p>Government manipulation of <span class="highlight">spending (G) and taxes (T)</span> to counteract economic fluctuations and stabilize output at potential GDP.</p>
+
+            <div class="info-box">
+                <strong>Goal:</strong> Smooth out business cycles by boosting demand during recessions and restraining demand during expansions.
+            </div>
+
+            <h3>Types of Fiscal Policy:</h3>
+
+            <div class="grid-2">
+                <div class="success-box">
+                    <h4>📈 Expansionary Fiscal Policy</h4>
+                    <p><strong>Used During Recessions</strong></p>
+                    <p><strong>Actions:</strong></p>
+                    <ul>
+                        <li>Increase government spending (G ↑)</li>
+                        <li>Decrease taxes (T ↓)</li>
+                        <li>Or both!</li>
+                    </ul>
+                    <p><strong>Effect:</strong> Shifts AD rightward → increases GDP and employment</p>
+                    <p><strong>Tradeoff:</strong> Creates or increases budget deficit</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>📉 Contractionary Fiscal Policy</h4>
+                    <p><strong>Used During Inflationary Booms</strong></p>
+                    <p><strong>Actions:</strong></p>
+                    <ul>
+                        <li>Decrease government spending (G ↓)</li>
+                        <li>Increase taxes (T ↑)</li>
+                        <li>Or both!</li>
+                    </ul>
+                    <p><strong>Effect:</strong> Shifts AD leftward → reduces inflation pressure</p>
+                    <p><strong>Tradeoff:</strong> May slow growth and increase unemployment</p>
+                </div>
+            </div>
+
+            <h3>Fiscal Policy Tools:</h3>
+
+            <div class="card">
+                <h4>1. Government Spending Changes</h4>
+                <ul>
+                    <li><strong>Infrastructure:</strong> Roads, bridges, broadband</li>
+                    <li><strong>Defense:</strong> Military spending increases</li>
+                    <li><strong>Social Programs:</strong> Education, healthcare</li>
+                    <li><strong>Direct Employment:</strong> Hiring government workers</li>
+                </ul>
+                <p><strong>Advantage:</strong> Direct impact on AD through G component</p>
+                <p><strong>Disadvantage:</strong> Takes time to implement (recognition, legislative, implementation lags)</p>
+            </div>
+
+            <div class="card">
+                <h4>2. Tax Policy Changes</h4>
+                <ul>
+                    <li><strong>Income Tax Cuts/Hikes:</strong> Affect disposable income</li>
+                    <li><strong>Payroll Tax Changes:</strong> Directly affect take-home pay</li>
+                    <li><strong>Corporate Tax Adjustments:</strong> Affect investment decisions</li>
+                    <li><strong>Tax Rebates:</strong> One-time payments to households</li>
+                </ul>
+                <p><strong>Advantage:</strong> Can be implemented quickly (e.g., withholding changes)</p>
+                <p><strong>Disadvantage:</strong> Indirect effect depends on MPC; people may save rather than spend</p>
+            </div>
+
+            <div class="card">
+                <h4>3. Transfer Payments</h4>
+                <ul>
+                    <li><strong>Unemployment Insurance:</strong> Extended benefits</li>
+                    <li><strong>Food Stamps/SNAP:</strong> Increased benefits</li>
+                    <li><strong>Direct Payments:</strong> Stimulus checks</li>
+                </ul>
+                <p><strong>Advantage:</strong> Target those most likely to spend (high MPC)</p>
+                <p><strong>Note:</strong> Not counted in G but affect C through disposable income</p>
+            </div>
+
+            <h3>Automatic Stabilizers</h3>
+            <div class="highlight-box">
+                <strong>🔄 Built-In Countercyclical Features</strong><br>
+                Policies that automatically counteract fluctuations without new legislation:
+                
+                <p><strong>During Recessions (automatic expansion):</strong></p>
+                <ul>
+                    <li>Tax revenues fall (less income, profits, sales)</li>
+                    <li>Transfer payments rise (unemployment insurance, welfare)</li>
+                    <li>Budget deficit increases → stimulates economy</li>
+                </ul>
+
+                <p><strong>During Expansions (automatic contraction):</strong></p>
+                <ul>
+                    <li>Tax revenues rise (more income, profits, sales)</li>
+                    <li>Transfer payments fall (fewer unemployed)</li>
+                    <li>Budget deficit decreases → cools economy</li>
+                </ul>
+            </div>
+
+            <h3>Challenges and Limitations:</h3>
+
+            <table>
+                <tr>
+                    <th>Challenge</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>Timing Lags</strong></td>
+                    <td>Recognition lag (identifying recession) + legislative lag (passing laws) + implementation lag (executing programs) = 6-18 months</td>
+                </tr>
+                <tr>
+                    <td><strong>Political Constraints</strong></td>
+                    <td>Spending increases popular, tax hikes/spending cuts unpopular. Asymmetric political incentives.</td>
+                </tr>
+                <tr>
+                    <td><strong>Crowding Out</strong></td>
+                    <td>Government borrowing can raise interest rates, reducing private investment (offsetting the stimulus)</td>
+                </tr>
+                <tr>
+                    <td><strong>Debt Concerns</strong></td>
+                    <td>Repeated deficits accumulate into national debt, potentially constraining future policy</td>
+                </tr>
+                <tr>
+                    <td><strong>Ricardian Equivalence</strong></td>
+                    <td>Theory: Tax cuts may not boost spending if people anticipate future tax increases to pay off debt</td>
+                </tr>
+            </table>
+
+            <div class="example">
+                <strong>💡 Historical Success: 2020-2021 COVID Response</strong><br>
+                Massive fiscal stimulus:
+                <ul>
+                    <li><strong>CARES Act (March 2020):</strong> $2.2 trillion—stimulus checks, expanded unemployment, PPP loans</li>
+                    <li><strong>Additional Spending:</strong> $900 billion (Dec 2020), $1.9 trillion (March 2021)</li>
+                    <li><strong>Total:</strong> Over $5 trillion in fiscal stimulus</li>
+                    <li><strong>Result:</strong> Prevented depression, unemployment fell from 14.7% to 3.5% within 18 months</li>
+                    <li><strong>Tradeoff:</strong> Contributed to inflation spike in 2021-2022</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ Bottom Line:</strong> Countercyclical fiscal policy can effectively stabilize the economy when used appropriately. The key is timing, magnitude, and balancing short-run stabilization with long-run fiscal sustainability.
+            </div>
+
+            <div class="navigation">
+                <button id="prev">← Previous</button>
+                <button id="next" disabled>Next →</button>
+            </div>
+            <div class="slide-counter">Slide <span class="current">9</span> of <span class="total">9</span></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            
+            updateButtons();
+            updateCounters();
+        }
+
+        function updateButtons() {
+            const prevBtns = document.querySelectorAll('#prev');
+            const nextBtns = document.querySelectorAll('#next');
+            
+            prevBtns.forEach(btn => {
+                btn.disabled = currentSlide === 0;
+            });
+            
+            nextBtns.forEach(btn => {
+                btn.disabled = currentSlide === totalSlides - 1;
+            });
+        }
+
+        function updateCounters() {
+            document.querySelectorAll('.current').forEach(el => {
+                el.textContent = currentSlide + 1;
+            });
+            document.querySelectorAll('.total').forEach(el => {
+                el.textContent = totalSlides;
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'next' && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (e.target.id === 'prev' && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        });
+
+        updateCounters();
+    </script>
+</body>
+</html>
