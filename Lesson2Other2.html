@@ -1,0 +1,1082 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Putting Supply and Demand Together</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+      body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #8b5cf6;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #8b5cf6;
+            padding-bottom: 10px;
+        }
+
+        .equilibrium-box {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            border-left: 5px solid #8b5cf6;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .equilibrium-box h3 {
+            color: #6d28d9;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .equilibrium-box p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #581c87;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 968px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: #f9fafb;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .shortage-card {
+            border-left: 5px solid #ef4444;
+        }
+
+        .shortage-card h3 {
+            color: #dc2626;
+        }
+
+        .surplus-card {
+            border-left: 5px solid #f59e0b;
+        }
+
+        .surplus-card h3 {
+            color: #d97706;
+        }
+
+        .equilibrium-card {
+            border-left: 5px solid #10b981;
+        }
+
+        .equilibrium-card h3 {
+            color: #059669;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        thead {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #faf5ff;
+        }
+
+        tbody tr:hover {
+            background: #f3e8ff;
+            transition: background 0.3s ease;
+        }
+
+        .equilibrium-row {
+            background: #d1fae5 !important;
+            font-weight: bold;
+            color: #065f46;
+        }
+
+        .interactive-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .interactive-section h3 {
+            color: #0369a1;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .slider-container {
+            margin: 25px 0;
+        }
+
+        .slider-container label {
+            display: block;
+            font-weight: bold;
+            color: #334155;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #cbd5e1;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .result-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .result-box .value {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 450px;
+            margin: 30px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .info-box {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .info-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            color: #78350f;
+        }
+
+        .info-box li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        button {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        button:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .button-group {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+
+        .badge-shortage {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-surplus {
+            background: #fed7aa;
+            color: #92400e;
+        }
+
+        .badge-equilibrium {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 15px;
+            border-radius: 3px;
+        }
+
+        .price-indicator {
+            font-size: 1.2em;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚖️ Putting Supply and Demand Together</h1>
+            <p>Understanding Market Equilibrium</p>
+        </header>
+
+        <div class="content">
+            <!-- Market Equilibrium Concept -->
+            <div class="section">
+                <h2>Market Equilibrium</h2>
+                <div class="equilibrium-box">
+                    <h3>What is Market Equilibrium?</h3>
+                    <p><strong>Market equilibrium</strong> occurs at the point where the supply and demand curves intersect. At this point:</p>
+                    <ul style="margin-top: 15px; margin-left: 20px; line-height: 1.8;">
+                        <li>The quantity demanded equals the quantity supplied</li>
+                        <li>There is no shortage or surplus</li>
+                        <li>The market "clears" - all goods produced are sold</li>
+                        <li>There is no pressure for price to change</li>
+                    </ul>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #2563eb;"></div>
+                        <span>Demand Curve (Downward Sloping)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #16a34a;"></div>
+                        <span>Supply Curve (Upward Sloping)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #8b5cf6;"></div>
+                        <span>Equilibrium Point</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supply and Demand Schedule -->
+            <div class="section">
+                <h2>Market Schedule</h2>
+                <p style="margin-bottom: 20px; font-size: 1.1em;">Let's examine how supply and demand interact at different price levels:</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Price ($)</th>
+                            <th>Quantity Demanded</th>
+                            <th>Quantity Supplied</th>
+                            <th>Market Condition</th>
+                        </tr>
+                    </thead>
+                    <tbody id="marketTable">
+                        <!-- Will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Interactive Equilibrium Chart -->
+            <div class="section">
+                <h2>The Equilibrium Graph</h2>
+                <div class="chart-container">
+                    <canvas id="equilibriumChart"></canvas>
+                </div>
+
+                <div class="info-box">
+                    <h4>📊 Understanding the Graph:</h4>
+                    <ul>
+                        <li><strong>Blue Line (Demand):</strong> Slopes downward - as price increases, quantity demanded decreases</li>
+                        <li><strong>Green Line (Supply):</strong> Slopes upward - as price increases, quantity supplied increases</li>
+                        <li><strong>Purple Point (Equilibrium):</strong> Where the lines cross - market balance is achieved</li>
+                        <li><strong>Equilibrium Price:</strong> The price at which quantity demanded equals quantity supplied</li>
+                        <li><strong>Equilibrium Quantity:</strong> The quantity bought and sold at equilibrium price</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Market Conditions -->
+            <div class="section">
+                <h2>Three Market Conditions</h2>
+                <div class="grid-container">
+                    <div class="card equilibrium-card">
+                        <h3>✅ Equilibrium (Market Balance)</h3>
+                        <p style="margin-bottom: 15px;"><strong>Quantity Demanded = Quantity Supplied</strong></p>
+                        <p style="line-height: 1.6;">The market is in balance. All goods produced find buyers, and all buyers who want the good can purchase it at the equilibrium price. There is no pressure for the price to change.</p>
+                        <div style="margin-top: 15px; padding: 10px; background: #ecfdf5; border-radius: 8px;">
+                            <strong>Example:</strong> At $50, both buyers want 50 units and sellers offer 50 units.
+                        </div>
+                    </div>
+
+                    <div class="card shortage-card">
+                        <h3>📉 Shortage (Excess Demand)</h3>
+                        <p style="margin-bottom: 15px;"><strong>Quantity Demanded > Quantity Supplied</strong></p>
+                        <p style="line-height: 1.6;">When price is below equilibrium, more people want to buy than sellers want to sell. This creates upward pressure on price. Sellers realize they can charge more.</p>
+                        <div style="margin-top: 15px; padding: 10px; background: #fee2e2; border-radius: 8px;">
+                            <strong>Example:</strong> At $30, buyers want 70 units but sellers only offer 20 units. Shortage = 50 units. Price will rise.
+                        </div>
+                    </div>
+
+                    <div class="card surplus-card">
+                        <h3>📈 Surplus (Excess Supply)</h3>
+                        <p style="margin-bottom: 15px;"><strong>Quantity Supplied > Quantity Demanded</strong></p>
+                        <p style="line-height: 1.6;">When price is above equilibrium, sellers want to sell more than buyers want to buy. This creates downward pressure on price. Sellers must lower prices to sell inventory.</p>
+                        <div style="margin-top: 15px; padding: 10px; background: #fed7aa; border-radius: 8px;">
+                            <strong>Example:</strong> At $70, buyers want 30 units but sellers offer 70 units. Surplus = 40 units. Price will fall.
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-left: 5px solid #6366f1;">
+                        <h3 style="color: #4f46e5;">🔄 Market Forces</h3>
+                        <p style="line-height: 1.6; margin-bottom: 15px;"><strong>Self-Correcting Mechanism</strong></p>
+                        <p style="line-height: 1.6;">Markets naturally move toward equilibrium:</p>
+                        <ul style="margin-top: 10px; margin-left: 20px; line-height: 1.8;">
+                            <li>Shortage → Price rises → Equilibrium</li>
+                            <li>Surplus → Price falls → Equilibrium</li>
+                            <li>This happens automatically through buyer and seller actions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Price Setter -->
+            <div class="section">
+                <div class="interactive-section">
+                    <h3>🎮 Interactive: Set the Market Price</h3>
+                    <p style="margin-bottom: 20px;">Move the slider to set different prices and see how the market responds:</p>
+                    
+                    <div class="slider-container">
+                        <label>Market Price: $<span id="marketPrice">50</span></label>
+                        <input type="range" id="priceSlider" min="10" max="100" value="50" step="5">
+                    </div>
+
+                    <div class="result-box">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                            <div>
+                                <p style="color: #64748b;">Quantity Demanded:</p>
+                                <div class="value" style="color: #2563eb;" id="qtyDemanded">50</div>
+                            </div>
+                            <div>
+                                <p style="color: #64748b;">Quantity Supplied:</p>
+                                <div class="value" style="color: #16a34a;" id="qtySupplied">50</div>
+                            </div>
+                        </div>
+
+                        <div class="price-indicator" id="marketStatus">
+                            <span class="status-badge badge-equilibrium">EQUILIBRIUM</span>
+                            <p style="margin-top: 10px; color: #64748b;" id="statusMessage">Market is in perfect balance!</p>
+                        </div>
+
+                        <div id="differenceBox" style="margin-top: 15px; padding: 15px; border-radius: 8px; display: none;">
+                            <p style="font-weight: bold; font-size: 1.1em;" id="differenceText"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Adjustment Process -->
+            <div class="section">
+                <h2>How Markets Reach Equilibrium</h2>
+                <div class="info-box">
+                    <h4>⚡ The Adjustment Process:</h4>
+                    <ul>
+                        <li><strong>Step 1:</strong> If there's a shortage, frustrated buyers bid up prices</li>
+                        <li><strong>Step 2:</strong> Higher prices encourage more production and discourage some buyers</li>
+                        <li><strong>Step 3:</strong> The gap between quantity demanded and supplied narrows</li>
+                        <li><strong>Step 4:</strong> Process continues until equilibrium is reached</li>
+                    </ul>
+                </div>
+
+                <div class="info-box" style="background: #fee2e2; border-color: #ef4444;">
+                    <h4 style="color: #991b1b;">⚡ For Surpluses (Opposite Process):</h4>
+                    <ul style="color: #991b1b;">
+                        <li><strong>Step 1:</strong> If there's a surplus, unsold inventory accumulates</li>
+                        <li><strong>Step 2:</strong> Sellers lower prices to attract buyers</li>
+                        <li><strong>Step 3:</strong> Lower prices encourage more buying and discourage some production</li>
+                        <li><strong>Step 4:</strong> Process continues until equilibrium is reached</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Interactive Scenario -->
+            <div class="section">
+                <div class="interactive-section">
+                    <h3>🎯 Real-World Example: Coffee Market</h3>
+                    <p style="margin-bottom: 20px;">See how the coffee market reaches equilibrium:</p>
+                    
+                    <div class="button-group">
+                        <button onclick="showScenario('frost')">☃️ Frost Destroys Crops</button>
+                        <button onclick="showScenario('trend')">📈 Coffee Becomes Trendy</button>
+                        <button onclick="showScenario('both')">🔄 Both Events Occur</button>
+                        <button onclick="showScenario('reset')">↺ Reset Market</button>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="scenarioChart"></canvas>
+                    </div>
+
+                    <div id="scenarioExplanation" class="result-box" style="text-align: left;">
+                        <p><strong>Current State:</strong> Normal market equilibrium</p>
+                        <p style="margin-top: 10px; color: #64748b;">Click a scenario button to see how real-world events affect supply, demand, and equilibrium.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Takeaways -->
+            <div class="section">
+                <h2>🎓 Key Takeaways</h2>
+                <div class="grid-container">
+                    <div class="card" style="border-left: 5px solid #8b5cf6;">
+                        <h3 style="color: #8b5cf6;">Equilibrium is Stable</h3>
+                        <p>At equilibrium, there's no pressure for change. Both buyers and sellers are satisfied with the price and quantity.</p>
+                    </div>
+                    <div class="card" style="border-left: 5px solid #8b5cf6;">
+                        <h3 style="color: #8b5cf6;">Markets Self-Correct</h3>
+                        <p>Shortages and surpluses create automatic pressure that pushes prices toward equilibrium without external intervention.</p>
+                    </div>
+                    <div class="card" style="border-left: 5px solid #8b5cf6;">
+                        <h3 style="color: #8b5cf6;">Price is the Signal</h3>
+                        <p>Prices communicate information. High prices signal scarcity; low prices signal abundance.</p>
+                    </div>
+                    <div class="card" style="border-left: 5px solid #8b5cf6;">
+                        <h3 style="color: #8b5cf6;">Equilibrium Changes</h3>
+                        <p>When supply or demand shifts, a new equilibrium forms at a different price and quantity level.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate market data
+        function generateDemandData(shift = 0) {
+            const data = [];
+            for (let price = 10; price <= 100; price += 10) {
+                const quantity = Math.max(0, 100 - price + shift);
+                data.push({ price, quantity });
+            }
+            return data;
+        }
+
+        function generateSupplyData(shift = 0) {
+            const data = [];
+            for (let price = 10; price <= 100; price += 10) {
+                const quantity = Math.max(0, (price - 20) / 2 + shift);
+                data.push({ price, quantity });
+            }
+            return data;
+        }
+
+        // Populate market table
+        function populateMarketTable() {
+            const tbody = document.getElementById('marketTable');
+            const demandData = generateDemandData();
+            const supplyData = generateSupplyData();
+            tbody.innerHTML = '';
+            
+            demandData.forEach((item, idx) => {
+                const row = tbody.insertRow();
+                const qtyDemanded = item.quantity;
+                const qtySupplied = Math.floor(supplyData[idx].quantity);
+                
+                let condition = '';
+                let isEquilibrium = false;
+                
+                if (Math.abs(qtyDemanded - qtySupplied) <= 2) {
+                    condition = 'Equilibrium ✅';
+                    isEquilibrium = true;
+                } else if (qtyDemanded > qtySupplied) {
+                    condition = `Shortage (${qtyDemanded - qtySupplied} units) 📉`;
+                } else {
+                    condition = `Surplus (${qtySupplied - qtyDemanded} units) 📈`;
+                }
+                
+                if (isEquilibrium) {
+                    row.className = 'equilibrium-row';
+                }
+                
+                row.insertCell(0).textContent = `$${item.price}`;
+                row.insertCell(1).textContent = qtyDemanded;
+                row.insertCell(2).textContent = qtySupplied;
+                row.insertCell(3).textContent = condition;
+            });
+        }
+
+        // Create equilibrium chart
+        const eqCtx = document.getElementById('equilibriumChart').getContext('2d');
+        const demandData = generateDemandData();
+        const supplyData = generateSupplyData();
+        
+        const equilibriumChart = new Chart(eqCtx, {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        label: 'Demand',
+                        data: demandData.map(d => ({ x: d.quantity, y: d.price })),
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#2563eb'
+                    },
+                    {
+                        label: 'Supply',
+                        data: supplyData.map(d => ({ x: Math.floor(d.quantity), y: d.price })),
+                        borderColor: '#16a34a',
+                        backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#16a34a'
+                    },
+                    {
+                        label: 'Equilibrium Point',
+                        data: [{ x: 50, y: 50 }],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: '#8b5cf6',
+                        pointRadius: 12,
+                        pointStyle: 'star',
+                        showLine: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        title: {
+                            display: true,
+                            text: 'Quantity',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: { color: '#e5e7eb' }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Price ($)',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: { color: '#e5e7eb' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.datasetIndex === 2) {
+                                    return 'Equilibrium: Price $50, Quantity 50';
+                                }
+                                return `${context.dataset.label}: Price $${context.parsed.y}, Quantity ${context.parsed.x}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Price slider functionality
+        const priceSlider = document.getElementById('priceSlider');
+        const marketPrice = document.getElementById('marketPrice');
+        const qtyDemanded = document.getElementById('qtyDemanded');
+        const qtySupplied = document.getElementById('qtySupplied');
+        const marketStatus = document.getElementById('marketStatus');
+        const statusMessage = document.getElementById('statusMessage');
+        const differenceBox = document.getElementById('differenceBox');
+        const differenceText = document.getElementById('differenceText');
+
+        priceSlider.addEventListener('input', function() {
+            const price = parseInt(this.value);
+            marketPrice.textContent = price;
+            
+            const demand = Math.max(0, 100 - price);
+            const supply = Math.max(0, Math.floor((price - 20) / 2));
+            
+            qtyDemanded.textContent = demand;
+            qtySupplied.textContent = supply;
+            
+            const difference = Math.abs(demand - supply);
+            
+            if (difference <= 2) {
+                marketStatus.innerHTML = '<span class="status-badge badge-equilibrium">✅ EQUILIBRIUM</span>';
+                statusMessage.textContent = 'Market is in perfect balance! Quantity demanded equals quantity supplied.';
+                statusMessage.style.color = '#059669';
+                differenceBox.style.display = 'none';
+            } else if (demand > supply) {
+                const shortage = demand - supply;
+                marketStatus.innerHTML = '<span class="status-badge badge-shortage">📉 SHORTAGE</span>';
+                statusMessage.textContent = 'Price is too low! More people want to buy than sellers want to sell.';
+                statusMessage.style.color = '#dc2626';
+                differenceBox.style.display = 'block';
+                differenceBox.style.background = '#fee2e2';
+                differenceBox.style.borderLeft = '4px solid #dc2626';
+                differenceText.innerHTML = `<span style="color: #dc2626;">Shortage of ${shortage} units</span><br><span style="font-weight: normal; font-size: 0.9em;">→ Buyers will bid price UP toward equilibrium</span>`;
+            } else {
+                const surplus = supply - demand;
+                marketStatus.innerHTML = '<span class="status-badge badge-surplus">📈 SURPLUS</span>';
+                statusMessage.textContent = 'Price is too high! Sellers want to sell more than buyers want to buy.';
+                statusMessage.style.color = '#d97706';
+                differenceBox.style.display = 'block';
+                differenceBox.style.background = '#fed7aa';
+                differenceBox.style.borderLeft = '4px solid #d97706';
+                differenceText.innerHTML = `<span style="color: #d97706;">Surplus of ${surplus} units</span><br><span style="font-weight: normal; font-size: 0.9em;">→ Sellers will lower price DOWN toward equilibrium</span>`;
+            }
+        });
+
+        // Scenario chart
+        const scenarioCtx = document.getElementById('scenarioChart').getContext('2d');
+        let scenarioChart = new Chart(scenarioCtx, {
+            type: 'line',
+            data: {
+                datasets: [
+                    {
+                        label: 'Demand',
+                        data: generateDemandData().map(d => ({ x: d.quantity, y: d.price })),
+                        borderColor: '#2563eb',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Supply',
+                        data: generateSupplyData().map(d => ({ x: Math.floor(d.quantity), y: d.price })),
+                        borderColor: '#16a34a',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Equilibrium',
+                        data: [{ x: 50, y: 50 }],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: '#8b5cf6',
+                        pointRadius: 12,
+                        pointStyle: 'star',
+                        showLine: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        title: {
+                            display: true,
+                            text: 'Quantity (Coffee Bags)',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: { color: '#e5e7eb' }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Price ($)',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: { color: '#e5e7eb' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        function showScenario(type) {
+            const explanation = document.getElementById('scenarioExplanation');
+            
+            if (type === 'frost') {
+                // Supply decreases (shifts left)
+                scenarioChart.data.datasets = [
+                    {
+                        label: 'Demand (unchanged)',
+                        data: generateDemandData().map(d => ({ x: d.quantity, y: d.price })),
+                        borderColor: '#2563eb',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Old Supply',
+                        data: generateSupplyData().map(d => ({ x: Math.floor(d.quantity), y: d.price })),
+                        borderColor: '#94a3b8',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3
+                    },
+                    {
+                        label: 'New Supply (decreased)',
+                        data: generateSupplyData(-20).map(d => ({ x: Math.floor(d.quantity), y: d.price })),
+                        borderColor: '#dc2626',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Old Equilibrium',
+                        data: [{ x: 50, y: 50 }],
+                        borderColor: '#94a3b8',
+                        backgroundColor: '#94a3b8',
+                        pointRadius: 8,
+                        pointStyle: 'circle',
+                        showLine: false
+                    },
+                    {
+                        label: 'New Equilibrium',
+                        data: [{ x: 40, y: 60 }],
+                        borderColor: '#dc2626',
+                        backgroundColor: '#dc2626',
+                        pointRadius: 12,
+                        pointStyle: 'star',
+                        showLine: false
+                    }
+                ];
+                explanation.innerHTML = `
+                    <p><strong>☃️ Scenario: Frost Destroys Coffee Crops</strong></p>
+                    <p style="margin-top: 15px;"><span style="color: #dc2626; font-weight: bold;">Supply Decreases</span> (shifts left)</p>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: #64748b; line-height: 1.8;">
+                        <li>Frost kills many coffee plants</li>
+                        <li>Less coffee is available at every price level</li>
+                        <li><strong>Result:</strong> Price rises from $50 → $60, Quantity falls from 50 → 40</li>
+                        <li>New equilibrium: Higher price, lower quantity</li>
+                    </ul>
+                `;
+            } else if (type === 'trend') {
+                // Demand increases (shifts right)
+                scenarioChart.data.datasets = [
+                    {
+                        label: 'Old Demand',
+                        data: generateDemandData().map(d => ({ x: d.quantity, y: d.price })),
+                        borderColor: '#94a3b8',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3
+                    },
+                    {
+                        label: 'New Demand (increased)',
+                        data: generateDemandData(20).map(d => ({ x: d.quantity, y: d.price })),
+                        borderColor: '#2563eb',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Supply (unchanged)',
+                        data: generateSupplyData().map(d => ({ x: Math.floor(d.quantity), y: d.price })),
+                        borderColor: '#16a34a',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Old Equilibrium',
+                        data: [{ x: 50, y: 50 }],
+                        borderColor: '#94a3b8',
+                        backgroundColor: '#94a3b8',
+                        pointRadius: 8,
+                        pointStyle: 'circle',
+                        showLine: false
+                    },
+                    {
+                        label: 'New Equilibrium',
+                        data: [{ x: 60, y: 60 }],
+                        borderColor: '#2563eb',
+                        backgroundColor: '#2563eb',
+                        pointRadius: 12,
+                        pointStyle: 'star',
+                        showLine: false
+                    }
+                ];
+                explanation.innerHTML = `
+                    <p><strong>📈 Scenario: Coffee Becomes Trendy</strong></p>
+                    <p style="margin-top: 15px;"><span style="color: #2563eb; font-weight: bold;">Demand Increases</span> (shifts right)</p>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: #64748b; line-height: 1.8;">
+                        <li>Social media influencers promote coffee culture</li>
+                        <li>More people want coffee at every price level</li>
+                        <li><strong>Result:</strong> Price rises from $50 → $60, Quantity rises from 50 → 60</li>
+                        <li>New equilibrium: Higher price, higher quantity</li>
+                    </ul>
+                `;
+            } else if (type === 'both') {
+                // Both shift
+                scenarioChart.data.datasets = [
+                    {
+                        label: 'Old Demand',
+                        data: generateDemandData().map(d => ({ x: d.quantity, y: d.price })),
+                        borderColor: '#94a3b8',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3
+                    },
+                    {
+                        label: 'New Demand (increased)',
+                        data: generateDemandData(20).map(d => ({ x: d.quantity, y: d.price })),
+                        borderColor: '#2563eb',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Old Supply',
+                        data: generateSupplyData().map(d => ({ x: Math.floor(d.quantity), y: d.price })),
+                        borderColor: '#94a3b8',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 3
+                    },
+                    {
+                        label: 'New Supply (decreased)',
+                        data: generateSupplyData(-20).map(d => ({ x: Math.floor(d.quantity), y: d.price })),
+                        borderColor: '#16a34a',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Old Equilibrium',
+                        data: [{ x: 50, y: 50 }],
+                        borderColor: '#94a3b8',
+                        backgroundColor: '#94a3b8',
+                        pointRadius: 8,
+                        pointStyle: 'circle',
+                        showLine: false
+                    },
+                    {
+                        label: 'New Equilibrium',
+                        data: [{ x: 50, y: 70 }],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: '#8b5cf6',
+                        pointRadius: 12,
+                        pointStyle: 'star',
+                        showLine: false
+                    }
+                ];
+                explanation.innerHTML = `
+                    <p><strong>🔄 Scenario: Both Events Occur Simultaneously</strong></p>
+                    <p style="margin-top: 15px;"><span style="color: #2563eb; font-weight: bold;">Demand Increases</span> + <span style="color: #dc2626; font-weight: bold;">Supply Decreases</span></p>
+                    <ul style="margin-left: 20px; margin-top: 10px; color: #64748b; line-height: 1.8;">
+                        <li>Coffee becomes trendy (demand shifts right)</li>
+                        <li>Frost destroys crops (supply shifts left)</li>
+                        <li><strong>Result:</strong> Price rises dramatically from $50 → $70</li>
+                        <li>Quantity stays approximately the same (50 units)</li>
+                        <li><strong>Key Insight:</strong> Both forces push price up, but they offset each other's effect on quantity</li>
+                    </ul>
+                `;
+            } else {
+                // Reset
+                scenarioChart.data.datasets = [
+                    {
+                        label: 'Demand',
+                        data: generateDemandData().map(d => ({ x: d.quantity, y: d.price })),
+                        borderColor: '#2563eb',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Supply',
+                        data: generateSupplyData().map(d => ({ x: Math.floor(d.quantity), y: d.price })),
+                        borderColor: '#16a34a',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.3,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Equilibrium',
+                        data: [{ x: 50, y: 50 }],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: '#8b5cf6',
+                        pointRadius: 12,
+                        pointStyle: 'star',
+                        showLine: false
+                    }
+                ];
+                explanation.innerHTML = `
+                    <p><strong>Current State:</strong> Normal market equilibrium</p>
+                    <p style="margin-top: 10px; color: #64748b;">Equilibrium Price: $50 | Equilibrium Quantity: 50 bags</p>
+                    <p style="margin-top: 10px; color: #64748b;">Click a scenario button above to see how real-world events affect supply, demand, and equilibrium.</p>
+                `;
+            }
+            
+            scenarioChart.update();
+        }
+
+        // Initialize
+        populateMarketTable();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Intervention in Markets - Interactive Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #9b59b6 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.6s ease-out;
+            min-height: 600px;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #87ceeb;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .interactive-example {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .intervention-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .intervention-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intervention-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 215, 0, 0.8);
+        }
+
+        .intervention-card.selected {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .policy-simulator {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            margin: 10px 0;
+        }
+
+        .market-visualization {
+            width: 100%;
+            height: 300px;
+            background: white;
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .pros-cons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .pros-box {
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid rgba(46, 204, 113, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .cons-box {
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid rgba(231, 76, 60, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .case-study {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #ffd700;
+        }
+
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #ffd700;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .quiz-option.correct {
+            border-color: #00ff00;
+            background: rgba(0, 255, 0, 0.2);
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #ffd700;
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.3) 100%);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .animated-icon {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .impact-meter {
+            width: 100%;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin: 15px 0;
+        }
+
+        .impact-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71);
+            border-radius: 15px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tool-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .tool-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .tool-tab.active {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+        }
+
+        .tool-content {
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .tool-content.active {
+            display: block;
+        }
+
+        .effectiveness-scale {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .scale-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .scale-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .low-effectiveness { background: #e74c3c; }
+        .medium-effectiveness { background: #f39c12; }
+        .high-effectiveness { background: #2ecc71; }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 10</div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>🏛️ Government Intervention in Markets</h1>
+            <div style="text-align: center; margin: 40px 0;">
+                <div class="animated-icon" style="font-size: 4em;">⚖️</div>
+                <p style="font-size: 1.5em; margin: 30px 0;">Balancing Free Markets & Public Interest</p>
+                <p style="font-size: 1.1em; opacity: 0.8;">When, Why, and How Governments Step In</p>
+            </div>
+            <div class="interactive-example">
+                <h3>🎯 Learning Objectives</h3>
+                <p>• Understand different types of government interventions</p>
+                <p>• Analyze the reasons for market interventions</p>
+                <p>• Evaluate the effectiveness of various policy tools</p>
+                <p>• Examine real-world case studies and outcomes</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Why Government Intervenes -->
+        <div class="slide">
+            <h2>🤔 Why Do Governments Intervene?</h2>
+            <p>Markets don't always produce optimal outcomes. Governments step in to address <span class="highlight">market failures</span> and achieve broader social goals.</p>
+            
+            <div class="intervention-grid">
+                <div class="intervention-card" onclick="selectReason(this, 'externalities')">
+                    <span class="icon">🏭</span>
+                    <h3>Externalities</h3>
+                    <p>Costs or benefits that affect third parties (pollution, education benefits)</p>
+                </div>
+                <div class="intervention-card" onclick="selectReason(this, 'monopoly')">
+                    <span class="icon">🎯</span>
+                    <h3>Market Power</h3>
+                    <p>Preventing monopolies and promoting competition</p>
+                </div>
+                <div class="intervention-card" onclick="selectReason(this, 'information')">
+                    <span class="icon">❓</span>
+                    <h3>Information Gaps</h3>
+                    <p>When consumers lack information to make informed choices</p>
+                </div>
+                <div class="intervention-card" onclick="selectReason(this, 'public')">
+                    <span class="icon">🚦</span>
+                    <h3>Public Goods</h3>
+                    <p>Goods that markets won't provide efficiently (defense, lighthouses)</p>
+                </div>
+                <div class="intervention-card" onclick="selectReason(this, 'equity')">
+                    <span class="icon">⚖️</span>
+                    <h3>Income Inequality</h3>
+                    <p>Redistributing wealth to achieve social fairness</p>
+                </div>
+                <div class="intervention-card" onclick="selectReason(this, 'stability')">
+                    <span class="icon">📊</span>
+                    <h3>Economic Stability</h3>
+                    <p>Managing recessions, inflation, and unemployment</p>
+                </div>
+            </div>
+
+            <div id="reasonDetails" class="interactive-example" style="display: none;">
+                <h3 id="reasonTitle"></h3>
+                <p id="reasonDescription"></p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Types of Interventions -->
+        <div class="slide">
+            <h2>🛠️ Types of Government Interventions</h2>
+            <p>Governments have various tools at their disposal to influence markets:</p>
+            
+            <div class="tool-tabs">
+                <button class="tool-tab active" onclick="showTool('regulations')">Regulations</button>
+                <button class="tool-tab" onclick="showTool('taxes')">Taxes & Subsidies</button>
+                <button class="tool-tab" onclick="showTool('controls')">Price Controls</button>
+                <button class="tool-tab" onclick="showTool('provision')">Direct Provision</button>
+            </div>
+
+            <div id="regulations" class="tool-content active">
+                <h3>📜 Regulations & Standards</h3>
+                <p>Rules that businesses must follow:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Examples:</h4>
+                        <p>• Safety standards for cars</p>
+                        <p>• Environmental protection laws</p>
+                        <p>• Food quality requirements</p>
+                        <p>• Financial industry regulations</p>
+                    </div>
+                    <div>
+                        <h4>Impact:</h4>
+                        <p>• Protects consumers</p>
+                        <p>• Increases business costs</p>
+                        <p>• May reduce innovation</p>
+                        <p>• Creates compliance burden</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="taxes" class="tool-content">
+                <h3>💰 Taxes & Subsidies</h3>
+                <p>Financial incentives to change behavior:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Taxes (Discourage):</h4>
+                        <p>• Cigarette taxes</p>
+                        <p>• Carbon taxes</p>
+                        <p>• Sin taxes on alcohol</p>
+                        <p>• Import tariffs</p>
+                    </div>
+                    <div>
+                        <h4>Subsidies (Encourage):</h4>
+                        <p>• Solar panel rebates</p>
+                        <p>• Agricultural support</p>
+                        <p>• Electric vehicle credits</p>
+                        <p>• Education funding</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="controls" class="tool-content">
+                <h3>💲 Price Controls</h3>
+                <p>Direct government setting of prices:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Price Ceilings:</h4>
+                        <p>• Rent control</p>
+                        <p>• Maximum drug prices</p>
+                        <p>• Utility rate caps</p>
+                        <p>• Emergency price limits</p>
+                    </div>
+                    <div>
+                        <h4>Price Floors:</h4>
+                        <p>• Minimum wage laws</p>
+                        <p>• Agricultural price supports</p>
+                        <p>• Professional fee minimums</p>
+                        <p>• Import price floors</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="provision" class="tool-content">
+                <h3>🏛️ Direct Government Provision</h3>
+                <p>Government directly providing goods/services:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Public Services:</h4>
+                        <p>• Healthcare systems</p>
+                        <p>• Public education</p>
+                        <p>• Transportation infrastructure</p>
+                        <p>• National defense</p>
+                    </div>
+                    <div>
+                        <h4>Public Enterprises:</h4>
+                        <p>• Postal services</p>
+                        <p>• Public utilities</p>
+                        <p>• State-owned banks</p>
+                        <p>• Government airlines</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Interactive Policy Simulator -->
+        <div class="slide">
+            <h2>🎮 Policy Impact Simulator</h2>
+            <p>Adjust policy parameters to see how they affect the <span class="highlight">housing market</span>:</p>
+            
+            <div class="policy-simulator">
+                <h3>Housing Market Controls:</h3>
+                
+                <div class="slider-container">
+                    <label>Rent Control Ceiling: $<span id="rentValue">2000</span>/month</label>
+                    <input type="range" class="slider" id="rentControl" min="1000" max="3000" step="100" value="2000" onInput="updatePolicy()">
+                </div>
+                
+                <div class="slider-container">
+                    <label>First-time Buyer Subsidy: $<span id="subsidyValue">10000</span></label>
+                    <input type="range" class="slider" id="buyerSubsidy" min="0" max="50000" step="5000" value="10000" onInput="updatePolicy()">
+                </div>
+                
+                <div class="slider-container">
+                    <label>Property Tax Rate: <span id="taxValue">1.2</span>%</label>
+                    <input type="range" class="slider" id="propertyTax" min="0.5" max="3.0" step="0.1" value="1.2" onInput="updatePolicy()">
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Market Impact Analysis</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h4>Housing Affordability</h4>
+                            <div class="impact-meter">
+                                <div id="affordabilityBar" class="impact-fill" style="width: 60%;">60%</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>Housing Supply</h4>
+                            <div class="impact-meter">
+                                <div id="supplyBar" class="impact-fill" style="width: 70%;">70%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <h4>Overall Policy Impact:</h4>
+                        <p id="policyImpact">Moderate intervention with mixed results.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Price Controls Deep Dive -->
+        <div class="slide">
+            <h2>💲 Price Controls: Effects & Consequences</h2>
+            <p>Price controls often have <span class="highlight">unintended consequences</span> beyond their intended effects:</p>
+            
+            <div class="chart-container">
+                <h3>📊 Price Ceiling Effects (Rent Control Example)</h3>
+                <canvas id="priceControlChart" class="market-visualization"></canvas>
+            </div>
+            
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h3>✅ Intended Benefits</h3>
+                    <p>• Makes housing affordable</p>
+                    <p>• Protects existing tenants</p>
+                    <p>• Prevents price gouging</p>
+                    <p>• Provides stability</p>
+                </div>
+                <div class="cons-box">
+                    <h3>❌ Unintended Consequences</h3>
+                    <p>• Creates housing shortages</p>
+                    <p>• Reduces new construction</p>
+                    <p>• Leads to black markets</p>
+                    <p>• Deteriorating housing quality</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Case Studies -->
+        <div class="slide">
+            <h2>🌏 Singapore & India Case Studies</h2>
+            <p>Examining government interventions in Singapore and Indian markets:</p>
+            
+            <div class="case-study">
+                <h3>🏠 Singapore's Public Housing (HDB) Program</h3>
+                <p><strong>Problem:</strong> Severe housing shortage and slums in post-independence Singapore</p>
+                <p><strong>Intervention:</strong> Government builds and sells subsidized flats to citizens</p>
+                <p><strong>Results:</strong> 80%+ home ownership rate, eliminated slums, stable housing market</p>
+                <div class="effectiveness-scale">
+                    <div class="scale-item">
+                        <div class="scale-circle high-effectiveness">✓</div>
+                        <p>Highly Effective</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h3>🚗 Singapore's Certificate of Entitlement (COE)</h3>
+                <p><strong>Problem:</strong> Traffic congestion and limited road space</p>
+                <p><strong>Intervention:</strong> Auction system limiting car ownership through tradeable permits</p>
+                <p><strong>Results:</strong> Controlled car population growth, reduced congestion, high government revenue</p>
+                <div class="effectiveness-scale">
+                    <div class="scale-item">
+                        <div class="scale-circle high-effectiveness">✓</div>
+                        <p>Highly Effective</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h3>🌾 India's Fertilizer Subsidies (1960s-Present)</h3>
+                <p><strong>Problem:</strong> Low agricultural productivity and food security concerns</p>
+                <p><strong>Intervention:</strong> Heavy subsidies on fertilizers to boost farm production</p>
+                <p><strong>Results:</strong> Green Revolution success, but fiscal burden ₹80,000+ crores annually, environmental damage</p>
+                <div class="effectiveness-scale">
+                    <div class="scale-item">
+                        <div class="scale-circle medium-effectiveness">±</div>
+                        <p>Mixed Results</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h3>💰 India's Demonetization (2016)</h3>
+                <p><strong>Problem:</strong> Black money, corruption, and counterfeit currency</p>
+                <p><strong>Intervention:</strong> Sudden withdrawal of ₹500 and ₹1000 notes from circulation</p>
+                <p><strong>Results:</strong> Short-term economic disruption, minimal impact on black money, digital payment boost</p>
+                <div class="effectiveness-scale">
+                    <div class="scale-item">
+                        <div class="scale-circle low-effectiveness">✗</div>
+                        <p>Limited Success</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Market Failures vs Government Failures -->
+        <div class="slide">
+            <h2>⚖️ Market Failures vs Government Failures</h2>
+            <p>Both markets and governments can fail. The key is finding the right balance:</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+                <div class="interactive-example">
+                    <h3>📉 When Markets Fail</h3>
+                    <div style="padding: 20px;">
+                        <p><strong>Monopolies:</strong> Single sellers exploit consumers</p>
+                        <p><strong>Externalities:</strong> Pollution, traffic congestion</p>
+                        <p><strong>Public Goods:</strong> Under-provision of defense, research</p>
+                        <p><strong>Information Problems:</strong> Unsafe products, financial fraud</p>
+                        <p><strong>Income Inequality:</strong> Extreme wealth concentration</p>
+                    </div>
+                </div>
+                <div class="interactive-example">
+                    <h3>📈 When Government Fails</h3>
+                    <div style="padding: 20px;">
+                        <p><strong>Bureaucracy:</strong> Slow, inefficient processes</p>
+                        <p><strong>Political Influence:</strong> Policies favor special interests</p>
+                        <p><strong>Unintended Consequences:</strong> Price controls create shortages</p>
+                        <p><strong>Knowledge Problems:</strong> Central planning lacks market info</p>
+                        <p><strong>Regulatory Capture:</strong> Industries control their regulators</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive-example">
+                <h3>🎯 Finding the Right Balance</h3>
+                <p>Effective policy requires:</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🎯</div>
+                        <p>Clear Objectives</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">📊</div>
+                        <p>Evidence-Based</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🔄</div>
+                        <p>Adaptability</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+                        <div style="font-size: 2em; margin-bottom: 10px;">⚖️</div>
+                        <p>Cost-Benefit Analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Modern Challenges -->
+        <div class="slide">
+            <h2>🚀 Modern Regulatory Challenges</h2>
+            <p>New technologies and global markets create fresh challenges for government intervention:</p>
+            
+            <div class="intervention-grid">
+                <div class="intervention-card">
+                    <span class="icon">🌐</span>
+                    <h3>Big Tech Regulation</h3>
+                    <p>Managing platform monopolies, data privacy, and content moderation</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p>Examples: Facebook, Google, Amazon antitrust cases</p>
+                    </div>
+                </div>
+                <div class="intervention-card">
+                    <span class="icon">🏦</span>
+                    <h3>Cryptocurrency</h3>
+                    <p>Balancing innovation with financial stability and consumer protection</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p>Examples: Bitcoin regulation, stablecoin oversight</p>
+                    </div>
+                </div>
+                <div class="intervention-card">
+                    <span class="icon">🌡️</span>
+                    <h3>Climate Change</h3>
+                    <p>Carbon pricing, renewable energy incentives, and green regulations</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p>Examples: EU emissions trading, solar subsidies</p>
+                    </div>
+                </div>
+                <div class="intervention-card">
+                    <span class="icon">🤖</span>
+                    <h3>Artificial Intelligence</h3>
+                    <p>AI safety, job displacement, and algorithmic bias concerns</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p>Examples: EU AI Act, autonomous vehicle rules</p>
+                    </div>
+                </div>
+                <div class="intervention-card">
+                    <span class="icon">🏠</span>
+                    <h3>Gig Economy</h3>
+                    <p>Worker classification, benefits, and platform regulation</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p>Examples: Uber driver classification, app worker rights</p>
+                    </div>
+                </div>
+                <div class="intervention-card">
+                    <span class="icon">💊</span>
+                    <h3>Healthcare Access</h3>
+                    <p>Drug pricing, insurance markets, and public health emergencies</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p>Examples: Insulin price caps, COVID-19 response</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Quiz -->
+        <div class="slide">
+            <h2>🧠 Knowledge Check</h2>
+            <div class="quiz-container">
+                <h3>A government sets a maximum price for gasoline during a shortage. What is the most likely result?</h3>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">
+                    A) Gas stations will increase their supply immediately
+                </div>
+                <div class="quiz-option" onclick="selectAnswer(this, true)">
+                    B) Long lines and shortages at gas stations will occur
+                </div>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">
+                    C) The market will reach equilibrium faster
+                </div>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">
+                    D) Gas prices will become more flexible
+                </div>
+                <div id="quizResult" style="margin-top: 20px; font-weight: bold;"></div>
+            </div>
+
+            <div class="interactive-example" style="margin-top: 30px;">
+                <h3>💡 Think About It:</h3>
+                <p>When should governments intervene in markets? Consider both the potential benefits and the risk of unintended consequences.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Conclusion -->
+        <div class="slide">
+            <h2>🎯 Key Takeaways</h2>
+            <div class="interactive-example">
+                <h3>Essential Principles of Government Intervention:</h3>
+                <div style="font-size: 1.3em; line-height: 1.8; margin: 20px 0;">
+                    <p>✅ <span class="highlight">Market failures</span> justify government intervention</p>
+                    <p>✅ Multiple policy tools available, each with trade-offs</p>
+                    <p>✅ Unintended consequences are common and important</p>
+                    <p>✅ Evidence-based policy making is crucial</p>
+                    <p>✅ Balance efficiency with equity and other social goals</p>
+                </div>
+            </div>
+            
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h3>🎯 When Intervention Works Best</h3>
+                    <p>• Clear market failure exists</p>
+                    <p>• Benefits exceed costs</p>
+                    <p>• Simple, targeted solutions</p>
+                    <p>• Regular evaluation and adjustment</p>
+                </div>
+                <div class="cons-box">
+                    <h3>⚠️ Red Flags for Intervention</h3>
+                    <p>• Complex, unpredictable systems</p>
+                    <p>• Strong political lobbying</p>
+                    <p>• Lack of clear objectives</p>
+                    <p>• History of regulatory capture</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 40px 0;">
+                <h3 style="color: #ffd700;">🌟 Thank You for Learning! 🌟</h3>
+                <p style="font-size: 1.1em; opacity: 0.8;">Apply these concepts to evaluate policies and market interventions</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function updateSlideCounter() {
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateSlideCounter();
+            updateProgressBar();
+            
+            if (currentSlide === 4) {
+                drawPriceControlChart();
+            }
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Market failure reason selection
+        function selectReason(card, type) {
+            // Reset all cards
+            document.querySelectorAll('.intervention-card').forEach(c => {
+                c.classList.remove('selected');
+            });
+            
+            // Select clicked card
+            card.classList.add('selected');
+            
+            const reasons = {
+                externalities: {
+                    title: '🏭 Externalities Example',
+                    description: 'A factory pollutes a river, harming fishing downstream. The factory doesn\'t pay for this damage, so the market produces too much pollution. Government intervention through environmental regulations or pollution taxes can address this market failure.'
+                },
+                monopoly: {
+                    title: '🎯 Market Power Example',
+                    description: 'A single internet provider in a town can charge high prices and provide poor service. Without competition, consumers have no alternatives. Antitrust laws and regulations can prevent monopoly abuse and promote competition.'
+                },
+                information: {
+                    title: '❓ Information Asymmetry Example',
+                    description: 'Used car sellers know more about car defects than buyers. This leads to market failure where good cars are driven out. Government can mandate disclosure requirements, warranties, or safety inspections to level the information playing field.'
+                },
+                public: {
+                    title: '🚦 Public Goods Example',
+                    description: 'National defense protects everyone equally - you can\'t exclude non-payers. Private companies won\'t provide enough defense because they can\'t capture all the benefits. Government provision ensures adequate supply of these non-excludable goods.'
+                },
+                equity: {
+                    title: '⚖️ Income Distribution Example',
+                    description: 'Market outcomes may concentrate wealth extremely, leading to social instability. Progressive taxation, minimum wages, and social programs can redistribute income to achieve more equitable outcomes while maintaining incentives for productivity.'
+                },
+                stability: {
+                    title: '📊 Economic Stability Example',
+                    description: 'During recessions, markets may not self-correct quickly, leading to prolonged unemployment. Government fiscal and monetary policy can stimulate demand, provide unemployment insurance, and stabilize the economy faster than market forces alone.'
+                }
+            };
+            
+            const detailsBox = document.getElementById('reasonDetails');
+            const title = document.getElementById('reasonTitle');
+            const description = document.getElementById('reasonDescription');
+            
+            title.textContent = reasons[type].title;
+            description.textContent = reasons[type].description;
+            detailsBox.style.display = 'block';
+            detailsBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Tool tabs functionality
+        function showTool(toolType) {
+            // Reset all tabs and content
+            document.querySelectorAll('.tool-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tool-content').forEach(content => content.classList.remove('active'));
+            
+            // Activate selected tab and content
+            event.target.classList.add('active');
+            document.getElementById(toolType).classList.add('active');
+        }
+
+        // Policy simulator
+        function updatePolicy() {
+            const rentControl = document.getElementById('rentControl').value;
+            const buyerSubsidy = document.getElementById('buyerSubsidy').value;
+            const propertyTax = document.getElementById('propertyTax').value;
+            
+            document.getElementById('rentValue').textContent = rentControl;
+            document.getElementById('subsidyValue').textContent = buyerSubsidy;
+            document.getElementById('taxValue').textContent = propertyTax;
+            
+            // Calculate policy impacts
+            const marketRent = 2500; // Assume market rent is $2500
+            const rentGap = marketRent - rentControl;
+            
+            // Affordability: lower rent control = higher affordability, subsidies help, higher taxes hurt
+            let affordability = 50 + (rentGap / 50) + (buyerSubsidy / 1000) - ((propertyTax - 1.2) * 10);
+            affordability = Math.max(0, Math.min(100, affordability));
+            
+            // Supply: rent control hurts supply, subsidies help a little, taxes hurt
+            let supply = 70 - (Math.max(0, rentGap) / 30) + (buyerSubsidy / 2000) - ((propertyTax - 1.2) * 15);
+            supply = Math.max(0, Math.min(100, supply));
+            
+            // Update meters
+            const affordabilityBar = document.getElementById('affordabilityBar');
+            const supplyBar = document.getElementById('supplyBar');
+            const policyImpact = document.getElementById('policyImpact');
+            
+            affordabilityBar.style.width = affordability + '%';
+            affordabilityBar.textContent = Math.round(affordability) + '%';
+            
+            supplyBar.style.width = supply + '%';
+            supplyBar.textContent = Math.round(supply) + '%';
+            
+            // Update colors and overall assessment
+            if (affordability < 40) {
+                affordabilityBar.style.background = 'linear-gradient(90deg, #e74c3c, #c0392b)';
+            } else if (affordability < 70) {
+                affordabilityBar.style.background = 'linear-gradient(90deg, #f39c12, #e67e22)';
+            } else {
+                affordabilityBar.style.background = 'linear-gradient(90deg, #2ecc71, #27ae60)';
+            }
+            
+            if (supply < 40) {
+                supplyBar.style.background = 'linear-gradient(90deg, #e74c3c, #c0392b)';
+            } else if (supply < 70) {
+                supplyBar.style.background = 'linear-gradient(90deg, #f39c12, #e67e22)';
+            } else {
+                supplyBar.style.background = 'linear-gradient(90deg, #2ecc71, #27ae60)';
+            }
+            
+            // Overall policy impact assessment
+            const averageScore = (affordability + supply) / 2;
+            if (averageScore >= 75) {
+                policyImpact.textContent = 'Excellent policy balance! High affordability with strong supply incentives.';
+            } else if (averageScore >= 60) {
+                policyImpact.textContent = 'Good policy mix with moderate trade-offs between goals.';
+            } else if (averageScore >= 45) {
+                policyImpact.textContent = 'Moderate intervention with mixed results and some unintended consequences.';
+            } else {
+                policyImpact.textContent = 'Poor policy outcomes. Significant market distortions and shortages likely.';
+            }
+        }
+
+        // Draw price control chart
+        function drawPriceControlChart() {
+            const canvas = document.getElementById('priceControlChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 300;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(50, canvas.height - 50);
+            ctx.lineTo(canvas.width - 50, canvas.height - 50);
+            ctx.moveTo(50, 50);
+            ctx.lineTo(50, canvas.height - 50);
+            ctx.stroke();
+            
+            // Labels
+            ctx.fillStyle = '#333';
+            ctx.font = '16px Arial';
+            ctx.fillText('Price', 20, 30);
+            ctx.fillText('Quantity', canvas.width - 80, canvas.height - 20);
+            
+            // Draw supply curve (upward sloping)
+            ctx.strokeStyle = '#e74c3c';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(80, canvas.height - 80);
+            ctx.lineTo(canvas.width - 80, 80);
+            ctx.stroke();
+            
+            // Draw demand curve (downward sloping)
+            ctx.strokeStyle = '#3498db';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(80, 80);
+            ctx.lineTo(canvas.width - 80, canvas.height - 80);
+            ctx.stroke();
+            
+            // Market equilibrium point
+            const eqX = canvas.width / 2;
+            const eqY = canvas.height / 2;
+            ctx.fillStyle = '#2ecc71';
+            ctx.beginPath();
+            ctx.arc(eqX, eqY, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Price ceiling line
+            const ceilingY = eqY + 50;
+            ctx.strokeStyle = '#f39c12';
+            ctx.lineWidth = 4;
+            ctx.setLineDash([10, 10]);
+            ctx.beginPath();
+            ctx.moveTo(50, ceilingY);
+            ctx.lineTo(canvas.width - 50, ceilingY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Labels
+            ctx.fillStyle = '#e74c3c';
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText('Supply', canvas.width - 120, 100);
+            
+            ctx.fillStyle = '#3498db';
+            ctx.fillText('Demand', canvas.width - 120, canvas.height - 100);
+            
+            ctx.fillStyle = '#2ecc71';
+            ctx.fillText('Market Equilibrium', eqX + 15, eqY - 10);
+            
+            ctx.fillStyle = '#f39c12';
+            ctx.fillText('Price Ceiling', 60, ceilingY - 10);
+            
+            // Show shortage
+            ctx.fillStyle = '#e74c3c';
+            ctx.font = '12px Arial';
+            ctx.fillText('Shortage', eqX - 30, ceilingY + 30);
+        }
+
+        function selectAnswer(option, isCorrect) {
+            const options = document.querySelectorAll('.quiz-option');
+            const result = document.getElementById('quizResult');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                if (opt === option) {
+                    if (isCorrect) {
+                        opt.classList.add('correct');
+                        result.innerHTML = '✅ Correct! Price ceilings below market price create shortages and long lines.';
+                        result.style.color = '#00ff00';
+                    } else {
+                        opt.classList.add('incorrect');
+                        result.innerHTML = '❌ Incorrect. Price ceilings typically lead to shortages, not increased supply.';
+                        result.style.color = '#ff6b6b';
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        updateSlideCounter();
+        updateProgressBar();
+        
+        // Initialize policy simulator
+        setTimeout(() => {
+            updatePolicy();
+        }, 500);
+    </script>
+</body>
+</html>

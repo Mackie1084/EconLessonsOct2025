@@ -1,0 +1,683 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Schedule and Supply Curve</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '📈';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #16a34a;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #16a34a;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .law-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 6px solid #16a34a;
+            padding: 35px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .law-box h3 {
+            color: #065f46;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .law-box p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #047857;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.3em;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 968px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid #bbf7d0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+            border-color: #16a34a;
+        }
+
+        .card h3 {
+            color: #16a34a;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            line-height: 1.7;
+            color: #166534;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        thead {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+        }
+
+        th, td {
+            padding: 18px;
+            text-align: center;
+            font-size: 1.05em;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f0fdf4;
+        }
+
+        tbody tr:hover {
+            background: #d1fae5;
+            transition: background 0.3s ease;
+            transform: scale(1.01);
+        }
+
+        .interactive-section {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 3px solid #3b82f6;
+        }
+
+        .interactive-section h3 {
+            color: #1e40af;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider-container {
+            margin: 30px 0;
+        }
+
+        .slider-container label {
+            display: block;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #ef4444 0%, #f59e0b 50%, #16a34a 100%);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #16a34a;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            border: 3px solid white;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #16a34a;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            border: 3px solid white;
+        }
+
+        .result-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 25px;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .result-box .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #16a34a;
+            margin: 15px 0;
+        }
+
+        .result-box .description {
+            font-size: 1.1em;
+            color: #64748b;
+            margin-top: 10px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 450px;
+            margin: 35px 0;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .info-box {
+            background: #fef3c7;
+            border-left: 6px solid #f59e0b;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .info-box h4 {
+            color: #92400e;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .info-box ul {
+            margin-left: 25px;
+            color: #78350f;
+        }
+
+        .info-box li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #92400e;
+        }
+
+        button {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .button-group {
+            text-align: center;
+            margin: 35px 0;
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid #a7f3d0;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+        .stat-card .stat-label {
+            font-size: 1em;
+            color: #166534;
+            margin-top: 10px;
+        }
+
+        .comparison-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 3px solid #f59e0b;
+        }
+
+        .comparison-box h4 {
+            color: #92400e;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📈 Supply Schedule and Supply Curve</h1>
+            <p>Understanding the Producer's Perspective in the Market</p>
+        </header>
+
+        <div class="content">
+            <!-- Introduction -->
+            <div class="section">
+                <h2><span class="icon">📚</span> What is Supply?</h2>
+                <div class="law-box">
+                    <h3>Definition of Supply</h3>
+                    <p><strong>Supply</strong> refers to the quantity of a good or service that producers are willing and able to offer for sale at various prices during a specific period of time.</p>
+                    <div class="quote">
+                        "Supply represents the seller's side of the market - how much producers want to sell at different price levels."
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">📊</div>
+                        <div class="stat-label">Supply shows producer behavior</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">💰</div>
+                        <div class="stat-label">Price influences quantity supplied</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">⬆️</div>
+                        <div class="stat-label">Higher prices = More supply</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">📈</div>
+                        <div class="stat-label">Upward sloping relationship</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Law of Supply -->
+            <div class="section">
+                <h2><span class="icon">⚖️</span> The Law of Supply</h2>
+                <div class="law-box">
+                    <h3>The Fundamental Principle</h3>
+                    <div class="quote">
+                        "All else being equal, as the price of a good <span class="highlight">increases</span>, the quantity supplied <span class="highlight">increases</span>, and vice versa."
+                    </div>
+                    <p style="margin-top: 20px;">This creates a <strong>direct (positive) relationship</strong> between price and quantity supplied - they move in the same direction!</p>
+                </div>
+
+                <div class="comparison-box">
+                    <h4>🔍 Why Do Producers Supply More at Higher Prices?</h4>
+                    <div class="grid-container" style="margin-top: 20px;">
+                        <div style="background: white; padding: 20px; border-radius: 10px;">
+                            <h5 style="color: #16a34a; margin-bottom: 10px;">✅ Profit Incentive</h5>
+                            <p>Higher prices mean higher potential profits, motivating producers to increase production and supply more goods to the market.</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 10px;">
+                            <h5 style="color: #16a34a; margin-bottom: 10px;">✅ Cover Higher Costs</h5>
+                            <p>As production increases, costs per unit often rise. Higher prices help cover these increasing marginal costs of production.</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 10px;">
+                            <h5 style="color: #16a34a; margin-bottom: 10px;">✅ New Market Entrants</h5>
+                            <p>High prices attract new producers to enter the market, increasing the overall market supply.</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 10px;">
+                            <h5 style="color: #16a34a; margin-bottom: 10px;">✅ Resource Allocation</h5>
+                            <p>Producers shift resources from less profitable goods to more profitable ones when prices rise.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Price Demo -->
+            <div class="section">
+                <div class="interactive-section">
+                    <h3><span class="icon">🎮</span> Interactive Demo: How Price Affects Supply</h3>
+                    <p style="font-size: 1.1em; margin-bottom: 20px; color: #1e40af;">Move the slider to adjust the price and see how producers respond!</p>
+                    
+                    <div class="slider-container">
+                        <label>Market Price: $<span id="priceValue">50</span></label>
+                        <input type="range" id="priceSlider" min="10" max="100" value="50" step="5">
+                    </div>
+
+                    <div class="result-box">
+                        <p style="font-size: 1.2em; color: #64748b;">At this price, producers will supply:</p>
+                        <div class="value" id="quantitySupplied">15 units</div>
+                        <div class="description" id="supplyMessage">Moderate supply level - balanced market conditions</div>
+                    </div>
+
+                    <div class="stats-grid" style="margin-top: 25px;">
+                        <div class="stat-card" id="profitMotiveCard">
+                            <div class="stat-value">💵</div>
+                            <div class="stat-label" id="profitMessage">Moderate profit potential</div>
+                        </div>
+                        <div class="stat-card" id="productionCard">
+                            <div class="stat-value">🏭</div>
+                            <div class="stat-label" id="productionMessage">Normal production levels</div>
+                        </div>
+                        <div class="stat-card" id="marketCard">
+                            <div class="stat-value">📊</div>
+                            <div class="stat-label" id="marketMessage">Stable market entry</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Supply Schedule -->
+            <div class="section">
+                <h2><span class="icon">📋</span> Supply Schedule</h2>
+                <p style="margin-bottom: 25px; font-size: 1.2em; line-height: 1.8;">
+                    A <strong>supply schedule</strong> is a table that shows the relationship between the price of a good and the quantity that producers are willing to supply. It lists specific price-quantity combinations.
+                </p>
+                
+                <div class="info-box">
+                    <h4>📊 Reading a Supply Schedule:</h4>
+                    <ul>
+                        <li>Each row shows a different price point</li>
+                        <li>The quantity column shows how much producers will supply at that price</li>
+                        <li>As you read down (prices increase), quantities supplied also increase</li>
+                        <li>This demonstrates the Law of Supply in numerical form</li>
+                    </ul>
+                </div>
+
+                <table id="supplyTable">
+                    <thead>
+                        <tr>
+                            <th>Price per Unit ($)</th>
+                            <th>Quantity Supplied (units)</th>
+                            <th>Producer Behavior</th>
+                        </tr>
+                    </thead>
+                    <tbody id="supplyTableBody">
+                        <!-- Will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Supply Curve -->
+            <div class="section">
+                <h2><span class="icon">📈</span> Supply Curve</h2>
+                <p style="margin-bottom: 25px; font-size: 1.2em; line-height: 1.8;">
+                    A <strong>supply curve</strong> is a graphical representation of the supply schedule. It plots price on the vertical axis and quantity on the horizontal axis, showing the direct relationship between them.
+                </p>
+                
+                <div class="chart-container">
+                    <canvas id="supplyChart"></canvas>
+                </div>
+
+                <div class="info-box">
+                    <h4>🔍 Key Characteristics of the Supply Curve:</h4>
+                    <ul>
+                        <li><strong>Upward Sloping:</strong> The curve rises from left to right, showing that higher prices lead to higher quantities supplied</li>
+                        <li><strong>Direct Relationship:</strong> Price and quantity move in the same direction</li>
+                        <li><strong>Each Point:</strong> Represents a specific price-quantity combination from the supply schedule</li>
+                        <li><strong>Smooth Curve:</strong> In reality, producers can supply at any price point, not just those in our table</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Determinants of Supply -->
+            <div class="section">
+                <h2><span class="icon">🔄</span> What Can Shift the Supply Curve?</h2>
+                <p style="margin-bottom: 25px; font-size: 1.2em; line-height: 1.8;">
+                    While price causes <strong>movement along</strong> the supply curve, other factors cause the entire curve to <strong>shift</strong>. These are called the determinants of supply.
+                </p>
+
+                <div class="grid-container">
+                    <div class="card">
+                        <h3><span class="icon">🏭</span> Production Costs</h3>
+                        <p><strong>Impact:</strong> When costs of labor, raw materials, or energy change</p>
+                        <p style="margin-top: 10px;">• <strong>Lower costs:</strong> Supply increases (curve shifts right)</p>
+                        <p>• <strong>Higher costs:</strong> Supply decreases (curve shifts left)</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #64748b;">Example: If steel prices fall, car manufacturers can supply more cars at every price level.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3><span class="icon">💻</span> Technology</h3>
+                        <p><strong>Impact:</strong> Improvements in production methods and technology</p>
+                        <p style="margin-top: 10px;">• <strong>Better technology:</strong> Supply increases (more efficient production)</p>
+                        <p>• <strong>Outdated methods:</strong> Supply decreases</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #64748b;">Example: Automated assembly lines allow factories to produce more goods at lower costs.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3><span class="icon">👥</span> Number of Sellers</h3>
+                        <p><strong>Impact:</strong> Changes in the number of producers in the market</p>
+                        <p style="margin-top: 10px;">• <strong>More sellers:</strong> Total supply increases</p>
+                        <p>• <strong>Fewer sellers:</strong> Total supply decreases</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #64748b;">Example: New smartphone companies entering the market increase overall supply.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3><span class="icon">🌤️</span> Natural Conditions</h3>
+                        <p><strong>Impact:</strong> Weather, climate, and natural events</p>
+                        <p style="margin-top: 10px;">• <strong>Favorable conditions:</strong> Supply increases</p>
+                        <p>• <strong>Disasters/droughts:</strong> Supply decreases</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #64748b;">Example: Perfect weather leads to bumper crops, increasing food supply.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3><span class="icon">💰</span> Taxes and Subsidies</h3>
+                        <p><strong>Impact:</strong> Government policies affecting production costs</p>
+                        <p style="margin-top: 10px;">• <strong>Subsidies:</strong> Supply increases (government support)</p>
+                        <p>• <strong>Taxes:</strong> Supply decreases (higher costs)</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #64748b;">Example: Solar panel subsidies encourage more production of solar energy.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3><span class="icon">🔮</span> Future Expectations</h3>
+                        <p><strong>Impact:</strong> Producer expectations about future prices</p>
+                        <p style="margin-top: 10px;">• <strong>Expect higher prices:</strong> Current supply decreases (hold inventory)</p>
+                        <p>• <strong>Expect lower prices:</strong> Current supply increases (sell now)</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #64748b;">Example: Oil producers may hold back supply if they expect prices to rise.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Curve Shifter -->
+            <div class="section">
+                <div class="interactive-section">
+                    <h3><span class="icon">🎯</span> Interactive: Shift the Supply Curve</h3>
+                    <p style="font-size: 1.1em; margin-bottom: 25px; color: #1e40af;">See how changes in market conditions affect the entire supply curve:</p>
+                    
+                    <div class="button-group">
+                        <button onclick="shiftSupply('increase')">➡️ Increase Supply (Shift Right)</button>
+                        <button onclick="shiftSupply('decrease')">⬅️ Decrease Supply (Shift Left)</button>
+                        <button onclick="shiftSupply('reset')">↺ Reset to Original</button>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="shiftChart"></canvas>
+                    </div>
+
+                    <div id="shiftExplanation" class="result-box" style="text-align: left;">
+                        <p style="font-size: 1.2em; font-weight: bold; color: #16a34a;">📊 Current State: Original Supply Curve</p>
+                        <p style="margin-top: 15px; color: #64748b; line-height: 1.8;">This represents the current market supply. Use the buttons above to see how various factors can shift the entire supply curve to the left or right, changing the quantity supplied at every price level.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Movement vs Shift -->
+            <div class="section">
+                <h2><span class="icon">🔄</span> Movement Along vs. Shift of Supply Curve</h2>
+                <div class="grid-container">
+                    <div class="card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-color: #3b82f6;">
+                        <h3 style="color: #1e40af;"><span class="icon">↕️</span> Movement Along the Curve</h3>
+                        <p><strong>Caused by:</strong> Changes in the price of the good itself</p>
+                        <p style="margin-top: 15px;"><strong>What happens:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                            <li>You move to a different point on the same curve</li>
+                            <li>Price ↑ → Quantity supplied ↑ (move up the curve)</li>
+                            <li>Price ↓ → Quantity supplied ↓ (move down the curve)</li>
+                        </ul>
+                        <p style="margin-top: 15px; font-style: italic; color: #1e40af;"><strong>Example:</strong> Coffee price rises from $5 to $7, producers supply more coffee.</p>
+                    </div>
+
+                    <div class="card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: #f59e0b;">
+                        <h3 style="color: #92400e;"><span class="icon">↔️</span> Shift of the Entire Curve</h3>
+                        <p><strong>Caused by:</strong> Changes in factors OTHER than price (determinants of supply)</p>
+                        <p style="margin-top: 15px;"><strong>What happens:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                            <li>The entire curve moves left or right</li>
+                            <li>At every price, a different quantity is supplied</li>
+                            <li>Right shift = increase in supply</li>
+                            <li>Left shift = decrease in supply</li>
+                        </ul>
+                        <p style="margin-top: 15px; font-style: italic; color: #92400e;"><strong>Example:</strong> New coffee harvesting technology allows farmers to supply more coffee at every price.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real World Examples -->
+            <div class="section">
+                <h2><span class="icon">🌍</span> Real-World Supply Examples</h2>
+                <div class="comparison-box">
+                    <h4>Case Study: Smartphone Market</h4>
+                    <div class="grid-container" style="margin-top: 20px;">
+                        <div style="background: white; padding: 20px; border-radius: 10px; border-left: 4px solid #16a34a;">
+                            <h5 style="color: #16a34a; margin-bottom: 10px;">📱 Scenario 1: Price Increase</h5>
+                            <p style="line-height: 1.8;"><strong>Event:</strong> Smartphone prices rise from $500 to $800</p>
+                            <p style="margin-top: 10px;"><strong>Result:</strong> Movement along supply curve - producers supply more smartphones</p>
+                            <p style="margin-top: 10px; color: #64748b;"><em>Why? Higher prices = more profit incentive</em></p>
+                        </div>
+
+                        <div style="background: white; padding: 20px; border-radius: 10px; border-left: 4px solid #3b82f6;">
+                            <h5 style="color: #1e40af; margin-bottom: 10px;">📱 Scenario 2: New Technology</h5>
+                            <p style="line-height: 1.8;"><strong>Event:</strong> New automated chip-making process invented</p>
+                            <p style="margin-top: 10px;"><strong>Result:</strong> Supply curve shifts right - more phones supplied at every price</p>
+                            <p style="margin-top: 10px; color: #64748b;"><em>Why? New Automated Chip Invention  = more phones supplieed at every price</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </body>
+        </html>

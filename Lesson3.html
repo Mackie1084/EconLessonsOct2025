@@ -1,0 +1,771 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics: Production & Consumer Theory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            min-height: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .key-concept {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .formula {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px solid #667eea;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .slide-counter {
+            text-align: center;
+            color: white;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .graph-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .graph {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+            border: 2px solid #667eea;
+            background: white;
+        }
+
+        .title-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 500px;
+        }
+
+        .title-slide h1 {
+            font-size: 3em;
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        .title-slide p {
+            font-size: 1.3em;
+            color: #666;
+        }
+
+        .example-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .example-box h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #667eea30 0%, #764ba230 100%);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="slide-counter" id="slideCounter">Slide 1 of 11</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 9.09%"></div>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>Economics: Production & Consumer Theory</h1>
+            <p>An Interactive Journey Through Microeconomic Principles</p>
+            <p style="margin-top: 30px; font-size: 1em; color: #999;">Click 'Next' to begin</p>
+        </div>
+
+        <!-- Slide 2: Consumer Choice -->
+        <div class="slide">
+            <h1>1. Consumer Choice</h1>
+            
+            <p>Consumer choice theory explains how individuals allocate their limited resources among various goods and services to maximize satisfaction (utility).</p>
+
+            <h2>Key Components</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Budget Constraint</h3>
+                    <p>The limit on consumption bundles that a consumer can afford given income and prices.</p>
+                    <div class="formula">P₁Q₁ + P₂Q₂ ≤ I</div>
+                    <p style="font-size: 0.9em; color: #666;">Where P = price, Q = quantity, I = income</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Preferences</h3>
+                    <p>Consumer tastes and desires that determine satisfaction from different combinations of goods.</p>
+                    <p><span class="highlight">Assumptions:</span> Complete, Transitive, More is Better</p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h3>🎯 Optimal Choice</h3>
+                <p>Consumers choose the bundle where the budget line is tangent to the highest possible indifference curve, where:</p>
+                <div class="formula">MRS = P₁/P₂</div>
+                <p>Marginal Rate of Substitution equals the price ratio</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Example</h3>
+                <p>If pizza costs $10 and movies cost $15, with a budget of $150, the consumer can afford various combinations: 15 pizzas (0 movies), 10 movies (0 pizzas), or any combination along the budget line like 6 pizzas and 6 movies.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Consumers in Markets -->
+        <div class="slide">
+            <h1>2. Consumers in Markets</h1>
+            
+            <p>This topic examines how consumers interact with markets and how their behavior aggregates to form market demand.</p>
+
+            <h2>Individual vs. Market Demand</h2>
+            
+            <div class="key-concept">
+                <h3>Individual Demand</h3>
+                <p>Shows the quantity a single consumer will purchase at various prices, holding other factors constant.</p>
+                <p><span class="highlight">Factors affecting individual demand:</span> Income, preferences, prices of related goods, expectations</p>
+            </div>
+
+            <div class="key-concept">
+                <h3>Market Demand</h3>
+                <p>The horizontal sum of all individual demand curves in the market.</p>
+                <div class="formula">Q<sub>market</sub> = Q₁ + Q₂ + Q₃ + ... + Qₙ</div>
+            </div>
+
+            <h2>Consumer Surplus</h2>
+            <p>The difference between what consumers are willing to pay and what they actually pay represents consumer surplus—a measure of consumer welfare.</p>
+            
+            <div class="formula">Consumer Surplus = Willingness to Pay - Actual Price</div>
+
+            <div class="example-box">
+                <h3>📌 Market Example</h3>
+                <p>In a market with 1,000 consumers, if each demands 2 units at $5, the market demand at $5 is 2,000 units. As price falls to $3, if each consumer now demands 4 units, market demand rises to 4,000 units.</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Normal Goods</h3>
+                    <p>Demand increases as income rises (e.g., organic food, new cars)</p>
+                </div>
+                <div class="card">
+                    <h3>Inferior Goods</h3>
+                    <p>Demand decreases as income rises (e.g., instant noodles, used goods)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Consumer Theory in Perspectives -->
+        <div class="slide">
+            <h1>3. Consumer Theory in Perspectives</h1>
+            
+            <p>Consumer theory can be analyzed through different analytical frameworks, each offering unique insights.</p>
+
+            <h2>Cardinal vs. Ordinal Utility</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Cardinal Utility</h3>
+                    <p><span class="highlight">Concept:</span> Utility can be measured in absolute units (utils)</p>
+                    <p><span class="highlight">Approach:</span> Marginal utility analysis</p>
+                    <p>Consumers maximize: MU₁/P₁ = MU₂/P₂</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Ordinal Utility</h3>
+                    <p><span class="highlight">Concept:</span> Only rankings matter, not absolute values</p>
+                    <p><span class="highlight">Approach:</span> Indifference curve analysis</p>
+                    <p>More realistic and widely used today</p>
+                </div>
+            </div>
+
+            <h2>Behavioral Economics Perspective</h2>
+            
+            <div class="key-concept">
+                <h3>🧠 Real-World Deviations</h3>
+                <p>Traditional theory assumes rational behavior, but behavioral economics reveals systematic patterns:</p>
+                <p><strong>Loss Aversion:</strong> People feel losses more intensely than equivalent gains</p>
+                <p><strong>Anchoring:</strong> Initial information heavily influences decisions</p>
+                <p><strong>Mental Accounting:</strong> Money is treated differently based on its source or intended use</p>
+                <p><strong>Present Bias:</strong> Overvaluing immediate rewards over future benefits</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Perspective Comparison</h3>
+                <p><strong>Traditional:</strong> A consumer always chooses the cheapest option when products are identical.</p>
+                <p><strong>Behavioral:</strong> A consumer might pay more for a branded product due to perceived quality, brand loyalty, or social signaling—even when the product is functionally identical to cheaper alternatives.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Production and Cost -->
+        <div class="slide">
+            <h1>4. Production and Cost</h1>
+            
+            <p>Production theory analyzes how firms transform inputs (factors of production) into outputs, and how costs relate to production levels.</p>
+
+            <h2>The Production Function</h2>
+            
+            <div class="formula">Q = f(L, K, M, ...)</div>
+            <p style="text-align: center; color: #666;">Output = function of (Labor, Capital, Materials, ...)</p>
+
+            <h2>Types of Costs</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Fixed Costs (FC)</h3>
+                    <p>Costs that don't vary with output level</p>
+                    <p><span class="highlight">Examples:</span> Rent, insurance, salaries of permanent staff, equipment depreciation</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Variable Costs (VC)</h3>
+                    <p>Costs that change with output level</p>
+                    <p><span class="highlight">Examples:</span> Raw materials, hourly wages, utilities, shipping costs</p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h3>📊 Total Cost Components</h3>
+                <div class="formula">TC = FC + VC</div>
+                <div class="formula">ATC = TC/Q = AFC + AVC</div>
+                <div class="formula">MC = ΔTC/ΔQ</div>
+                <p><strong>ATC</strong> = Average Total Cost | <strong>AFC</strong> = Average Fixed Cost | <strong>AVC</strong> = Average Variable Cost | <strong>MC</strong> = Marginal Cost</p>
+            </div>
+
+            <h2>Economic vs. Accounting Costs</h2>
+            <p><strong>Accounting Costs:</strong> Explicit, out-of-pocket expenses</p>
+            <p><strong>Economic Costs:</strong> Accounting costs + opportunity costs (implicit costs)</p>
+            
+            <div class="example-box">
+                <h3>📌 Example</h3>
+                <p>A bakery owner uses her own building. The <span class="highlight">accounting cost</span> includes ingredients, wages, and utilities. The <span class="highlight">economic cost</span> also includes the rental income she could have earned by leasing the building—an opportunity cost.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Production and Cost in Short-Run -->
+        <div class="slide">
+            <h1>5. Production and Cost in Short-Run</h1>
+            
+            <p>In the short-run, at least one input (typically capital) is fixed, while others (typically labor) are variable.</p>
+
+            <h2>Key Production Concepts</h2>
+            
+            <div class="key-concept">
+                <h3>Total, Average, and Marginal Product</h3>
+                <div class="formula">TP = Total Product (total output)</div>
+                <div class="formula">AP = TP/L (Average Product of Labor)</div>
+                <div class="formula">MP = ΔTP/ΔL (Marginal Product of Labor)</div>
+            </div>
+
+            <h2>Law of Diminishing Marginal Returns</h2>
+            <p>As more units of a variable input are added to fixed inputs, the marginal product eventually declines.</p>
+
+            <div class="example-box">
+                <h3>📌 Classic Example: Restaurant Kitchen</h3>
+                <p><strong>1st worker:</strong> MP = 20 meals/hour</p>
+                <p><strong>2nd worker:</strong> MP = 25 meals/hour (specialization benefits)</p>
+                <p><strong>3rd worker:</strong> MP = 18 meals/hour (starting to crowd)</p>
+                <p><strong>4th worker:</strong> MP = 12 meals/hour (too crowded, inefficient)</p>
+                <p>The kitchen space (fixed input) limits how productive additional workers can be.</p>
+            </div>
+
+            <h2>Short-Run Cost Curves</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Key Relationships</h3>
+                    <p>✓ AFC continuously declines</p>
+                    <p>✓ AVC is U-shaped</p>
+                    <p>✓ ATC is U-shaped</p>
+                    <p>✓ MC intersects AVC and ATC at their minimums</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Why U-Shaped?</h3>
+                    <p><strong>Initial decline:</strong> Fixed costs spread over more units</p>
+                    <p><strong>Eventually rise:</strong> Diminishing returns increase variable costs faster</p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h3>🔑 Critical Insight</h3>
+                <p>When MP is rising, MC is falling. When MP is falling (diminishing returns), MC is rising. There's an inverse relationship between marginal product and marginal cost.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Production and Cost in Long-Run -->
+        <div class="slide">
+            <h1>6. Production and Cost in Long-Run</h1>
+            
+            <p>In the long-run, all inputs are variable. Firms can adjust plant size, technology, and all factors of production.</p>
+
+            <h2>Long-Run Average Cost (LRAC)</h2>
+            
+            <p>The LRAC curve is the envelope of all short-run average cost curves, showing the lowest cost of producing each output level when all inputs can be adjusted.</p>
+
+            <div class="key-concept">
+                <h3>📈 Economies and Diseconomies of Scale</h3>
+                
+                <p><strong>Economies of Scale</strong> (LRAC declining):</p>
+                <p>• Specialization and division of labor</p>
+                <p>• Bulk purchasing discounts</p>
+                <p>• Spreading fixed costs (R&D, advertising)</p>
+                <p>• Technological efficiencies</p>
+                
+                <p style="margin-top: 15px;"><strong>Constant Returns to Scale</strong> (LRAC flat):</p>
+                <p>• Output increases proportionally with inputs</p>
+                
+                <p style="margin-top: 15px;"><strong>Diseconomies of Scale</strong> (LRAC rising):</p>
+                <p>• Management complexity and coordination costs</p>
+                <p>• Communication difficulties in large organizations</p>
+                <p>• Bureaucratic inefficiencies</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Real-World Example: Automobile Manufacturing</h3>
+                <p><strong>Small scale (100 cars/year):</strong> High cost per unit - $50,000/car. Limited automation, hand-assembly.</p>
+                <p><strong>Medium scale (10,000 cars/year):</strong> Lower cost - $25,000/car. Assembly line, specialized workers, bulk parts purchasing.</p>
+                <p><strong>Large scale (500,000 cars/year):</strong> Lowest cost - $20,000/car. Full automation, maximum efficiency.</p>
+                <p><strong>Very large scale (5 million cars/year):</strong> Rising cost - $22,000/car. Management becomes unwieldy, coordination issues.</p>
+            </div>
+
+            <h2>Minimum Efficient Scale (MES)</h2>
+            <p>The lowest output level at which LRAC reaches its minimum. This determines optimal firm size in an industry.</p>
+        </div>
+
+        <!-- Slide 8: Understanding Profits -->
+        <div class="slide">
+            <h1>7. Understanding Profits</h1>
+            
+            <p>Profit is the ultimate goal for firms, but economists distinguish between different types of profit.</p>
+
+            <h2>Types of Profit</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Accounting Profit</h3>
+                    <div class="formula">π = TR - Explicit Costs</div>
+                    <p>Total Revenue minus explicit (out-of-pocket) costs</p>
+                    <p>What appears on financial statements</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Economic Profit</h3>
+                    <div class="formula">π = TR - (Explicit + Implicit Costs)</div>
+                    <p>Total Revenue minus all costs including opportunity costs</p>
+                    <p>True measure of profitability</p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h3>🎯 Three Profit Scenarios</h3>
+                
+                <p><strong>Economic Profit > 0:</strong> Firm earns above-normal returns, attracting new entrants</p>
+                
+                <p><strong>Economic Profit = 0 (Normal Profit):</strong> Firm covers all costs including opportunity costs. No incentive to enter or exit. Long-run equilibrium in perfect competition.</p>
+                
+                <p><strong>Economic Profit < 0 (Economic Loss):</strong> Firm isn't covering opportunity costs. Should consider exiting in long-run.</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Detailed Example: Coffee Shop</h3>
+                <p><strong>Revenue:</strong> $500,000/year</p>
+                <p><strong>Explicit costs:</strong> $350,000 (rent, wages, supplies, etc.)</p>
+                <p><strong>Accounting Profit:</strong> $150,000</p>
+                <p><strong>Implicit costs:</strong> $120,000 (owner's foregone salary) + $30,000 (return on capital invested)</p>
+                <p><strong>Economic Profit:</strong> $500,000 - $350,000 - $150,000 = $0</p>
+                <p><strong>Interpretation:</strong> The business is making normal profit—covering all costs including what the owner could earn elsewhere. No incentive to close, but also not extraordinarily profitable.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: The Demand Constraints -->
+        <div class="slide">
+            <h1>8. The Demand Constraints</h1>
+            
+            <p>Firms face demand constraints that limit their pricing and output decisions. Understanding demand is crucial for profit maximization.</p>
+
+            <h2>Market Structures and Demand</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Perfect Competition</h3>
+                    <p><strong>Firm's demand:</strong> Perfectly elastic (horizontal)</p>
+                    <p>Price taker: P = MR = AR</p>
+                    <p>Can sell any quantity at market price</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Imperfect Competition</h3>
+                    <p><strong>Firm's demand:</strong> Downward sloping</p>
+                    <p>Price maker: Must lower price to sell more</p>
+                    <p>MR < P for all units after the first</p>
+                </div>
+            </div>
+
+            <h2>Revenue Concepts</h2>
+            
+            <div class="key-concept">
+                <h3>📊 Revenue Relationships</h3>
+                <div class="formula">Total Revenue (TR) = P × Q</div>
+                <div class="formula">Average Revenue (AR) = TR/Q = P</div>
+                <div class="formula">Marginal Revenue (MR) = ΔTR/ΔQ</div>
+            </div>
+
+            <h2>Elasticity and Revenue</h2>
+            
+            <p><strong>Elastic Demand (|E| > 1):</strong> Price decrease increases total revenue</p>
+            <p><strong>Unit Elastic (|E| = 1):</strong> Price changes don't affect total revenue</p>
+            <p><strong>Inelastic Demand (|E| < 1):</strong> Price increase increases total revenue</p>
+
+            <div class="example-box">
+                <h3>📌 Example: Monopolist's Dilemma</h3>
+                <p>A pharmaceutical company has a patent on a drug. At $100/unit, it sells 1,000 units (TR = $100,000). To sell 1,100 units, it must lower price to $95 for all units (TR = $104,500).</p>
+                <p><strong>MR = ($104,500 - $100,000) / 100 = $45</strong></p>
+                <p>Notice MR ($45) is less than price ($95) because the firm must lower price on all units, not just the marginal unit.</p>
+            </div>
+
+            <div class="key-concept">
+                <h3>🔑 Critical Insight</h3>
+                <p>The demand curve facing a firm determines its revenue possibilities and thus constrains profit-maximizing behavior. Firms cannot choose price and quantity independently—they're linked by the demand curve.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: The Profit-Maximizing Output Level -->
+        <div class="slide">
+            <h1>9. The Profit-Maximizing Output Level</h1>
+            
+            <p>Firms maximize profit where the additional revenue from producing one more unit equals the additional cost.</p>
+
+            <h2>The Golden Rule of Profit Maximization</h2>
+            
+            <div class="key-concept">
+                <h3>⭐ MC = MR</h3>
+                <p>Produce where <strong>Marginal Cost equals Marginal Revenue</strong></p>
+                
+                <p style="margin-top: 15px;"><strong>Logic:</strong></p>
+                <p>• If MR > MC: Producing another unit adds more to revenue than to cost → Increase output</p>
+                <p>• If MR < MC: The last unit costs more than it brings in → Decrease output</p>
+                <p>• If MR = MC: Perfect balance → Profit maximized</p>
+            </div>
+
+            <h2>Application by Market Structure</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Perfect Competition</h3>
+                    <p>Since P = MR:</p>
+                    <div class="formula">P = MC</div>
+                    <p>Produce where price equals marginal cost</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Monopoly/Imperfect Competition</h3>
+                    <p>Since P > MR:</p>
+                    <div class="formula">MR = MC, then find P from demand</div>
+                    <p>Set quantity where MR = MC, then charge maximum price consumers will pay</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Numerical Example: Perfectly Competitive Firm</h3>
+                <p><strong>Market price:</strong> $50 per unit</p>
+                <p><strong>Cost structure:</strong></p>
+                <p>At Q = 100: MC = $40, Profit increases by producing more</p>
+                <p>At Q = 150: MC = $50, Profit maximized (P = MC)</p>
+                <p>At Q = 180: MC = $55, Profit decreases by producing more</p>
+                <p><strong>Optimal output: 150 units</strong></p>
+            </div>
+
+            <div class="key-concept">
+                <h3>🎯 Additional Conditions</h3>
+                <p><strong>Second-order condition:</strong> MC must be rising at the profit-maximizing point</p>
+                <p><strong>Shutdown condition (short-run):</strong> Only produce if P ≥ AVC</p>
+                <p><strong>Exit condition (long-run):</strong> Only produce if P ≥ ATC</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Dealing with Losses -->
+        <div class="slide">
+            <h1>10. Dealing with Losses</h1>
+            
+            <p>Not all firms make profits. Understanding when to continue operating at a loss versus shutting down is crucial for firm survival.</p>
+
+            <h2>Short-Run vs. Long-Run Decisions</h2>
+            
+            <div class="key-concept">
+                <h3>🏭 Short-Run Decision: Shutdown Rule</h3>
+                <p>Even with losses, continue operating if:</p>
+                <div class="formula">P ≥ AVC</div>
+                <p>or equivalently</p>
+                <div class="formula">TR ≥ TVC</div>
+                
+                <p style="margin-top: 15px;"><strong>Logic:</strong> If revenue covers variable costs, continuing to operate minimizes losses because it contributes something toward fixed costs. Fixed costs must be paid regardless, so they're irrelevant to the shutdown decision.</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Continue Operating</h3>
+                    <p>If P ≥ AVC:</p>
+                    <p>Loss = FC - (TR - TVC)</p>
+                    <p>Smaller loss than shutting down</p>
+                    <p><span class="highlight">Example:</span> TR = $8,000, TVC = $6,000, FC = $3,000</p>
+                    <p>Loss = -$1,000 (better than -$3,000)</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Shutdown</h3>
+                    <p>If P < AVC:</p>
+                    <p>Loss = FC (total fixed costs)</p>
+                    <p>Minimize loss by stopping production</p>
+                    <p><span class="highlight">Example:</span> TR = $5,000, TVC = $6,000, FC = $3,000</p>
+                    <p>Loss = -$4,000 operating vs -$3,000 shut down</p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h3>🏢 Long-Run Decision: Exit Rule</h3>
+                <p>In the long-run, all costs are variable. Exit the industry if:</p>
+                <div class="formula">P < ATC</div>
+                <p>or equivalently</p>
+                <div class="formula">TR < TC</div>
+                
+                <p style="margin-top: 15px;"><strong>Logic:</strong> If the firm cannot cover all costs (including opportunity costs) in the long-run, resources should be reallocated to more profitable uses.</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Real-World Example: Restaurant During Pandemic</h3>
+                <p><strong>Monthly costs:</strong> Rent & equipment = $10,000 (FC), Food & labor = $15,000 (VC)</p>
+                <p><strong>Monthly revenue:</strong> $18,000</p>
+                <p><strong>Analysis:</strong></p>
+                <p>• TR ($18,000) > TVC ($15,000) ✓ Continue operating short-run</p>
+                <p>• TR ($18,000) < TC ($25,000) ✗ Exit in long-run if conditions don't improve</p>
+                <p>• Short-run loss: -$7,000 (vs -$10,000 if shutdown)</p>
+                <p><strong>Decision:</strong> Stay open temporarily, hoping for recovery. If situation persists beyond lease renewal, exit the market.</p>
+            </div>
+
+            <h2>Break-Even Analysis</h2>
+            
+            <p><strong>Break-even point:</strong> Where TR = TC (zero economic profit)</p>
+            <p><strong>Shutdown point:</strong> Where P = minimum AVC</p>
+            <p><strong>Exit point:</strong> Where P = minimum ATC</p>
+
+            <div class="key-concept">
+                <h3>💡 Strategic Considerations</h3>
+                <p>• <strong>Sunk costs:</strong> Past costs that cannot be recovered should be ignored in decisions</p>
+                <p>• <strong>Fixed costs:</strong> Relevant for long-run exit decisions, irrelevant for short-run shutdown</p>
+                <p>• <strong>Variable costs:</strong> Relevant for all decisions—the key to short-run shutdown rule</p>
+                <p>• <strong>Opportunity costs:</strong> Always relevant—what else could resources earn?</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressFill = document.getElementById('progressFill');
+        const slideCounter = document.getElementById('slideCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+            
+            const progress = ((n + 1) / totalSlides) * 100;
+            progressFill.style.width = progress + '%';
+            
+            slideCounter.textContent = `Slide ${n + 1} of ${totalSlides}`;
+            
+            prevBtn.disabled = (n === 0);
+            nextBtn.textContent = (n === totalSlides - 1) ? 'Finish' : 'Next →';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = 0;
+            }
+            
+            showSlide(currentSlide);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>

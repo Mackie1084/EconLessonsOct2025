@@ -1,0 +1,1195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Efficiency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+            color: white;
+            padding: 35px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide-container {
+            position: relative;
+            padding: 45px;
+            min-height: 550px;
+        }
+
+        .slide {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+            }
+        }
+
+        .slide h2 {
+            color: #134e5e;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #71b280;
+            padding-bottom: 12px;
+            display: inline-block;
+        }
+
+        .slide h3 {
+            color: #2c5364;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #71b280;
+        }
+
+        .slide p, .slide li {
+            color: #333;
+            line-height: 1.9;
+            margin-bottom: 16px;
+            font-size: 1.08em;
+        }
+
+        .slide ul, .slide ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 12px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #71b280 0%, #134e5e 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            border-left: 6px solid #00acc1;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            border-left: 6px solid #fbc02d;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border-left: 6px solid #e53935;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 6px solid #43a047;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .interactive-demo {
+            background: white;
+            border: 3px solid #71b280;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .interactive-demo h4 {
+            color: #134e5e;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider-container label {
+            display: block;
+            margin-bottom: 8px;
+            color: #134e5e;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 12px 0;
+            height: 8px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #71b280;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #71b280;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .output-value {
+            display: inline-block;
+            background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-left: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .visual-chart {
+            background: white;
+            border: 2px solid #71b280;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .chart-canvas {
+            margin: 20px auto;
+            max-width: 100%;
+        }
+
+        .surplus-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .surplus-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .surplus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .surplus-card h4 {
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .surplus-card .value {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 45px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-top: 3px solid #e0e0e0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.05em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            font-size: 1.2em;
+            color: #134e5e;
+            font-weight: bold;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #134e5e 0%, #71b280 100%);
+            transition: width 0.4s ease;
+            box-shadow: 0 2px 8px rgba(113, 178, 128, 0.5);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .comparison-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .comparison-card:hover {
+            transform: scale(1.05);
+        }
+
+        .comparison-card h4 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .market-failure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin: 25px 0;
+        }
+
+        .failure-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .failure-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        .formula {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .dwl-calculator {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .result-display {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .toggle-content {
+            cursor: pointer;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #71b280;
+            transition: all 0.3s;
+        }
+
+        .toggle-content:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .toggle-details {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            animation: expandDown 0.3s ease-out;
+        }
+
+        @keyframes expandDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 500px;
+            }
+        }
+
+        .toggle-details.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ Economic Efficiency</h1>
+            <p>Understanding Markets, Welfare, and Optimal Resource Allocation</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="slide-container">
+            <!-- Slide 1: Meaning of Economic Efficiency -->
+            <div class="slide active">
+                <h2>1. Meaning of Economic Efficiency</h2>
+                <p>Economic efficiency refers to a state where resources are allocated in a way that <span class="highlight">maximizes total welfare</span> and minimizes waste.</p>
+                
+                <h3>Two Types of Efficiency:</h3>
+                
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">📊 Productive Efficiency</h4>
+                    <p><strong>Definition:</strong> Producing goods at the lowest possible cost, using the minimum amount of resources.</p>
+                    <p><strong>Condition:</strong> Production occurs at minimum Average Total Cost (ATC)</p>
+                    <p><strong>Interpretation:</strong> Firms are producing on their production possibility frontier—no waste in production process.</p>
+                </div>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">🎯 Allocative Efficiency</h4>
+                    <p><strong>Definition:</strong> Resources are allocated to produce the right mix of goods that society values most.</p>
+                    <p><strong>Condition:</strong> Price equals Marginal Cost (P = MC)</p>
+                    <p><strong>Interpretation:</strong> The value consumers place on the last unit (price) equals the cost of producing it (MC).</p>
+                </div>
+
+                <h3>Why Efficiency Matters:</h3>
+                <ul>
+                    <li><strong>Maximizes social welfare:</strong> Total surplus (consumer + producer surplus) is at its highest</li>
+                    <li><strong>Optimal resource use:</strong> Resources flow to their highest-valued uses</li>
+                    <li><strong>No deadweight loss:</strong> All mutually beneficial trades occur</li>
+                    <li><strong>Economic growth:</strong> Efficient allocation enables sustainable development</li>
+                </ul>
+
+                <div class="example-box">
+                    <strong>🌟 Real-World Example:</strong> An efficient smartphone market produces phones at minimum cost (productive efficiency) and produces the quantity where the price consumers pay equals the marginal cost of production (allocative efficiency). Both consumers and producers are maximizing their welfare.
+                </div>
+
+                <div class="formula">
+                    ECONOMIC EFFICIENCY = Productive Efficiency + Allocative Efficiency
+                </div>
+            </div>
+
+            <!-- Slide 2: Competitive Markets and Economic Efficiency -->
+            <div class="slide">
+                <h2>2. Competitive Markets and Economic Efficiency</h2>
+                <p>Perfectly competitive markets achieve both <span class="highlight">productive and allocative efficiency</span> in the long run, representing an ideal benchmark for market performance.</p>
+                
+                <h3>Why Perfect Competition is Efficient:</h3>
+
+                <div class="success-box">
+                    <h4 style="color: #2e7d32; margin-bottom: 15px;">✓ Long-Run Equilibrium Conditions</h4>
+                    <p><strong>1. P = MC (Allocative Efficiency)</strong></p>
+                    <p>Price equals marginal cost, meaning the value to consumers equals the cost to society.</p>
+                    <br>
+                    <p><strong>2. P = Minimum ATC (Productive Efficiency)</strong></p>
+                    <p>Firms produce at the lowest point on their average cost curve.</p>
+                    <br>
+                    <p><strong>3. Economic Profit = 0</strong></p>
+                    <p>No excess profits attract entry; no losses force exit.</p>
+                </div>
+
+                <h3>The Invisible Hand Mechanism:</h3>
+                <ol>
+                    <li><strong>Price signals:</strong> Prices communicate information about scarcity and value</li>
+                    <li><strong>Profit motive:</strong> Firms pursue profit, leading to efficient production</li>
+                    <li><strong>Consumer sovereignty:</strong> Consumer demand determines what gets produced</li>
+                    <li><strong>Free entry/exit:</strong> Market forces eliminate inefficiencies over time</li>
+                </ol>
+
+                <div class="interactive-demo">
+                    <h4>Interactive: Market Equilibrium Finder</h4>
+                    <div class="slider-container">
+                        <label>Demand (Willingness to Pay): $<span class="output-value" id="demandValue">80</span></label>
+                        <input type="range" id="demandSlider" min="40" max="120" value="80">
+                    </div>
+                    <div class="slider-container">
+                        <label>Supply (Marginal Cost): $<span class="output-value" id="supplyValue">50</span></label>
+                        <input type="range" id="supplySlider" min="20" max="100" value="50">
+                    </div>
+                    <div class="result-display">
+                        <div id="equilibriumStatus"></div>
+                        <p style="margin-top: 15px; color: #666; font-size: 0.95em;" id="marketAdvice"></p>
+                    </div>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Perfect Competition</h4>
+                        <p>✓ P = MC</p>
+                        <p>✓ P = min ATC</p>
+                        <p>✓ Zero DWL</p>
+                        <p>✓ Max efficiency</p>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Monopoly</h4>
+                        <p>✗ P > MC</p>
+                        <p>✗ P > min ATC</p>
+                        <p>✗ DWL exists</p>
+                        <p>✗ Inefficient</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Measuring Market Gains -->
+            <div class="slide">
+                <h2>3. Measuring Market Gains</h2>
+                <p>We measure the gains from trade using <span class="highlight">consumer surplus, producer surplus, and total surplus</span>.</p>
+                
+                <h3>Key Concepts:</h3>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">👥 Consumer Surplus (CS)</h4>
+                    <p><strong>Definition:</strong> The difference between what consumers are willing to pay and what they actually pay.</p>
+                    <p><strong>Formula:</strong> CS = ½ × (Maximum WTP - Price) × Quantity</p>
+                    <p><strong>Graphically:</strong> Area below demand curve and above price</p>
+                </div>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">🏭 Producer Surplus (PS)</h4>
+                    <p><strong>Definition:</strong> The difference between the price producers receive and their minimum acceptable price.</p>
+                    <p><strong>Formula:</strong> PS = ½ × (Price - Minimum WTA) × Quantity</p>
+                    <p><strong>Graphically:</strong> Area above supply curve and below price</p>
+                </div>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">💰 Total Surplus (TS)</h4>
+                    <p><strong>Definition:</strong> The sum of consumer and producer surplus—total gains from trade.</p>
+                    <p><strong>Formula:</strong> TS = CS + PS</p>
+                    <p><strong>Importance:</strong> Measures overall economic welfare and efficiency</p>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4>Surplus Calculator</h4>
+                    <div class="slider-container">
+                        <label>Market Price: $<span class="output-value" id="priceValue">60</span></label>
+                        <input type="range" id="priceSlider" min="20" max="100" value="60">
+                    </div>
+                    <div class="slider-container">
+                        <label>Quantity Traded: <span class="output-value" id="quantityValue">100</span> units</label>
+                        <input type="range" id="quantitySlider" min="50" max="200" value="100">
+                    </div>
+                    <div class="slider-container">
+                        <label>Max Willingness to Pay: $<span class="output-value" id="maxWTPValue">100</span></label>
+                        <input type="range" id="maxWTPSlider" min="60" max="150" value="100">
+                    </div>
+                    <div class="slider-container">
+                        <label>Min Cost (Supply): $<span class="output-value" id="minCostValue">20</span></label>
+                        <input type="range" id="minCostSlider" min="10" max="60" value="20">
+                    </div>
+                    
+                    <div class="surplus-display">
+                        <div class="surplus-card">
+                            <h4>Consumer Surplus</h4>
+                            <div class="value">$<span id="csResult">2000</span></div>
+                            <p>Buyer gains</p>
+                        </div>
+                        <div class="surplus-card">
+                            <h4>Producer Surplus</h4>
+                            <div class="value">$<span id="psResult">2000</span></div>
+                            <p>Seller gains</p>
+                        </div>
+                        <div class="surplus-card">
+                            <h4>Total Surplus</h4>
+                            <div class="value">$<span id="tsResult">4000</span></div>
+                            <p>Total welfare</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 Interpretation:</strong> If consumer surplus is $2,000, consumers are collectively $2,000 better off from participating in the market than if they didn't buy at all. Higher total surplus indicates greater market efficiency.
+                </div>
+            </div>
+
+            <!-- Slide 4: Inefficiency and Deadweight Loss -->
+            <div class="slide">
+                <h2>4. Inefficiency and Deadweight Loss</h2>
+                <p><span class="highlight">Deadweight loss (DWL)</span> represents the loss of total surplus when markets fail to reach competitive equilibrium—trades that would benefit both parties don't occur.</p>
+                
+                <h3>What is Deadweight Loss?</h3>
+
+                <div class="warning-box">
+                    <h4 style="color: #c62828; margin-bottom: 15px;">⚠️ Deadweight Loss Defined</h4>
+                    <p><strong>Definition:</strong> The reduction in total surplus resulting from market inefficiency—lost gains from trade.</p>
+                    <p><strong>Cause:</strong> Quantity produced deviates from the efficient (competitive) level.</p>
+                    <p><strong>Result:</strong> Some mutually beneficial transactions don't occur.</p>
+                </div>
+
+                <h3>Common Causes of Deadweight Loss:</h3>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <h4>Monopoly Power</h4>
+                        <p>Restricts output below competitive level (P > MC)</p>
+                    </div>
+                    <div class="comparison-card" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <h4>Taxes</h4>
+                        <p>Wedge between buyer and seller price reduces trade</p>
+                    </div>
+                    <div class="comparison-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333;">
+                        <h4>Price Controls</h4>
+                        <p>Ceilings/floors prevent market clearing</p>
+                    </div>
+                    <div class="comparison-card" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #333;">
+                        <h4>Externalities</h4>
+                        <p>Social costs differ from private costs</p>
+                    </div>
+                </div>
+
+                <div class="dwl-calculator">
+                    <h4 style="color: #2c3e50; text-align: center; margin-bottom: 20px;">📉 Deadweight Loss Calculator</h4>
+                    <div class="slider-container">
+                        <label>Competitive Quantity: <span class="output-value" id="compQtyValue">150</span> units</label>
+                        <input type="range" id="compQtySlider" min="100" max="200" value="150">
+                    </div>
+                    <div class="slider-container">
+                        <label>Actual Quantity (with Inefficiency): <span class="output-value" id="actualQtyValue">100</span> units</label>
+                        <input type="range" id="actualQtySlider" min="50" max="200" value="100">
+                    </div>
+                    <div class="slider-container">
+                        <label>Price Difference (P - MC): $<span class="output-value" id="priceDiffValue">20</span></label>
+                        <input type="range" id="priceDiffSlider" min="5" max="50" value="20">
+                    </div>
+                    <div class="result-display">
+                        <h4 style="color: #e53935;">Deadweight Loss: $<span id="dwlResult">500</span></h4>
+                        <p style="margin-top: 10px;">This represents lost welfare due to inefficiency</p>
+                        <p style="margin-top: 10px; font-size: 0.9em; color: #666;" id="dwlInterpretation"></p>
+                    </div>
+                </div>
+
+                <div class="formula">
+                    DWL ≈ ½ × (Quantity Gap) × (Price - MC)
+                </div>
+
+                <div class="example-box">
+                    <strong>🔍 Visual Interpretation:</strong> Deadweight loss appears as a triangle on supply-demand graphs. It represents transactions that would have occurred in a competitive market but don't happen due to the inefficiency.
+                </div>
+            </div>
+
+            <!-- Slide 5: Legal and Regulatory Infrastructure -->
+            <div class="slide">
+                <h2>5. Legal and Regulatory Infrastructure</h2>
+                <p>Markets require a <span class="highlight">strong legal and regulatory framework</span> to function efficiently. Without proper institutions, markets can fail or operate inefficiently.</p>
+                
+                <h3>Essential Legal Foundations:</h3>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">⚖️ Property Rights</h4>
+                    <p><strong>Definition:</strong> Legal rights to own, use, and transfer resources.</p>
+                    <p><strong>Importance:</strong> Clear property rights encourage investment, trade, and efficient resource allocation.</p>
+                    <p><strong>Without them:</strong> Uncertainty, underinvestment, and potential for conflict.</p>
+                </div>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">📜 Contract Enforcement</h4>
+                    <p><strong>Definition:</strong> Legal system ensures agreements are honored.</p>
+                    <p><strong>Importance:</strong> Enables trust in transactions, facilitates long-term planning and investment.</p>
+                    <p><strong>Without it:</strong> High transaction costs, limited trade, economic stagnation.</p>
+                </div>
+
+                <h3>Key Regulatory Functions:</h3>
+
+                <div class="toggle-content" onclick="toggleDetails('reg1')">
+                    <strong>🛡️ Consumer Protection</strong> (Click to expand)
+                </div>
+                <div id="reg1" class="toggle-details">
+                    <ul>
+                        <li>Product safety standards and regulations</li>
+                        <li>Truth in advertising laws</li>
+                        <li>Fraud prevention and disclosure requirements</li>
+                        <li>Warranty and liability protections</li>
+                    </ul>
+                </div>
+
+                <div class="toggle-content" onclick="toggleDetails('reg2')">
+                    <strong>🏛️ Antitrust/Competition Policy</strong> (Click to expand)
+                </div>
+                <div id="reg2" class="toggle-details">
+                    <ul>
+                        <li>Prevents monopolies and collusion</li>
+                        <li>Reviews mergers and acquisitions</li>
+                        <li>Promotes competitive market structures</li>
+                        <li>Protects against predatory pricing</li>
+                    </ul>
+                </div>
+
+                <div class="toggle-content" onclick="toggleDetails('reg3')">
+                    <strong>🌍 Environmental Regulation</strong> (Click to expand)
+                </div>
+                <div id="reg3" class="toggle-details">
+                    <ul>
+                        <li>Pollution limits and emissions standards</li>
+                        <li>Resource conservation requirements</li>
+                        <li>Internalization of externalities</li>
+                        <li>Sustainable development frameworks</li>
+                    </ul>
+                </div>
+
+                <div class="toggle-content" onclick="toggleDetails('reg4')">
+                    <strong>💼 Financial Regulation</strong> (Click to expand)
+                </div>
+                <div id="reg4" class="toggle-details">
+                    <ul>
+                        <li>Banking oversight and capital requirements</li>
+                        <li>Securities regulation and disclosure</li>
+                        <li>Prevention of fraud and market manipulation</li>
+                        <li>Systemic risk management</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 Historical Example:</strong> The 2008 financial crisis highlighted the dangers of inadequate regulation. Weak oversight of mortgage lending and complex financial instruments led to market failure, demonstrating the need for proper regulatory infrastructure.
+                </div>
+
+                <div class="success-box">
+                    <strong>✓ The Balance:</strong> Effective regulation supports markets without stifling innovation. Too little regulation allows market failures; too much creates inefficiency and reduces economic dynamism.
+                </div>
+            </div>
+
+            <!-- Slide 6: Market Failures -->
+            <div class="slide">
+                <h2>6. Market Failures</h2>
+                <p>Market failure occurs when <span class="highlight">free markets fail to allocate resources efficiently</span>, requiring potential government intervention.</p>
+                
+                <h3>Major Types of Market Failures:</h3>
+
+                <div class="market-failure-grid">
+                    <div class="failure-card" onclick="showFailureDetails('externalities')">
+                        <h4>🏭 Externalities</h4>
+                        <p>Costs/benefits affect third parties</p>
+                    </div>
+                    <div class="failure-card" onclick="showFailureDetails('publicgoods')">
+                        <h4>🏛️ Public Goods</h4>
+                        <p>Non-excludable, non-rivalrous</p>
+                    </div>
+                    <div class="failure-card" onclick="showFailureDetails('asymmetric')">
+                        <h4>📊 Asymmetric Information</h4>
+                        <p>Unequal information distribution</p>
+                    </div>
+                    <div class="failure-card" onclick="showFailureDetails('monopoly')">
+                        <h4>👑 Monopoly Power</h4>
+                        <p>Single seller dominance</p>
+                    </div>
+                </div>
+
+                <div id="failure-details" style="margin-top: 25px;">
+                    <!-- Details will be populated by JavaScript -->
+                </div>
+
+                <h3>Detailed Analysis:</h3>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">1. Externalities</h4>
+                    <p><strong>Negative Externalities:</strong> Costs imposed on others (pollution, noise, traffic)</p>
+                    <p><strong>Result:</strong> Overproduction - market produces more than socially optimal</p>
+                    <p><strong>Solution:</strong> Taxes, regulations, cap-and-trade systems</p>
+                    <br>
+                    <p><strong>Positive Externalities:</strong> Benefits received by others (education, vaccination, R&D)</p>
+                    <p><strong>Result:</strong> Underproduction - market produces less than socially optimal</p>
+                    <p><strong>Solution:</strong> Subsidies, public provision, tax incentives</p>
+                </div>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">2. Public Goods</h4>
+                    <p><strong>Characteristics:</strong> Non-excludable (can't prevent consumption) and non-rivalrous (one person's use doesn't reduce availability)</p>
+                    <p><strong>Problem:</strong> Free-rider problem - people consume without paying</p>
+                    <p><strong>Examples:</strong> National defense, lighthouses, clean air, public parks</p>
+                    <p><strong>Solution:</strong> Government provision funded by taxation</p>
+                </div>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">3. Asymmetric Information</h4>
+                    <p><strong>Adverse Selection:</strong> Hidden characteristics lead to market unraveling (used car market - "lemons problem")</p>
+                    <p><strong>Moral Hazard:</strong> Hidden actions after transaction (insurance leading to riskier behavior)</p>
+                    <p><strong>Solutions:</strong> Signaling, screening, warranties, regulation, disclosure requirements</p>
+                </div>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">4. Market Power</h4>
+                    <p><strong>Problem:</strong> Monopolies/oligopolies restrict output and raise prices above competitive levels</p>
+                    <p><strong>Result:</strong> Deadweight loss, reduced consumer surplus, allocative inefficiency</p>
+                    <p><strong>Solutions:</strong> Antitrust enforcement, regulation, public ownership, promoting competition</p>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Important Note:</strong> Market failures provide a rationale for government intervention, but intervention doesn't guarantee efficiency. Government failure (ineffective or counterproductive policies) is also possible.
+                </div>
+            </div>
+
+            <!-- Slide 7: Efficiency and Government in Perspectives -->
+            <div class="slide">
+                <h2>7. Efficiency and Government in Perspectives</h2>
+                <p>The role of government in promoting efficiency is debated, with different <span class="highlight">economic perspectives</span> offering varying views on intervention.</p>
+                
+                <h3>Different Economic Perspectives:</h3>
+
+                <div class="comparison-grid">
+                    <div class="comparison-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <h4>🔵 Free Market View</h4>
+                        <p><strong>Core belief:</strong> Markets self-correct</p>
+                        <p><strong>Government role:</strong> Minimal - protect property rights, enforce contracts</p>
+                        <p><strong>Concern:</strong> Government intervention creates inefficiency</p>
+                    </div>
+                    <div class="comparison-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <h4>🟢 Interventionist View</h4>
+                        <p><strong>Core belief:</strong> Markets often fail</p>
+                        <p><strong>Government role:</strong> Active - correct market failures</p>
+                        <p><strong>Concern:</strong> Unregulated markets harm society</p>
+                    </div>
+                    <div class="comparison-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <h4>🟡 Mixed Economy View</h4>
+                        <p><strong>Core belief:</strong> Balance is optimal</p>
+                        <p><strong>Government role:</strong> Targeted intervention</p>
+                        <p><strong>Concern:</strong> Both extremes are problematic</p>
+                    </div>
+                </div>
+
+                <h3>When Government Intervention Improves Efficiency:</h3>
+
+                <div class="success-box">
+                    <strong>✓ Legitimate Roles:</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Correcting externalities:</strong> Carbon taxes, pollution regulations</li>
+                        <li><strong>Providing public goods:</strong> National defense, infrastructure</li>
+                        <li><strong>Ensuring information:</strong> Disclosure requirements, labeling</li>
+                        <li><strong>Regulating monopolies:</strong> Antitrust, utility regulation</li>
+                        <li><strong>Redistributing income:</strong> Progressive taxation, welfare programs</li>
+                        <li><strong>Stabilizing economy:</strong> Monetary and fiscal policy</li>
+                    </ul>
+                </div>
+
+                <h3>When Government Intervention Reduces Efficiency:</h3>
+
+                <div class="warning-box">
+                    <strong>✗ Government Failures:</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Rent-seeking:</strong> Resources wasted lobbying for favorable policies</li>
+                        <li><strong>Political motivations:</strong> Policies serve politicians, not efficiency</li>
+                        <li><strong>Regulatory capture:</strong> Regulations serve industry interests</li>
+                        <li><strong>Information problems:</strong> Government lacks market information</li>
+                        <li><strong>Unintended consequences:</strong> Policies create new inefficiencies</li>
+                        <li><strong>Bureaucratic inefficiency:</strong> Government agencies lack profit motive</li>
+                    </ul>
+                </div>
+
+                <h3>The Efficiency Trade-off Framework:</h3>
+
+                <div class="interactive-demo">
+                    <h4>Evaluating Policy Interventions</h4>
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                        <p><strong>Question to Ask:</strong></p>
+                        <ol style="margin-top: 15px; line-height: 2;">
+                            <li>Is there a market failure?</li>
+                            <li>Can government intervention correct it?</li>
+                            <li>Will benefits exceed costs (including government failure costs)?</li>
+                            <li>Are there better alternatives (market-based solutions)?</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 Case Study: Carbon Pricing</strong>
+                    <p><strong>Market Failure:</strong> Negative externality (climate change)</p>
+                    <p><strong>Intervention:</strong> Carbon tax or cap-and-trade</p>
+                    <p><strong>Efficiency Gain:</strong> Internalizes external costs, encourages innovation</p>
+                    <p><strong>Challenge:</strong> Setting optimal price, international coordination, political feasibility</p>
+                </div>
+
+                <div class="concept-box">
+                    <h4 style="color: #00acc1; margin-bottom: 15px;">🎯 The Pragmatic Approach</h4>
+                    <p>Most economists agree that the optimal role of government depends on:</p>
+                    <ul style="margin-top: 10px;">
+                        <li>The specific market context and conditions</li>
+                        <li>The severity and type of market failure</li>
+                        <li>The capacity and quality of government institutions</li>
+                        <li>The availability of market-based alternatives</li>
+                        <li>Cultural, social, and political factors</li>
+                    </ul>
+                </div>
+
+                <div class="formula">
+                    Optimal Policy = Market Efficiency Gains - Government Intervention Costs
+                </div>
+
+                <div class="success-box" style="text-align: center;">
+                    <h4 style="margin-bottom: 15px;">🌟 Key Takeaway</h4>
+                    <p>Economic efficiency is achieved through a combination of well-functioning markets and appropriate government intervention. Neither pure laissez-faire nor heavy-handed regulation maximizes welfare. The goal is to find the right balance that promotes both efficiency and equity.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">7</span>
+            </div>
+            <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (n > totalSlides) { currentSlide = totalSlides; }
+            if (n < 1) { currentSlide = 1; }
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('totalSlides').textContent = totalSlides;
+            
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+            
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Slide 2: Market Equilibrium Interactive
+        const demandSlider = document.getElementById('demandSlider');
+        const supplySlider = document.getElementById('supplySlider');
+
+        function updateEquilibrium() {
+            const demand = parseFloat(demandSlider.value);
+            const supply = parseFloat(supplySlider.value);
+            
+            document.getElementById('demandValue').textContent = demand;
+            document.getElementById('supplyValue').textContent = supply;
+            
+            const statusElement = document.getElementById('equilibriumStatus');
+            const adviceElement = document.getElementById('marketAdvice');
+            
+            if (Math.abs(demand - supply) < 5) {
+                statusElement.innerHTML = '<strong style="color: #43a047; font-size: 1.3em;">✓ Market in Equilibrium!</strong>';
+                adviceElement.textContent = 'Perfect! Price equals marginal cost (P = MC), achieving allocative efficiency.';
+                adviceElement.style.color = '#43a047';
+            } else if (demand > supply) {
+                const surplus = demand - supply;
+                statusElement.innerHTML = '<strong style="color: #1e88e5; font-size: 1.3em;">Shortage Exists</strong>';
+                adviceElement.textContent = `Demand exceeds supply by ${surplus}. Price will rise, quantity will increase until equilibrium.`;
+                adviceElement.style.color = '#1e88e5';
+            } else {
+                const surplus = supply - demand;
+                statusElement.innerHTML = '<strong style="color: #fb8c00; font-size: 1.3em;">Surplus Exists</strong>';
+                adviceElement.textContent = `Supply exceeds demand by ${surplus}. Price will fall, quantity will decrease until equilibrium.`;
+                adviceElement.style.color = '#fb8c00';
+            }
+        }
+
+        if (demandSlider) {
+            demandSlider.addEventListener('input', updateEquilibrium);
+            supplySlider.addEventListener('input', updateEquilibrium);
+            updateEquilibrium();
+        }
+
+        // Slide 3: Surplus Calculator
+        const priceSlider = document.getElementById('priceSlider');
+        const quantitySlider = document.getElementById('quantitySlider');
+        const maxWTPSlider = document.getElementById('maxWTPSlider');
+        const minCostSlider = document.getElementById('minCostSlider');
+
+        function updateSurplus() {
+            const price = parseFloat(priceSlider.value);
+            const quantity = parseFloat(quantitySlider.value);
+            const maxWTP = parseFloat(maxWTPSlider.value);
+            const minCost = parseFloat(minCostSlider.value);
+            
+            document.getElementById('priceValue').textContent = price;
+            document.getElementById('quantityValue').textContent = quantity;
+            document.getElementById('maxWTPValue').textContent = maxWTP;
+            document.getElementById('minCostValue').textContent = minCost;
+            
+            // Calculate surpluses (using triangle area formula)
+            const cs = 0.5 * (maxWTP - price) * quantity;
+            const ps = 0.5 * (price - minCost) * quantity;
+            const ts = cs + ps;
+            
+            document.getElementById('csResult').textContent = cs.toFixed(0);
+            document.getElementById('psResult').textContent = ps.toFixed(0);
+            document.getElementById('tsResult').textContent = ts.toFixed(0);
+        }
+
+        if (priceSlider) {
+            priceSlider.addEventListener('input', updateSurplus);
+            quantitySlider.addEventListener('input', updateSurplus);
+            maxWTPSlider.addEventListener('input', updateSurplus);
+            minCostSlider.addEventListener('input', updateSurplus);
+            updateSurplus();
+        }
+
+        // Slide 4: DWL Calculator
+        const compQtySlider = document.getElementById('compQtySlider');
+        const actualQtySlider = document.getElementById('actualQtySlider');
+        const priceDiffSlider = document.getElementById('priceDiffSlider');
+
+        function updateDWL() {
+            const compQty = parseFloat(compQtySlider.value);
+            const actualQty = parseFloat(actualQtySlider.value);
+            const priceDiff = parseFloat(priceDiffSlider.value);
+            
+            document.getElementById('compQtyValue').textContent = compQty;
+            document.getElementById('actualQtyValue').textContent = actualQty;
+            document.getElementById('priceDiffValue').textContent = priceDiff;
+            
+            const qtyGap = Math.abs(compQty - actualQty);
+            const dwl = 0.5 * qtyGap * priceDiff;
+            
+            document.getElementById('dwlResult').textContent = dwl.toFixed(0);
+            
+            const interpretation = document.getElementById('dwlInterpretation');
+            if (qtyGap === 0) {
+                interpretation.textContent = '✓ No inefficiency! Market is at competitive equilibrium.';
+                interpretation.style.color = '#43a047';
+            } else if (actualQty < compQty) {
+                interpretation.textContent = `⚠️ Underproduction: ${qtyGap} fewer units traded than optimal. Common in monopoly.`;
+                interpretation.style.color = '#e53935';
+            } else {
+                interpretation.textContent = `⚠️ Overproduction: ${qtyGap} more units traded than optimal. May occur with negative externalities.`;
+                interpretation.style.color = '#fb8c00';
+            }
+        }
+
+        if (compQtySlider) {
+            compQtySlider.addEventListener('input', updateDWL);
+            actualQtySlider.addEventListener('input', updateDWL);
+            priceDiffSlider.addEventListener('input', updateDWL);
+            updateDWL();
+        }
+
+        // Toggle functionality for Slide 5
+        function toggleDetails(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('show');
+        }
+
+        // Market failure details for Slide 6
+        function showFailureDetails(type) {
+            const detailsDiv = document.getElementById('failure-details');
+            let content = '';
+            
+            switch(type) {
+                case 'externalities':
+                    content = `
+                        <div class="concept-box">
+                            <h4 style="color: #00acc1;">🏭 Externalities in Detail</h4>
+                            <p><strong>Problem:</strong> Market doesn't account for costs/benefits to third parties</p>
+                            <p><strong>Example:</strong> Factory pollution harms nearby residents without compensation</p>
+                            <p><strong>Market Result:</strong> Overproduction (negative) or underproduction (positive)</p>
+                            <p><strong>Efficiency Loss:</strong> Social cost ≠ Private cost, leading to deadweight loss</p>
+                        </div>
+                    `;
+                    break;
+                case 'publicgoods':
+                    content = `
+                        <div class="concept-box">
+                            <h4 style="color: #00acc1;">🏛️ Public Goods in Detail</h4>
+                            <p><strong>Problem:</strong> Free-rider problem prevents private provision</p>
+                            <p><strong>Example:</strong> National defense protects all citizens regardless of payment</p>
+                            <p><strong>Market Result:</strong> Underprovision or no provision at all</p>
+                            <p><strong>Efficiency Loss:</strong> Beneficial goods not produced in sufficient quantity</p>
+                        </div>
+                    `;
+                    break;
+                case 'asymmetric':
+                    content = `
+                        <div class="concept-box">
+                            <h4 style="color: #00acc1;">📊 Asymmetric Information in Detail</h4>
+                            <p><strong>Problem:</strong> One party has more/better information than the other</p>
+                            <p><strong>Example:</strong> Used car sellers know defects buyers don't see</p>
+                            <p><strong>Market Result:</strong> Market unraveling, adverse selection, moral hazard</p>
+                            <p><strong>Efficiency Loss:</strong> Good products driven out, beneficial trades don't occur</p>
+                        </div>
+                    `;
+                    break;
+                case 'monopoly':
+                    content = `
+                        <div class="concept-box">
+                            <h4 style="color: #00acc1;">👑 Monopoly Power in Detail</h4>
+                            <p><strong>Problem:</strong> Single seller restricts output to raise price</p>
+                            <p><strong>Example:</strong> Pharmaceutical patent holder charges high prices</p>
+                            <p><strong>Market Result:</strong> P > MC, reduced quantity, higher prices</p>
+                            <p><strong>Efficiency Loss:</strong> Deadweight loss from underproduction</p>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            detailsDiv.innerHTML = content;
+        }
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

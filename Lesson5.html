@@ -1,0 +1,1128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labor Market Economics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            min-height: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #2a5298;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #7e22ce;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: #2a5298;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .key-concept {
+            background: linear-gradient(135deg, #1e3c7215, #7e22ce15);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #2a5298;
+        }
+
+        .formula {
+            background: #f1f5f9;
+            padding: 18px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.15em;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px solid #2a5298;
+            font-weight: bold;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #1e3c72, #7e22ce);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(30, 60, 114, 0.6);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1e3c72, #7e22ce);
+            transition: width 0.4s ease;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(126, 34, 206, 0.5);
+        }
+
+        .slide-counter {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .title-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 500px;
+        }
+
+        .title-slide h1 {
+            font-size: 3.2em;
+            border: none;
+            margin-bottom: 20px;
+            color: #1e3c72;
+        }
+
+        .title-slide p {
+            font-size: 1.4em;
+            color: #666;
+        }
+
+        .title-slide .subtitle {
+            font-size: 1em;
+            color: #999;
+            margin-top: 40px;
+        }
+
+        .example-box {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .example-box h3 {
+            color: #92400e;
+            margin-top: 0;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f8fafc, #e0e7ff);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #2a5298;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(42, 82, 152, 0.2);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #1e3c7230 0%, #7e22ce30 100%);
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #7e22ce, #1e3c72);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .stat-box h3 {
+            color: white;
+            font-size: 2.5em;
+            margin: 10px 0;
+        }
+
+        .stat-box p {
+            color: #e0e7ff;
+            font-size: 1em;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            border-left: 5px solid #dc2626;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .warning-box h3 {
+            color: #991b1b;
+            margin-top: 0;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border-left: 5px solid #2563eb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .info-box h3 {
+            color: #1e40af;
+            margin-top: 0;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2col, .grid-3col {
+                grid-template-columns: 1fr;
+            }
+            
+            .slide {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="slide-counter" id="slideCounter">Slide 1 of 11</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 9.09%"></div>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>💼 Labor Market Economics</h1>
+            <p>Understanding Factor Markets, Employment, and Income Distribution</p>
+            <p class="subtitle">Click 'Next' to explore the economics of labor markets</p>
+        </div>
+
+        <!-- Slide 2: Factor Markets in General -->
+        <div class="slide">
+            <h1>1. Factor Markets in General</h1>
+            
+            <p>Factor markets are where firms purchase the inputs (factors of production) needed to produce goods and services. These are distinct from product markets where final goods are sold.</p>
+
+            <h2>The Four Factors of Production</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>🏗️ Capital</h3>
+                    <p>Physical assets used in production</p>
+                    <p><span class="highlight">Returns:</span> Interest or rental payments</p>
+                    <p><strong>Examples:</strong> Machinery, buildings, equipment, tools</p>
+                </div>
+                
+                <div class="card">
+                    <h3>👷 Labor</h3>
+                    <p>Human effort and skill in production</p>
+                    <p><span class="highlight">Returns:</span> Wages and salaries</p>
+                    <p><strong>Examples:</strong> Workers, managers, consultants</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🌍 Land</h3>
+                    <p>Natural resources used in production</p>
+                    <p><span class="highlight">Returns:</span> Rent</p>
+                    <p><strong>Examples:</strong> Real estate, minerals, timber, water</p>
+                </div>
+                
+                <div class="card">
+                    <h3>💡 Entrepreneurship</h3>
+                    <p>Innovation and risk-taking ability</p>
+                    <p><span class="highlight">Returns:</span> Profit</p>
+                    <p><strong>Examples:</strong> Business ideas, management, innovation</p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h3>🔑 Key Characteristics of Factor Markets</h3>
+                <p><strong>Derived Demand:</strong> Demand for factors is derived from demand for final products. Firms hire inputs because consumers want the outputs those inputs produce.</p>
+                <p><strong>Interdependence:</strong> The productivity of one factor often depends on the quantity of other factors available.</p>
+                <p><strong>Price Determination:</strong> Factor prices (wages, rent, interest) are determined by supply and demand in factor markets, just like product prices.</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Example: Construction Industry</h3>
+                <p>A construction company needs:</p>
+                <p><strong>Labor:</strong> Carpenters, electricians (paid wages)</p>
+                <p><strong>Capital:</strong> Cranes, trucks (rental or interest costs)</p>
+                <p><strong>Land:</strong> Building site (rent or purchase)</p>
+                <p><strong>Entrepreneurship:</strong> Project management and coordination (profit)</p>
+                <p>The demand for all these factors depends on consumer demand for buildings!</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Definition of Labor Market -->
+        <div class="slide">
+            <h1>2. Definition of Labor Market</h1>
+            
+            <p>The labor market is where workers supply their labor services and firms demand labor to produce goods and services. It's the marketplace for employment.</p>
+
+            <h2>Components of the Labor Market</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>📊 Supply Side (Workers)</h3>
+                    <p><strong>Who:</strong> Individuals offering labor services</p>
+                    <p><strong>Decision:</strong> How many hours to work</p>
+                    <p><strong>Trade-off:</strong> Work vs. leisure</p>
+                    <p><strong>Factors:</strong> Wage rate, working conditions, preferences, alternative opportunities</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🏢 Demand Side (Firms)</h3>
+                    <p><strong>Who:</strong> Employers seeking workers</p>
+                    <p><strong>Decision:</strong> How many workers to hire</p>
+                    <p><strong>Trade-off:</strong> Labor costs vs. productivity</p>
+                    <p><strong>Factors:</strong> Wage rate, product demand, technology, other input prices</p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h3>🎯 Labor Market Equilibrium</h3>
+                <p>Equilibrium occurs where labor supply equals labor demand, determining:</p>
+                <div class="formula">W* = Equilibrium Wage Rate</div>
+                <div class="formula">L* = Equilibrium Employment Level</div>
+                <p>At equilibrium, all workers willing to work at W* can find jobs, and all firms willing to hire at W* can find workers.</p>
+            </div>
+
+            <h2>Types of Labor Markets</h2>
+            
+            <div class="grid-3col">
+                <div class="card">
+                    <h3>Local Markets</h3>
+                    <p>Geographic area: city or region</p>
+                    <p><em>Example: Retail workers in Singapore</em></p>
+                </div>
+                
+                <div class="card">
+                    <h3>Occupational Markets</h3>
+                    <p>Specific skills or professions</p>
+                    <p><em>Example: Software engineers, nurses</em></p>
+                </div>
+                
+                <div class="card">
+                    <h3>Industry Markets</h3>
+                    <p>Specific economic sectors</p>
+                    <p><em>Example: Healthcare, finance, manufacturing</em></p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>💡 Important Distinction</h3>
+                <p>Labor markets differ from product markets in a crucial way: <strong>workers are people, not commodities</strong>. This means labor markets involve considerations of human dignity, safety, fairness, and social welfare that don't apply to markets for goods.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Competitive Labor Markets -->
+        <div class="slide">
+            <h1>3. Competitive Labor Markets</h1>
+            
+            <p>A perfectly competitive labor market has many buyers (firms) and sellers (workers) where no single participant can influence the wage rate.</p>
+
+            <h2>Characteristics of Competitive Labor Markets</h2>
+            
+            <div class="key-concept">
+                <h3>✓ Key Assumptions</h3>
+                <p><strong>1. Many buyers and sellers:</strong> No single firm or worker can influence wages</p>
+                <p><strong>2. Homogeneous labor:</strong> Workers have identical skills and productivity</p>
+                <p><strong>3. Perfect information:</strong> All participants know wage rates and job opportunities</p>
+                <p><strong>4. Perfect mobility:</strong> Workers can easily move between jobs</p>
+                <p><strong>5. No barriers:</strong> Free entry and exit from the market</p>
+            </div>
+
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>📈 For the Market</h3>
+                    <p><strong>Supply curve:</strong> Upward sloping</p>
+                    <p>Higher wages attract more workers</p>
+                    <p><strong>Demand curve:</strong> Downward sloping</p>
+                    <p>Higher wages reduce quantity demanded</p>
+                    <p><strong>Equilibrium:</strong> Supply = Demand</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🏭 For Individual Firm</h3>
+                    <p><strong>Supply curve:</strong> Perfectly elastic (horizontal)</p>
+                    <p>Firm is a wage taker</p>
+                    <p>Can hire any quantity at market wage</p>
+                    <p><strong>Marginal factor cost = Wage</strong></p>
+                    <p>Each additional worker costs exactly W</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Example: Fast Food Workers</h3>
+                <p><strong>Market scenario:</strong> Thousands of fast food restaurants and workers in a city</p>
+                <p><strong>Market wage:</strong> $15/hour</p>
+                <p><strong>Individual restaurant:</strong> Takes $15/hour as given, cannot negotiate lower</p>
+                <p>If one restaurant offers $14/hour, workers go elsewhere. If it offers $16/hour, it pays more than necessary since workers are available at $15/hour.</p>
+            </div>
+
+            <h2>Market Adjustments</h2>
+            
+            <div class="info-box">
+                <h3>⚖️ Self-Correcting Mechanisms</h3>
+                <p><strong>If W > W*:</strong> Surplus of labor (unemployment) → Wage pressure downward</p>
+                <p><strong>If W < W*:</strong> Shortage of labor → Wage pressure upward</p>
+                <p>Competition drives wages toward equilibrium where supply equals demand.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Demand for Labor by a Single Firm -->
+        <div class="slide">
+            <h1>4. Demand for Labor by a Single Firm</h1>
+            
+            <p>A firm's demand for labor is based on the additional revenue that workers generate. This is a derived demand—derived from consumer demand for the firm's product.</p>
+
+            <h2>Core Concepts</h2>
+            
+            <div class="key-concept">
+                <h3>💰 Marginal Revenue Product (MRP)</h3>
+                <p>The additional revenue generated by hiring one more worker</p>
+                <div class="formula">MRP<sub>L</sub> = MP<sub>L</sub> × MR</div>
+                <p style="text-align: center; margin-top: 10px;">Marginal Product of Labor × Marginal Revenue</p>
+                
+                <p style="margin-top: 20px;"><strong>For perfectly competitive product markets:</strong></p>
+                <div class="formula">MRP<sub>L</sub> = MP<sub>L</sub> × P</div>
+                <p style="text-align: center; margin-top: 10px;">Because MR = P in perfect competition</p>
+            </div>
+
+            <div class="key-concept">
+                <h3>💵 Marginal Factor Cost (MFC)</h3>
+                <p>The additional cost of hiring one more worker</p>
+                <div class="formula">MFC<sub>L</sub> = ΔTotal Labor Cost / ΔL</div>
+                <p style="margin-top: 15px;"><strong>In competitive labor markets:</strong> MFC<sub>L</sub> = W (the wage rate)</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Numerical Example: Pizza Restaurant</h3>
+                <p><strong>Market wage:</strong> $20/hour | <strong>Pizza price:</strong> $10 each</p>
+                
+                <table style="width: 100%; margin-top: 15px; border-collapse: collapse;">
+                    <tr style="background: #92400e; color: white;">
+                        <th style="padding: 10px; border: 1px solid #92400e;">Workers</th>
+                        <th style="padding: 10px; border: 1px solid #92400e;">Pizzas/hour (TP)</th>
+                        <th style="padding: 10px; border: 1px solid #92400e;">MP<sub>L</sub></th>
+                        <th style="padding: 10px; border: 1px solid #92400e;">MRP<sub>L</sub></th>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">1</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">10</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">10</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">$100</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">2</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">18</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">8</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">$80</td>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">3</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">24</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">6</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">$60</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">4</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">28</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">4</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">$40</td>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">5</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">30</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">2</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">$20</td>
+                    </tr>
+                </table>
+                
+                <p style="margin-top: 15px;"><strong>Note:</strong> MRP<sub>L</sub> declines due to diminishing marginal returns</p>
+            </div>
+
+            <div class="info-box">
+                <h3>🔍 Why MRP<sub>L</sub> Declines</h3>
+                <p>As more workers are hired with fixed capital (ovens, kitchen space), each additional worker contributes less to output due to the <strong>Law of Diminishing Marginal Returns</strong>. This creates a downward-sloping labor demand curve.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Firm's Employment Decision -->
+        <div class="slide">
+            <h1>5. Firm's Employment Decision</h1>
+            
+            <p>Firms maximize profit by hiring workers up to the point where the cost of the last worker hired equals the revenue that worker generates.</p>
+
+            <h2>The Profit-Maximizing Employment Rule</h2>
+            
+            <div class="key-concept">
+                <h3>⭐ Hire where: MRP<sub>L</sub> = MFC<sub>L</sub></h3>
+                
+                <p style="margin-top: 20px;"><strong>In competitive labor markets:</strong></p>
+                <div class="formula">MRP<sub>L</sub> = W</div>
+                
+                <p style="margin-top: 20px;"><strong>Decision Logic:</strong></p>
+                <p>• If MRP<sub>L</sub> > W: The worker adds more revenue than cost → Hire more workers</p>
+                <p>• If MRP<sub>L</sub> < W: The worker costs more than they contribute → Hire fewer workers</p>
+                <p>• If MRP<sub>L</sub> = W: Profit is maximized → Optimal employment level</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Continuing Pizza Restaurant Example</h3>
+                <p><strong>Given:</strong> Market wage = $20/hour</p>
+                
+                <p style="margin-top: 15px;"><strong>Decision analysis:</strong></p>
+                <p><strong>Worker 1:</strong> MRP<sub>L</sub> = $100 > $20 → Hire ✓</p>
+                <p><strong>Worker 2:</strong> MRP<sub>L</sub> = $80 > $20 → Hire ✓</p>
+                <p><strong>Worker 3:</strong> MRP<sub>L</sub> = $60 > $20 → Hire ✓</p>
+                <p><strong>Worker 4:</strong> MRP<sub>L</sub> = $40 > $20 → Hire ✓</p>
+                <p><strong>Worker 5:</strong> MRP<sub>L</sub> = $20 = $20 → Hire ✓ (indifferent)</p>
+                <p><strong>Worker 6:</strong> MRP<sub>L</sub> would be < $20 → Don't hire ✗</p>
+                
+                <p style="margin-top: 15px; font-weight: bold; color: #1e3c72;">Optimal employment: 5 workers</p>
+            </div>
+
+            <h2>Impact of Wage Changes</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>📉 If Wage Decreases to $15</h3>
+                    <p>Worker 6: MRP<sub>L</sub> = $18 > $15</p>
+                    <p><strong>Result:</strong> Hire 6 workers instead of 5</p>
+                    <p><span class="highlight">Lower wages → Higher employment</span></p>
+                </div>
+                
+                <div class="card">
+                    <h3>📈 If Wage Increases to $45</h3>
+                    <p>Worker 4: MRP<sub>L</sub> = $40 < $45</p>
+                    <p><strong>Result:</strong> Hire only 3 workers</p>
+                    <p><span class="highlight">Higher wages → Lower employment</span></p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Important Considerations</h3>
+                <p><strong>Short-run vs. Long-run:</strong> In the short-run, capital is fixed. In the long-run, firms can adjust all inputs, making labor demand more elastic.</p>
+                <p><strong>Other factors:</strong> Product demand, technology, prices of other inputs, and expectations also influence employment decisions.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Approaches to Profit Maximization -->
+        <div class="slide">
+            <h1>6. Approaches to Profit Maximization</h1>
+            
+            <p>There are two equivalent approaches firms can use to determine the profit-maximizing level of employment.</p>
+
+            <h2>Approach 1: Marginal Analysis</h2>
+            
+            <div class="key-concept">
+                <h3>🎯 MRP<sub>L</sub> = MFC<sub>L</sub> (or MRP<sub>L</sub> = W)</h3>
+                <p>Hire workers until the marginal revenue product equals the marginal factor cost.</p>
+                
+                <p style="margin-top: 15px;"><strong>Advantages:</strong></p>
+                <p>• Direct and intuitive</p>
+                <p>• Shows incremental decision-making</p>
+                <p>• Clearly identifies optimal employment level</p>
+            </div>
+
+            <h2>Approach 2: Total Profit Analysis</h2>
+            
+            <div class="key-concept">
+                <h3>💵 Maximize: π = TR - TC</h3>
+                <p>Calculate total profit at each employment level and choose the maximum.</p>
+                <div class="formula">π = (P × Q) - (W × L + Fixed Costs)</div>
+                
+                <p style="margin-top: 15px;"><strong>Advantages:</strong></p>
+                <p>• Shows overall profitability</p>
+                <p>• Useful for comparing multiple scenarios</p>
+                <p>• Reveals total profit at each level</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Comparison Using Pizza Example</h3>
+                <p><strong>Price per pizza:</strong> $10 | <strong>Wage:</strong> $20/hour | <strong>Fixed costs:</strong> $50/hour</p>
+                
+                <table style="width: 100%; margin-top: 15px; border-collapse: collapse;">
+                    <tr style="background: #92400e; color: white;">
+                        <th style="padding: 8px; border: 1px solid #92400e;">Workers</th>
+                        <th style="padding: 8px; border: 1px solid #92400e;">Output</th>
+                        <th style="padding: 8px; border: 1px solid #92400e;">TR</th>
+                        <th style="padding: 8px; border: 1px solid #92400e;">TC</th>
+                        <th style="padding: 8px; border: 1px solid #92400e;">Profit (π)</th>
+                        <th style="padding: 8px; border: 1px solid #92400e;">MRP<sub>L</sub></th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">3</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">24</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$240</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$110</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$130</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$60</td>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">4</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">28</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$280</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$130</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$150</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$40</td>
+                    </tr>
+                    <tr style="background: #d1fae5; font-weight: bold;">
+                        <td style="padding: 8px; border: 1px solid #10b981; text-align: center;">5</td>
+                        <td style="padding: 8px; border: 1px solid #10b981; text-align: center;">30</td>
+                        <td style="padding: 8px; border: 1px solid #10b981; text-align: center;">$300</td>
+                        <td style="padding: 8px; border: 1px solid #10b981; text-align: center;">$150</td>
+                        <td style="padding: 8px; border: 1px solid #10b981; text-align: center;">$150 ✓</td>
+                        <td style="padding: 8px; border: 1px solid #10b981; text-align: center;">$20</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">6</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">31</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$310</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$170</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$140</td>
+                        <td style="padding: 8px; border: 1px solid #f59e0b; text-align: center;">$10</td>
+                    </tr>
+                </table>
+                
+                <p style="margin-top: 15px;"><strong>Both approaches yield the same result:</strong> Hire 5 workers for maximum profit of $150/hour</p>
+            </div>
+
+            <div class="info-box">
+                <h3>🔍 Why Both Work</h3>
+                <p>When MRP<sub>L</sub> = W, that's the point where adding another worker would no longer increase total profit. At worker 5, MRP<sub>L</sub> = $20 = W, and profit peaks. Worker 6 has MRP<sub>L</sub> = $10 < $20, which would reduce profit.</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Firm's Labor Demand Curve -->
+        <div class="slide">
+            <h1>7. Firm's Labor Demand Curve</h1>
+            
+            <p>The firm's labor demand curve shows the quantity of labor the firm will hire at each possible wage rate. It is derived from the MRP<sub>L</sub> curve.</p>
+
+            <div class="key-concept">
+                <h3>📈 The Labor Demand Curve = MRP<sub>L</sub> Curve</h3>
+                <p>The firm's labor demand curve is the downward-sloping portion of the MRP<sub>L</sub> curve.</p>
+                <div class="formula">Labor Demand: W = MRP<sub>L</sub></div>
+                <p style="text-align: center; margin-top: 10px;">At any wage W, the firm hires where that wage equals MRP<sub>L</sub></p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Constructing the Demand Curve</h3>
+                <p>Using our pizza restaurant data:</p>
+                
+                <table style="width: 100%; margin-top: 15px; border-collapse: collapse;">
+                    <tr style="background: #92400e; color: white;">
+                        <th style="padding: 10px; border: 1px solid #92400e;">If Wage Is...</th>
+                        <th style="padding: 10px; border: 1px solid #92400e;">Firm Hires...</th>
+                        <th style="padding: 10px; border: 1px solid #92400e;">Because...</th>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">$100</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">1 worker</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">MRP<sub>L</sub> of 1st = $100</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">$80</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">2 workers</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">MRP<sub>L</sub> of 2nd = $80</td>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">$60</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">3 workers</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">MRP<sub>L</sub> of 3rd = $60</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">$40</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">4 workers</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">MRP<sub>L</sub> of 4th = $40</td>
+                    </tr>
+                    <tr style="background: #fef3c7;">
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">$20</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b; text-align: center;">5 workers</td>
+                        <td style="padding: 10px; border: 1px solid #f59e0b;">MRP<sub>L</sub> of 5th = $20</td>
+                    </tr>
+                </table>
+                
+                <p style="margin-top: 15px;"><strong>This creates a downward-sloping demand curve:</strong> As wages fall, quantity of labor demanded increases.</p>
+            </div>
+
+            <h2>Factors That Shift Labor Demand</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>📊 Rightward Shift (Increase)</h3>
+                    <p>Firm demands more labor at each wage:</p>
+                    <p>• <strong>Product demand increases</strong> → Higher P → Higher MRP<sub>L</sub></p>
+                    <p>• <strong>Worker productivity rises</strong> → Higher MP<sub>L</sub> → Higher MRP<sub>L</sub></p>
+                    <p>• <strong>Capital increases</strong> → Workers more productive</p>
+                    <p>• <strong>Technology improves</strong> → Complements labor</p>
+                </div>
+                
+                <div class="card">
+                    <h3>📉 Leftward Shift (Decrease)</h3>
+                    <p>Firm demands less labor at each wage:</p>
+                    <p>• <strong>Product demand falls</strong> → Lower P → Lower MRP<sub>L</sub></p>
+                    <p>• <strong>Worker productivity declines</strong></p>
+                    <p>• <strong>Labor-replacing technology</strong> → Automation</p>
+                    <p>• <strong>Substitute inputs cheaper</strong> → Use capital instead</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>🌐 Market Demand for Labor</h3>
+                <p>The <strong>market labor demand curve</strong> is the horizontal sum of all individual firms' labor demand curves in that market. It shows total employment at each wage level across all firms.</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Labor Compensation Differences -->
+        <div class="slide">
+            <h1>8. Labor Compensation Differences</h1>
+            
+            <p>Workers earn different wages for various reasons. Understanding these differences helps explain wage structures in real labor markets.</p>
+
+            <h2>Sources of Wage Differentials</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>🎓 Human Capital</h3>
+                    <p>Education, training, skills, and experience that enhance productivity</p>
+                    <p><span class="highlight">Result:</span> Higher MRP<sub>L</sub> → Higher wages</p>
+                    <p><strong>Example:</strong> Doctors earn more than medical assistants due to years of specialized training</p>
+                </div>
+                
+                <div class="card">
+                    <h3>⚡ Ability and Talent</h3>
+                    <p>Natural aptitudes and innate capabilities</p>
+                    <p><span class="highlight">Result:</span> Superior performance → Higher pay</p>
+                    <p><strong>Example:</strong> Professional athletes with exceptional natural abilities command premium salaries</p>
+                </div>
+                
+                <div class="card">
+                    <h3>⚠️ Compensating Differentials</h3>
+                    <p>Extra pay for undesirable job characteristics</p>
+                    <p><span class="highlight">Result:</span> Risk/difficulty premium</p>
+                    <p><strong>Example:</strong> Hazardous jobs (mining, deep-sea fishing) pay more than safer alternatives</p>
+                </div>
+                
+                <div class="card">
+                    <h3>🏢 Working Conditions</h3>
+                    <p>Job environment, hours, location, and benefits</p>
+                    <p><span class="highlight">Result:</span> Better conditions may mean lower wages</p>
+                    <p><strong>Example:</strong> Tech companies offer perks but may pay slightly less than finance</p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h3>🔧 Additional Factors</h3>
+                <p><strong>Union Membership:</strong> Collective bargaining can raise wages above market levels</p>
+                <p><strong>Discrimination:</strong> Unfair pay differences based on gender, race, or other non-productivity factors</p>
+                <p><strong>Market Power:</strong> Monopsony (single buyer) or monopoly (union) power affects wages</p>
+                <p><strong>Geographic Location:</strong> Cost of living and local labor supply/demand vary by region</p>
+                <p><strong>Industry Differences:</strong> Profitable industries can pay higher wages</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Real-World Example: Software Engineers</h3>
+                <p><strong>San Francisco:</strong> $180,000/year</p>
+                <p><strong>Austin, Texas:</strong> $140,000/year</p>
+                <p><strong>Remote (Southeast Asia):</strong> $60,000/year</p>
+                
+                <p style="margin-top: 15px;"><strong>Reasons for differences:</strong></p>
+                <p>• Cost of living (SF highest)</p>
+                <p>• Local demand (SF has many tech firms)</p>
+                <p>• Supply of qualified workers</p>
+                <p>• Productivity differences (time zones, communication)</p>
+            </div>
+
+            <div class="info-box">
+                <h3>💡 Efficiency Wages</h3>
+                <p>Some firms pay <strong>above-market wages</strong> to:</p>
+                <p>• Reduce turnover and training costs</p>
+                <p>• Attract higher-quality workers</p>
+                <p>• Increase worker motivation and productivity</p>
+                <p>• Reduce shirking (workers don't want to lose high-paying job)</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Income Inequality -->
+        <div class="slide">
+            <h1>9. Income Inequality</h1>
+            
+            <p>Income inequality refers to the uneven distribution of income across a population. It's measured and understood through various metrics and frameworks.</p>
+
+            <h2>Measuring Income Inequality</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>📊 Gini Coefficient</h3>
+                    <p>Ranges from 0 to 1 (or 0% to 100%)</p>
+                    <p><strong>0 =</strong> Perfect equality (everyone has same income)</p>
+                    <p><strong>1 =</strong> Perfect inequality (one person has all income)</p>
+                    <p><span class="highlight">Global average:</span> ~0.38</p>
+                    <p><span class="highlight">Most equal:</span> Nordic countries (~0.25-0.28)</p>
+                    <p><span class="highlight">Most unequal:</span> South Africa (~0.63)</p>
+                </div>
+                
+                <div class="card">
+                    <h3>📈 Income Quintiles</h3>
+                    <p>Population divided into five equal groups</p>
+                    <p><strong>Shows:</strong> Share of total income each group receives</p>
+                    <p><strong>Example (US):</strong></p>
+                    <p>• Top 20%: ~52% of income</p>
+                    <p>• Bottom 20%: ~3% of income</p>
+                    <p>• Middle 20%: ~14% of income</p>
+                </div>
+            </div>
+
+            <h2>Causes of Income Inequality</h2>
+            
+            <div class="key-concept">
+                <h3>🎯 Major Contributing Factors</h3>
+                
+                <p><strong>1. Human Capital Differences</strong></p>
+                <p>Education and skill premiums have increased. College graduates earn 80-100% more than high school graduates.</p>
+                
+                <p style="margin-top: 15px;"><strong>2. Technological Change</strong></p>
+                <p>Automation and technology favor skilled workers, displacing routine jobs. "Skill-biased technological change" increases wage gaps.</p>
+                
+                <p style="margin-top: 15px;"><strong>3. Globalization</strong></p>
+                <p>International competition reduces wages for low-skilled workers in developed countries while benefiting high-skilled workers.</p>
+                
+                <p style="margin-top: 15px;"><strong>4. Market Power</strong></p>
+                <p>Declining unions, increased corporate power, and "superstar" effects in some professions.</p>
+                
+                <p style="margin-top: 15px;"><strong>5. Wealth Concentration</strong></p>
+                <p>Capital income (investments, property) grows faster than labor income, benefiting those with existing wealth.</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 The "Superstar Economy"</h3>
+                <p>In some fields, small differences in ability lead to enormous income differences:</p>
+                <p><strong>Top CEO:</strong> $20 million/year</p>
+                <p><strong>Average CEO:</strong> $200,000/year</p>
+                <p><strong>Ratio:</strong> 100:1 for arguably similar skills</p>
+                <p style="margin-top: 10px;"><em>Technology and globalization allow the "best" to serve huge markets, earning disproportionate rewards.</em></p>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Trends in Inequality</h3>
+                <p><strong>Rising globally:</strong> Income inequality has increased in most developed countries since the 1980s</p>
+                <p><strong>Within vs. Between countries:</strong> While inequality within countries rose, inequality between countries has fallen as developing nations grow</p>
+                <p><strong>Wealth vs. Income:</strong> Wealth inequality typically exceeds income inequality and has grown more rapidly</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Evaluating Economic Inequality -->
+        <div class="slide">
+            <h1>10. Evaluating Economic Inequality</h1>
+            
+            <p>Economists and policymakers evaluate inequality through multiple lenses, considering both efficiency and equity concerns.</p>
+
+            <h2>Arguments About Inequality</h2>
+            
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>✅ Some Inequality Can Be Beneficial</h3>
+                    <p><strong>Incentives:</strong> Rewards for effort, education, and risk-taking</p>
+                    <p><strong>Meritocracy:</strong> Those who contribute more to society earn more</p>
+                    <p><strong>Innovation:</strong> Potential for high rewards drives entrepreneurship</p>
+                    <p><strong>Efficiency:</strong> Wages signal where labor is most productive</p>
+                </div>
+                
+                <div class="card">
+                    <h3>⚠️ Excessive Inequality Is Harmful</h3>
+                    <p><strong>Social instability:</strong> Can lead to political unrest</p>
+                    <p><strong>Reduced mobility:</strong> Harder for poor to advance</p>
+                    <p><strong>Health outcomes:</strong> Correlates with worse health and life expectancy</p>
+                    <p><strong>Underutilized talent:</strong> Poverty prevents development of human capital</p>
+                </div>
+            </div>
+
+            <h2>Policy Approaches to Inequality</h2>
+            
+            <div class="key-concept">
+                <h3>🏛️ Government Interventions</h3>
+                
+                <p><strong>1. Progressive Taxation</strong></p>
+                <p>Higher income earners pay higher tax rates, redistributing income through the tax system.</p>
+                
+                <p style="margin-top: 15px;"><strong>2. Transfer Payments</strong></p>
+                <p>Social security, unemployment insurance, food assistance, and other welfare programs.</p>
+                
+                <p style="margin-top: 15px;"><strong>3. Education Investment</strong></p>
+                <p>Public education, student loans, and training programs to build human capital.</p>
+                
+                <p style="margin-top: 15px;"><strong>4. Minimum Wage Laws</strong></p>
+                <p>Legal floor on wages to ensure basic living standards (though debated for employment effects).</p>
+                
+                <p style="margin-top: 15px;"><strong>5. Anti-Discrimination Laws</strong></p>
+                <p>Equal opportunity employment and pay equity regulations.</p>
+            </div>
+
+            <div class="info-box">
+                <h3>⚖️ Equity-Efficiency Trade-off</h3>
+                <p>Many policies face a <strong>trade-off between equity and efficiency</strong>:</p>
+                <p><strong>Equity goal:</strong> Fair distribution, helping disadvantaged</p>
+                <p><strong>Efficiency goal:</strong> Maximum total output and growth</p>
+                <p><strong>Challenge:</strong> Redistribution may reduce work incentives and economic growth, but extreme inequality may also harm efficiency through reduced opportunity and social stability.</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📌 Case Study: Nordic Model</h3>
+                <p>Countries like Denmark, Sweden, and Norway combine:</p>
+                <p>• <strong>High taxes</strong> (50-60% top rates) for redistribution</p>
+                <p>• <strong>Generous social programs</strong> (healthcare, education, childcare)</p>
+                <p>• <strong>Strong safety nets</strong> (unemployment benefits, pensions)</p>
+                <p>• <strong>Low inequality</strong> (Gini ~0.25-0.28)</p>
+                
+                <p style="margin-top: 15px;"><strong>Results:</strong> High living standards, low poverty, but also high tax burden and different growth patterns compared to more market-oriented economies.</p>
+            </div>
+
+            <h2>Measuring Success</h2>
+            
+            <div class="grid-3col">
+                <div class="card">
+                    <h3>Economic Mobility</h3>
+                    <p>Can people move up income ladder?</p>
+                    <p><em>Intergenerational mobility matters</em></p>
+                </div>
+                
+                <div class="card">
+                    <h3>Poverty Rates</h3>
+                    <p>What percentage live below poverty line?</p>
+                    <p><em>Absolute vs. relative poverty</em></p>
+                </div>
+                
+                <div class="card">
+                    <h3>Well-being Indicators</h3>
+                    <p>Health, education, life satisfaction</p>
+                    <p><em>Beyond just income measures</em></p>
+                </div>
+            </div>
+
+            <div class="key-concept">
+                <h3>💭 Philosophical Perspectives</h3>
+                <p><strong>Utilitarianism:</strong> Maximize total societal happiness—may support some redistribution if marginal utility of income declines</p>
+                <p><strong>Rawlsian Justice:</strong> Structure society to benefit the worst-off members</p>
+                <p><strong>Libertarian:</strong> Respect property rights and voluntary exchange, even if inequality results</p>
+                <p><strong>Capability Approach:</strong> Ensure everyone can achieve basic functionings (health, education, participation)</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressFill = document.getElementById('progressFill');
+        const slideCounter = document.getElementById('slideCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+            
+            const progress = ((n + 1) / totalSlides) * 100;
+            progressFill.style.width = progress + '%';
+            
+            slideCounter.textContent = `Slide ${n + 1} of ${totalSlides}`;
+            
+            prevBtn.disabled = (n === 0);
+            nextBtn.textContent = (n === totalSlides - 1) ? '🎓 Finish' : 'Next →';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            
+            if (currentSlide >= totalSlides) {
+                if (confirm('You\'ve completed the presentation! Would you like to restart from the beginning?')) {
+                    currentSlide = 0;
+                } else {
+                    currentSlide = totalSlides - 1;
+                }
+            } else if (currentSlide < 0) {
+                currentSlide = 0;
+            }
+            
+            showSlide(currentSlide);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+            if (e.key === 'Home') {
+                currentSlide = 0;
+                showSlide(currentSlide);
+            }
+            if (e.key === 'End') {
+                currentSlide = totalSlides - 1;
+                showSlide(currentSlide);
+            }
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                changeSlide(1);
+            }
+            if (touchEndX > touchStartX + 50) {
+                changeSlide(-1);
+            }
+        }
+
+        showSlide(0);
+    </script>
+</body>
+</html>

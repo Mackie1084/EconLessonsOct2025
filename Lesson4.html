@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics Market Structures</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .slide-container {
+            position: relative;
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .slide h3 {
+            color: #2a5298;
+            font-size: 1.4em;
+            margin: 20px 0 10px 0;
+        }
+
+        .slide p, .slide li {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .slide ul {
+            margin-left: 20px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd89b 0%, #19547b 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 5px solid #ff6b6b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-left: 5px solid #4ecdc4;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .graph-placeholder {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-top: 2px solid #e9ecef;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            font-size: 1.1em;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 5px;
+            background: #e9ecef;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .interactive-demo {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .slider-container {
+            margin: 15px 0;
+        }
+
+        .slider-container label {
+            display: block;
+            margin-bottom: 5px;
+            color: #1e3c72;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .output-value {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            margin-left: 10px;
+        }
+
+        .market-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .market-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .market-card:hover {
+            transform: scale(1.05);
+        }
+
+        .market-card h4 {
+            margin-bottom: 10px;
+        }
+
+        canvas {
+            max-width: 100%;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Market Structures in Economics</h1>
+            <p>An Interactive Journey Through Competitive and Non-Competitive Markets</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="slide-container">
+            <!-- Slide 1: Perfect Competition -->
+            <div class="slide active">
+                <h2>1. Perfect Competition</h2>
+                <p>Perfect competition represents an <span class="highlight">idealized market structure</span> where multiple conditions create an environment of maximum efficiency.</p>
+                
+                <h3>Key Characteristics:</h3>
+                <ul>
+                    <li><strong>Many buyers and sellers:</strong> No single participant can influence market price</li>
+                    <li><strong>Homogeneous products:</strong> Products are identical across all sellers</li>
+                    <li><strong>Perfect information:</strong> All participants have complete knowledge of prices and products</li>
+                    <li><strong>Free entry and exit:</strong> No barriers prevent firms from entering or leaving the market</li>
+                    <li><strong>Price takers:</strong> Firms must accept the market-determined price</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>💡 Key Insight:</strong> In perfect competition, firms earn zero economic profit in the long run due to free entry and exit. This doesn't mean accounting profit is zero—it means firms earn just enough to cover all costs including opportunity costs.
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 Real-World Example:</strong> Agricultural markets (wheat, corn) come closest to perfect competition. Individual farmers cannot influence the market price and sell nearly identical products.
+                </div>
+            </div>
+
+            <!-- Slide 2: Competitive Firm -->
+            <div class="slide">
+                <h2>2. Competitive Firm</h2>
+                <p>A competitive firm operates under the constraints of perfect competition and must make optimal decisions to maximize profit.</p>
+                
+                <h3>Profit Maximization Rule:</h3>
+                <div class="info-box">
+                    <strong>P = MC (Price = Marginal Cost)</strong><br>
+                    A competitive firm maximizes profit by producing where price equals marginal cost, as long as price covers average variable cost.
+                </div>
+
+                <h3>Key Decision Points:</h3>
+                <ul>
+                    <li><strong>Production Level:</strong> Produce where P = MC</li>
+                    <li><strong>Shutdown Decision:</strong> Shut down if P < AVC (average variable cost)</li>
+                    <li><strong>Exit Decision:</strong> Exit market if P < ATC (average total cost) in long run</li>
+                </ul>
+
+                <div class="interactive-demo">
+                    <h4>Interactive Demo: Firm's Profit</h4>
+                    <div class="slider-container">
+                        <label>Market Price: $<span class="output-value" id="priceValue">50</span></label>
+                        <input type="range" id="priceSlider" min="20" max="100" value="50">
+                    </div>
+                    <div class="slider-container">
+                        <label>Average Total Cost: $<span class="output-value" id="atcValue">40</span></label>
+                        <input type="range" id="atcSlider" min="20" max="100" value="40">
+                    </div>
+                    <div class="slider-container">
+                        <label>Quantity: <span class="output-value" id="qtyValue">100</span> units</label>
+                        <input type="range" id="qtySlider" min="50" max="200" value="100">
+                    </div>
+                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                        <strong>Economic Profit: $<span id="profitResult">1000</span></strong>
+                        <p style="margin-top: 10px; font-size: 0.9em;" id="profitStatus">Firm is earning positive economic profit</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Competitive Markets in Short-Run -->
+            <div class="slide">
+                <h2>3. Competitive Markets in Short-Run</h2>
+                <p>In the short run, at least one factor of production is fixed, and firms may earn positive, negative, or zero economic profit.</p>
+                
+                <h3>Short-Run Possibilities:</h3>
+                <ul>
+                    <li><strong>Economic Profit (P > ATC):</strong> Firm earns above-normal returns</li>
+                    <li><strong>Normal Profit (P = ATC):</strong> Firm covers all costs including opportunity costs</li>
+                    <li><strong>Economic Loss (P < ATC but P > AVC):</strong> Firm loses money but continues operating</li>
+                    <li><strong>Shutdown (P < AVC):</strong> Firm temporarily ceases production</li>
+                </ul>
+
+                <div class="graph-placeholder">
+                    <h4>Short-Run Equilibrium</h4>
+                    <p style="margin-top: 10px;">Price and quantity are determined by market supply and demand intersection</p>
+                    <div style="margin-top: 20px;">
+                        <p><strong>Individual Firm:</strong> Takes market price as given</p>
+                        <p><strong>Market:</strong> Determines equilibrium price and quantity</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>⏱️ Short-Run Dynamics:</strong> Firms cannot adjust all inputs (like factory size), so they optimize production with existing capacity. This leads to varying profit levels across firms.
+                </div>
+            </div>
+
+            <!-- Slide 4: Competitive Markets in Long-Run -->
+            <div class="slide">
+                <h2>4. Competitive Markets in Long-Run</h2>
+                <p>In the long run, all factors of production are variable, and the entry/exit of firms drives economic profit to zero.</p>
+                
+                <h3>Long-Run Adjustment Process:</h3>
+                <div class="example-box">
+                    <strong>If Economic Profit > 0:</strong><br>
+                    New firms enter → Supply increases → Price falls → Profit decreases to zero
+                </div>
+                
+                <div class="example-box">
+                    <strong>If Economic Loss < 0:</strong><br>
+                    Firms exit → Supply decreases → Price rises → Loss decreases to zero
+                </div>
+
+                <h3>Long-Run Equilibrium Conditions:</h3>
+                <ul>
+                    <li>P = MC (profit maximization)</li>
+                    <li>P = ATC (zero economic profit)</li>
+                    <li>Firms produce at minimum ATC (productive efficiency)</li>
+                    <li>P = MC (allocative efficiency)</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>🎯 Efficiency Achievement:</strong> Perfect competition achieves both productive efficiency (minimum ATC) and allocative efficiency (P = MC), maximizing total surplus in society.
+                </div>
+            </div>
+
+            <!-- Slide 5: Overview of Monopoly -->
+            <div class="slide">
+                <h2>5. Overview of Monopoly</h2>
+                <p>A monopoly is a market structure where a <span class="highlight">single seller</span> controls the entire market for a product with no close substitutes.</p>
+                
+                <h3>Characteristics of Monopoly:</h3>
+                <ul>
+                    <li><strong>Single seller:</strong> One firm supplies the entire market</li>
+                    <li><strong>No close substitutes:</strong> Product is unique</li>
+                    <li><strong>Price maker:</strong> Firm can set price (faces downward-sloping demand)</li>
+                    <li><strong>High barriers to entry:</strong> Other firms cannot easily enter</li>
+                </ul>
+
+                <h3>Sources of Monopoly Power:</h3>
+                <div class="market-comparison">
+                    <div class="market-card">
+                        <h4>Legal Barriers</h4>
+                        <p>Patents, copyrights, licenses</p>
+                    </div>
+                    <div class="market-card">
+                        <h4>Natural Monopoly</h4>
+                        <p>High fixed costs, economies of scale</p>
+                    </div>
+                    <div class="market-card">
+                        <h4>Control of Resources</h4>
+                        <p>Exclusive ownership of key inputs</p>
+                    </div>
+                    <div class="market-card">
+                        <h4>Network Effects</h4>
+                        <p>Value increases with more users</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <strong>📌 Examples:</strong> Local utility companies (natural monopoly), pharmaceutical patents (legal monopoly), Microsoft Windows in 1990s (network effects)
+                </div>
+            </div>
+
+            <!-- Slide 6: Monopoly Behavior -->
+            <div class="slide">
+                <h2>6. Monopoly Behavior</h2>
+                <p>Monopolies behave differently from competitive firms because they can influence market price.</p>
+                
+                <h3>Key Differences from Competition:</h3>
+                <ul>
+                    <li><strong>Price > MC:</strong> Monopolies charge above marginal cost</li>
+                    <li><strong>Lower output:</strong> Produce less than competitive markets</li>
+                    <li><strong>Deadweight loss:</strong> Create inefficiency in the market</li>
+                    <li><strong>Profit maximization:</strong> MR = MC (not P = MC)</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>📊 Important Relationship:</strong><br>
+                    For a monopoly: <strong>Marginal Revenue < Price</strong><br><br>
+                    This occurs because to sell more units, the monopolist must lower price on all units sold, not just the additional unit.
+                </div>
+
+                <h3>Monopoly Pricing Strategy:</h3>
+                <div class="example-box">
+                    <ol>
+                        <li>Find quantity where MR = MC</li>
+                        <li>Go up to demand curve to find price</li>
+                        <li>Price will be higher than MC</li>
+                        <li>Create consumer surplus loss and deadweight loss</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Slide 7: Equilibrium in Monopoly Markets -->
+            <div class="slide">
+                <h2>7. Equilibrium in Monopoly Markets</h2>
+                <p>Monopoly equilibrium results in higher prices, lower quantities, and deadweight loss compared to perfect competition.</p>
+                
+                <h3>Monopoly Equilibrium Conditions:</h3>
+                <ul>
+                    <li><strong>MR = MC:</strong> Profit-maximizing output level</li>
+                    <li><strong>P > MC:</strong> Price exceeds marginal cost</li>
+                    <li><strong>Economic profit > 0:</strong> Can persist in long run due to barriers</li>
+                    <li><strong>No allocative efficiency:</strong> P ≠ MC creates deadweight loss</li>
+                </ul>
+
+                <div class="graph-placeholder">
+                    <h4>Monopoly Equilibrium vs Perfect Competition</h4>
+                    <div style="text-align: left; max-width: 500px; margin: 20px auto;">
+                        <p><strong>Perfect Competition:</strong></p>
+                        <p>• P = MC</p>
+                        <p>• Higher quantity</p>
+                        <p>• No deadweight loss</p>
+                        <p>• Zero economic profit (long run)</p>
+                        <br>
+                        <p><strong>Monopoly:</strong></p>
+                        <p>• P > MC</p>
+                        <p>• Lower quantity</p>
+                        <p>• Deadweight loss exists</p>
+                        <p>• Positive economic profit possible</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>⚠️ Welfare Loss:</strong> The deadweight loss represents potential gains from trade that don't occur because monopoly restricts output below the socially optimal level.
+                </div>
+            </div>
+
+            <!-- Slide 8: Price Discrimination -->
+            <div class="slide">
+                <h2>8. Price Discrimination</h2>
+                <p>Price discrimination occurs when a firm charges different prices to different customers for the same product, based on willingness to pay.</p>
+                
+                <h3>Types of Price Discrimination:</h3>
+                
+                <div class="example-box">
+                    <h4>First-Degree (Perfect Price Discrimination)</h4>
+                    <p>Charge each customer their maximum willingness to pay. Captures all consumer surplus. <strong>Example:</strong> Negotiated car prices, custom art commissions</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Second-Degree (Quantity Discrimination)</h4>
+                    <p>Different prices based on quantity purchased. <strong>Example:</strong> Bulk discounts, utility pricing tiers, "buy 2 get 1 free"</p>
+                </div>
+
+                <div class="example-box">
+                    <h4>Third-Degree (Market Segmentation)</h4>
+                    <p>Different prices for different groups. <strong>Example:</strong> Student discounts, senior citizen rates, regional pricing</p>
+                </div>
+
+                <h3>Requirements for Price Discrimination:</h3>
+                <ul>
+                    <li>Market power (ability to set prices)</li>
+                    <li>Ability to identify different customer groups</li>
+                    <li>Prevention of resale (arbitrage)</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>💰 Profit Impact:</strong> Price discrimination allows monopolies to capture more consumer surplus as profit, increasing total revenue compared to single pricing.
+                </div>
+            </div>
+
+            <!-- Slide 9: Concepts of Imperfect Competition -->
+            <div class="slide">
+                <h2>9. Concepts of Imperfect Competition</h2>
+                <p>Imperfect competition describes market structures between perfect competition and monopoly, where firms have some but not complete market power.</p>
+                
+                <h3>Key Features:</h3>
+                <ul>
+                    <li><strong>Price-setting ability:</strong> Firms face downward-sloping demand curves</li>
+                    <li><strong>Product differentiation:</strong> Products are similar but not identical</li>
+                    <li><strong>Some barriers to entry:</strong> Entry is possible but not completely free</li>
+                    <li><strong>Strategic behavior:</strong> Firms consider competitors' actions</li>
+                </ul>
+
+                <div class="market-comparison">
+                    <div class="market-card">
+                        <h4>Perfect Competition</h4>
+                        <p>Many firms<br>Identical products<br>Price takers</p>
+                    </div>
+                    <div class="market-card">
+                        <h4>Monopolistic Competition</h4>
+                        <p>Many firms<br>Differentiated products<br>Some price power</p>
+                    </div>
+                    <div class="market-card">
+                        <h4>Oligopoly</h4>
+                        <p>Few firms<br>Strategic interdependence<br>Significant price power</p>
+                    </div>
+                    <div class="market-card">
+                        <h4>Monopoly</h4>
+                        <p>One firm<br>Unique product<br>Price maker</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>🎯 Real World Reality:</strong> Most markets fall under imperfect competition. Pure perfect competition and pure monopoly are rare extremes.
+                </div>
+            </div>
+
+            <!-- Slide 10: Monopolistic Competition -->
+            <div class="slide">
+                <h2>10. Monopolistic Competition</h2>
+                <p>Monopolistic competition features many firms selling differentiated products, combining elements of both competition and monopoly.</p>
+                
+                <h3>Characteristics:</h3>
+                <ul>
+                    <li><strong>Many sellers:</strong> Numerous firms in the market</li>
+                    <li><strong>Differentiated products:</strong> Similar but not identical goods</li>
+                    <li><strong>Free entry/exit:</strong> Low barriers to entry</li>
+                    <li><strong>Non-price competition:</strong> Heavy use of advertising and branding</li>
+                </ul>
+
+                <h3>Short-Run vs Long-Run:</h3>
+                <div class="example-box">
+                    <strong>Short-Run:</strong>
+                    <p>Firms can earn positive or negative economic profit. Price > ATC is possible due to product differentiation and brand loyalty.</p>
+                </div>
+
+                <div class="example-box">
+                    <strong>Long-Run:</strong>
+                    <p>Entry/exit drives profit to zero (like perfect competition). However, P > MC persists (like monopoly), creating excess capacity and inefficiency.</p>
+                </div>
+
+                <h3>Efficiency Analysis:</h3>
+                <ul>
+                    <li><strong>Not productively efficient:</strong> Don't produce at minimum ATC</li>
+                    <li><strong>Not allocatively efficient:</strong> P > MC creates deadweight loss</li>
+                    <li><strong>Benefit:</strong> Product variety benefits consumers</li>
+                </ul>
+
+                <div class="example-box">
+                    <strong>📌 Examples:</strong> Restaurants, clothing stores, hair salons, coffee shops, gas stations—markets with many competitors offering similar but differentiated products.
+                </div>
+            </div>
+
+            <!-- Slide 11: Oligopoly -->
+            <div class="slide">
+                <h2>11. Oligopoly</h2>
+                <p>Oligopoly is a market structure dominated by a <span class="highlight">few large firms</span> that are interdependent and engage in strategic behavior.</p>
+                
+                <h3>Key Characteristics:</h3>
+                <ul>
+                    <li><strong>Few sellers:</strong> Market controlled by small number of firms</li>
+                    <li><strong>Interdependence:</strong> Each firm's decisions affect others</li>
+                    <li><strong>Barriers to entry:</strong> Significant obstacles prevent new competition</li>
+                    <li><strong>Possible product differentiation:</strong> Can be homogeneous or differentiated</li>
+                </ul>
+
+                <h3>Strategic Behavior Models:</h3>
+                
+                <div class="info-box">
+                    <strong>Game Theory:</strong> Oligopolists use strategic thinking to predict and respond to competitors' actions. The prisoner's dilemma illustrates why cooperation is difficult.
+                </div>
+
+                <div class="example-box">
+                    <h4>Collusion vs Competition:</h4>
+                    <p><strong>Collusion (Cartel):</strong> Firms cooperate to act like a monopoly, maximizing joint profits. Example: OPEC</p>
+                    <p><strong>Competition:</strong> Firms compete aggressively, driving prices toward competitive levels but above marginal cost.</p>
+                </div>
+
+                <h3>Types of Oligopoly:</h3>
+                <ul>
+                    <li><strong>Cournot Model:</strong> Firms choose quantities simultaneously</li>
+                    <li><strong>Bertrand Model:</strong> Firms choose prices simultaneously</li>
+                    <li><strong>Stackelberg Model:</strong> One firm leads, others follow</li>
+                    <li><strong>Kinked Demand Curve:</strong> Explains price rigidity in oligopolies</li>
+                </ul>
+
+                <div class="example-box">
+                    <strong>📌 Examples:</strong> Automobile manufacturers, airline industry, telecommunications, soft drink market (Coca-Cola vs Pepsi), smartphone operating systems
+                </div>
+
+                <div class="info-box">
+                    <strong>⚖️ Regulatory Concern:</strong> Oligopolies can lead to reduced competition, higher prices, and decreased consumer welfare. Antitrust laws attempt to prevent collusion and promote competition.
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">11</span>
+            </div>
+            <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 11;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (n > totalSlides) { currentSlide = totalSlides; }
+            if (n < 1) { currentSlide = 1; }
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('totalSlides').textContent = totalSlides;
+            
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+            
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Interactive profit calculator
+        const priceSlider = document.getElementById('priceSlider');
+        const atcSlider = document.getElementById('atcSlider');
+        const qtySlider = document.getElementById('qtySlider');
+
+        function updateProfit() {
+            const price = parseFloat(priceSlider.value);
+            const atc = parseFloat(atcSlider.value);
+            const qty = parseFloat(qtySlider.value);
+            
+            const profit = (price - atc) * qty;
+            
+            document.getElementById('priceValue').textContent = price;
+            document.getElementById('atcValue').textContent = atc;
+            document.getElementById('qtyValue').textContent = qty;
+            document.getElementById('profitResult').textContent = profit.toFixed(2);
+            
+            const statusElement = document.getElementById('profitStatus');
+            if (profit > 0) {
+                statusElement.textContent = 'Firm is earning positive economic profit (attracts entry in long run)';
+                statusElement.style.color = '#28a745';
+            } else if (profit < 0) {
+                statusElement.textContent = 'Firm is earning negative economic profit (may exit in long run)';
+                statusElement.style.color = '#dc3545';
+            } else {
+                statusElement.textContent = 'Firm is earning zero economic profit (long-run equilibrium)';
+                statusElement.style.color = '#ffc107';
+            }
+        }
+
+        if (priceSlider) {
+            priceSlider.addEventListener('input', updateProfit);
+            atcSlider.addEventListener('input', updateProfit);
+            qtySlider.addEventListener('input', updateProfit);
+            updateProfit();
+        }
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

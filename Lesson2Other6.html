@@ -1,0 +1,1184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Elasticity of Demand - Singapore & India Context</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #9b59b6 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.6s ease-out;
+            min-height: 600px;
+            position: relative;
+        }
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #87ceeb;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .interactive-example {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .elasticity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .elasticity-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .elasticity-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 215, 0, 0.8);
+        }
+
+        .elasticity-card.selected {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .country-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .country-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .country-tab.active {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+        }
+
+        .country-content {
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .country-content.active {
+            display: block;
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            margin: 10px 0;
+        }
+
+        .elasticity-visualization {
+            width: 100%;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .comparison-table {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #333;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .elastic { color: #e74c3c; font-weight: bold; }
+        .inelastic { color: #2ecc71; font-weight: bold; }
+        .unitary { color: #f39c12; font-weight: bold; }
+
+        .flag-icon {
+            width: 30px;
+            height: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
+            border-radius: 3px;
+        }
+
+        .singapore-flag {
+            background: linear-gradient(to bottom, #e74c3c 50%, white 50%);
+        }
+
+        .india-flag {
+            background: linear-gradient(to bottom, #ff9933 33.33%, white 33.33%, white 66.66%, #138808 66.66%);
+        }
+
+        .product-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.8);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .elasticity-meter {
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(90deg, #2ecc71 0%, #f39c12 50%, #e74c3c 100%);
+            border-radius: 20px;
+            position: relative;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .elasticity-pointer {
+            position: absolute;
+            top: -10px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 20px solid white;
+            transition: left 0.3s ease;
+        }
+
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #ffd700;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .quiz-option.correct {
+            border-color: #00ff00;
+            background: rgba(0, 255, 0, 0.2);
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #ffd700;
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.3) 100%);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .formula-box {
+            background: rgba(52, 152, 219, 0.2);
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .calculation-steps {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #ffd700;
+        }
+
+        .animated-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .real-world-impact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .impact-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid;
+        }
+
+        .positive-impact {
+            border-left-color: #2ecc71;
+        }
+
+        .negative-impact {
+            border-left-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="slide-counter" id="slideCounter">1 / 11</div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>📊 Price Elasticity of Demand</h1>
+            <div style="text-align: center; margin: 40px 0;">
+                <div style="display: flex; justify-content: center; gap: 30px; align-items: center;">
+                    <div>
+                        <div class="singapore-flag flag-icon"></div>
+                        <span style="font-size: 1.5em;">Singapore</span>
+                    </div>
+                    <div class="animated-bounce" style="font-size: 3em;">📈</div>
+                    <div>
+                        <div class="india-flag flag-icon"></div>
+                        <span style="font-size: 1.5em;">India</span>
+                    </div>
+                </div>
+                <p style="font-size: 1.3em; margin: 30px 0;">Understanding Consumer Response to Price Changes</p>
+                <p style="font-size: 1.1em; opacity: 0.8;">Regional Context & Real-World Applications</p>
+            </div>
+            <div class="interactive-example">
+                <h3>🎯 Learning Objectives</h3>
+                <p>• Understand price elasticity of demand concept and formula</p>
+                <p>• Calculate elasticity using Singapore and India examples</p>
+                <p>• Compare elasticity across different product categories</p>
+                <p>• Analyze business and policy implications</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: What is Price Elasticity -->
+        <div class="slide">
+            <h2>🤔 What is Price Elasticity of Demand?</h2>
+            <p>Price elasticity of demand measures how <span class="highlight">responsive</span> consumers are to price changes.</p>
+            
+            <div class="formula-box">
+                <h3>📐 Formula:</h3>
+                <p><strong>PED = % Change in Quantity Demanded / % Change in Price</strong></p>
+            </div>
+            
+            <div class="elasticity-grid">
+                <div class="elasticity-card" onclick="selectElasticity(this, 'elastic')">
+                    <span class="product-icon">🏃‍♂️</span>
+                    <h3>Elastic (PED > 1)</h3>
+                    <p>Consumers are very responsive to price changes</p>
+                    <div style="margin-top: 15px; font-size: 0.9em;">
+                        <p>Example: Luxury cars, dining out</p>
+                    </div>
+                </div>
+                <div class="elasticity-card" onclick="selectElasticity(this, 'inelastic')">
+                    <span class="product-icon">🐌</span>
+                    <h3>Inelastic (PED < 1)</h3>
+                    <p>Consumers are not very responsive to price changes</p>
+                    <div style="margin-top: 15px; font-size: 0.9em;">
+                        <p>Example: Rice, electricity, gasoline</p>
+                    </div>
+                </div>
+                <div class="elasticity-card" onclick="selectElasticity(this, 'unitary')">
+                    <span class="product-icon">⚖️</span>
+                    <h3>Unitary (PED = 1)</h3>
+                    <p>Price and quantity changes are proportional</p>
+                    <div style="margin-top: 15px; font-size: 0.9em;">
+                        <p>Example: Some consumer goods</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="elasticityDetails" class="interactive-example" style="display: none;">
+                <h3 id="elasticityTitle"></h3>
+                <p id="elasticityDescription"></p>
+                <div id="elasticityMeter" class="elasticity-meter">
+                    <div id="elasticityPointer" class="elasticity-pointer" style="left: 50%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Country Comparison -->
+        <div class="slide">
+            <h2>🌏 Singapore vs India: Market Context</h2>
+            <p>Income levels and market conditions create different elasticity patterns:</p>
+            
+            <div class="country-tabs">
+                <button class="country-tab active" onclick="showCountry('singapore')">
+                    <div class="singapore-flag flag-icon" style="display: inline-block; margin: 0 10px 0 0;"></div>
+                    Singapore
+                </button>
+                <button class="country-tab" onclick="showCountry('india')">
+                    <div class="india-flag flag-icon" style="display: inline-block; margin: 0 10px 0 0;"></div>
+                    India
+                </button>
+            </div>
+
+            <div id="singapore" class="country-content active">
+                <div class="real-world-impact">
+                    <div class="impact-box positive-impact">
+                        <h3>💰 High Income Economy</h3>
+                        <p>• GDP per capita: ~$70,000 USD</p>
+                        <p>• More elastic demand for luxury goods</p>
+                        <p>• Less sensitive to basic necessities pricing</p>
+                        <p>• Strong substitution effects</p>
+                    </div>
+                    <div class="impact-box negative-impact">
+                        <h3>🏙️ Market Characteristics</h3>
+                        <p>• Small island nation with limited space</p>
+                        <p>• High dependence on imports</p>
+                        <p>• Government controls (COE, HDB)</p>
+                        <p>• Sophisticated consumer base</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="india" class="country-content">
+                <div class="real-world-impact">
+                    <div class="impact-box positive-impact">
+                        <h3>🏭 Emerging Economy</h3>
+                        <p>• GDP per capita: ~$2,400 USD</p>
+                        <p>• More inelastic demand for basic goods</p>
+                        <p>• Price-sensitive consumer behavior</p>
+                        <p>• Large informal economy</p>
+                    </div>
+                    <div class="impact-box negative-impact">
+                        <h3>🌾 Market Characteristics</h3>
+                        <p>• Large agricultural population</p>
+                        <p>• Income inequality variations</p>
+                        <p>• Regional price differences</p>
+                        <p>• Government subsidies on essentials</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Product Examples -->
+        <div class="slide">
+            <h2>🛍️ Product Categories & Elasticity</h2>
+            <p>Different products show varying elasticity in Singapore and India:</p>
+            
+            <div class="product-showcase">
+                <div class="product-card" onclick="showProductElasticity(this, 'rice')">
+                    <span class="product-icon">🍚</span>
+                    <h3>Rice</h3>
+                    <div class="inelastic">Highly Inelastic</div>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Staple food in both countries</p>
+                </div>
+                <div class="product-card" onclick="showProductElasticity(this, 'cars')">
+                    <span class="product-icon">🚗</span>
+                    <h3>Cars</h3>
+                    <div class="elastic">Elastic</div>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Luxury in India, regulated in Singapore</p>
+                </div>
+                <div class="product-card" onclick="showProductElasticity(this, 'smartphones')">
+                    <span class="product-icon">📱</span>
+                    <h3>Smartphones</h3>
+                    <div class="unitary">Moderately Elastic</div>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Essential but substitutable</p>
+                </div>
+                <div class="product-card" onclick="showProductElasticity(this, 'petrol')">
+                    <span class="product-icon">⛽</span>
+                    <h3>Petrol</h3>
+                    <div class="inelastic">Inelastic</div>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Subsidized in India, taxed in Singapore</p>
+                </div>
+                <div class="product-card" onclick="showProductElasticity(this, 'dining')">
+                    <span class="product-icon">🍽️</span>
+                    <h3>Restaurant Dining</h3>
+                    <div class="elastic">Elastic</div>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Discretionary spending</p>
+                </div>
+                <div class="product-card" onclick="showProductElasticity(this, 'medicines')">
+                    <span class="product-icon">💊</span>
+                    <h3>Medicines</h3>
+                    <div class="inelastic">Highly Inelastic</div>
+                    <p style="font-size: 0.9em; margin-top: 10px;">Essential healthcare</p>
+                </div>
+            </div>
+
+            <div id="productDetails" class="interactive-example" style="display: none;">
+                <h3 id="productTitle"></h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div>
+                        <h4><div class="singapore-flag flag-icon" style="display: inline-block;"></div>Singapore</h4>
+                        <p id="singaporeDetails"></p>
+                    </div>
+                    <div>
+                        <h4><div class="india-flag flag-icon" style="display: inline-block;"></div>India</h4>
+                        <p id="indiaDetails"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Interactive Calculator -->
+        <div class="slide">
+            <h2>🧮 Elasticity Calculator</h2>
+            <p>Calculate price elasticity using real examples from Singapore hawker food:</p>
+            
+            <div class="calculator">
+                <h3>🍜 Hawker Food Price Change Example</h3>
+                
+                <div class="slider-container">
+                    <label>Original Price: $<span id="originalPriceValue">4.50</span></label>
+                    <input type="range" class="slider" id="originalPrice" min="3" max="8" step="0.50" value="4.50" onInput="calculateElasticity()">
+                </div>
+                
+                <div class="slider-container">
+                    <label>New Price: $<span id="newPriceValue">5.50</span></label>
+                    <input type="range" class="slider" id="newPrice" min="3" max="8" step="0.50" value="5.50" onInput="calculateElasticity()">
+                </div>
+                
+                <div class="slider-container">
+                    <label>Original Quantity (bowls/day): <span id="originalQuantityValue">100</span></label>
+                    <input type="range" class="slider" id="originalQuantity" min="50" max="200" step="10" value="100" onInput="calculateElasticity()">
+                </div>
+                
+                <div class="slider-container">
+                    <label>New Quantity (bowls/day): <span id="newQuantityValue">75</span></label>
+                    <input type="range" class="slider" id="newQuantity" min="20" max="150" step="5" value="75" onInput="calculateElasticity()">
+                </div>
+                
+                <div class="chart-container">
+                    <h3>📊 Calculation Results</h3>
+                    <div id="calculationSteps" class="calculation-steps">
+                        <p><strong>Step 1:</strong> % Change in Price = <span id="priceChange">22.2%</span></p>
+                        <p><strong>Step 2:</strong> % Change in Quantity = <span id="quantityChange">-25.0%</span></p>
+                        <p><strong>Step 3:</strong> PED = <span id="pedResult">-1.13</span></p>
+                        <p><strong>Interpretation:</strong> <span id="interpretation">Elastic Demand</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Factors Affecting Elasticity -->
+        <div class="slide">
+            <h2>🎯 Factors Affecting Price Elasticity</h2>
+            <p>Several factors determine how elastic demand will be:</p>
+            
+            <div class="elasticity-grid">
+                <div class="elasticity-card">
+                    <span class="product-icon">🔄</span>
+                    <h3>Availability of Substitutes</h3>
+                    <p>More substitutes = More elastic</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p><strong>Singapore:</strong> Many food options in hawker centers</p>
+                        <p><strong>India:</strong> Limited substitutes for staples like rice</p>
+                    </div>
+                </div>
+                <div class="elasticity-card">
+                    <span class="product-icon">💰</span>
+                    <h3>Income Level</h3>
+                    <p>Higher income = More elastic for luxuries</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p><strong>Singapore:</strong> Less concerned about basic food prices</p>
+                        <p><strong>India:</strong> Very sensitive to essential goods pricing</p>
+                    </div>
+                </div>
+                <div class="elasticity-card">
+                    <span class="product-icon">⏱️</span>
+                    <h3>Time Period</h3>
+                    <p>Long-run = More elastic than short-run</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p><strong>Both countries:</strong> Consumers adjust habits over time</p>
+                    </div>
+                </div>
+                <div class="elasticity-card">
+                    <span class="product-icon">❤️</span>
+                    <h3>Necessity vs Luxury</h3>
+                    <p>Necessities = Inelastic, Luxuries = Elastic</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p><strong>Context varies:</strong> Cars are luxury in India, necessity in Singapore</p>
+                    </div>
+                </div>
+                <div class="elasticity-card">
+                    <span class="product-icon">📊</span>
+                    <h3>Proportion of Income</h3>
+                    <p>Higher % of income = More elastic</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p><strong>India:</strong> Food takes larger income share</p>
+                        <p><strong>Singapore:</strong> Housing takes largest share</p>
+                    </div>
+                </div>
+                <div class="elasticity-card">
+                    <span class="product-icon">🏠</span>
+                    <h3>Brand Loyalty</h3>
+                    <p>Strong loyalty = Less elastic</p>
+                    <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                        <p><strong>Both countries:</strong> Premium brands command loyalty</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Comparison Table -->
+        <div class="slide">
+            <h2>📋 Elasticity Comparison: Singapore vs India</h2>
+            <p>How different products compare across both markets:</p>
+            
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Category</th>
+                            <th><div class="singapore-flag flag-icon" style="display: inline-block;"></div>Singapore PED</th>
+                            <th><div class="india-flag flag-icon" style="display: inline-block;"></div>India PED</th>
+                            <th>Key Differences</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🍚 <strong>Rice & Staples</strong></td>
+                            <td><span class="inelastic">-0.3</span></td>
+                            <td><span class="inelastic">-0.2</span></td>
+                            <td>More inelastic in India due to lower incomes</td>
+                        </tr>
+                        <tr>
+                            <td>⛽ <strong>Petrol/Gasoline</strong></td>
+                            <td><span class="inelastic">-0.4</span></td>
+                            <td><span class="inelastic">-0.6</span></td>
+                            <td>Singapore has better public transport alternatives</td>
+                        </tr>
+                        <tr>
+                            <td>🚗 <strong>Private Cars</strong></td>
+                            <td><span class="elastic">-1.8</span></td>
+                            <td><span class="elastic">-2.5</span></td>
+                            <td>COE system in Singapore vs income constraints in India</td>
+                        </tr>
+                        <tr>
+                            <td>📱 <strong>Smartphones</strong></td>
+                            <td><span class="unitary">-1.1</span></td>
+                            <td><span class="elastic">-1.6</span></td>
+                            <td>Higher income elasticity in India</td>
+                        </tr>
+                        <tr>
+                            <td>🏠 <strong>Housing Rent</strong></td>
+                            <td><span class="inelastic">-0.5</span></td>
+                            <td><span class="inelastic">-0.7</span></td>
+                            <td>HDB system stabilizes Singapore market</td>
+                        </tr>
+                        <tr>
+                            <td>🍽️ <strong>Restaurant Dining</strong></td>
+                            <td><span class="elastic">-1.4</span></td>
+                            <td><span class="elastic">-2.2</span></td>
+                            <td>More discretionary in India due to income levels</td>
+                        </tr>
+                        <tr>
+                            <td>🎬 <strong>Entertainment</strong></td>
+                            <td><span class="elastic">-1.6</span></td>
+                            <td><span class="elastic">-2.8</span></td>
+                            <td>Luxury good in India, necessity in Singapore</td>
+                        </tr>
+                        <tr>
+                            <td>💊 <strong>Healthcare/Medicines</strong></td>
+                            <td><span class="inelastic">-0.2</span></td>
+                            <td><span class="inelastic">-0.4</span></td>
+                            <td>Better insurance coverage in Singapore</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 8: Business Applications -->
+        <div class="slide">
+            <h2>💼 Business Applications</h2>
+            <p>How companies use elasticity knowledge for pricing strategies:</p>
+            
+            <div class="country-tabs">
+                <button class="country-tab active" onclick="showBusinessExample('singapore-business')">
+                    <div class="singapore-flag flag-icon" style="display: inline-block; margin: 0 10px 0 0;"></div>
+                    Singapore Examples
+                </button>
+                <button class="country-tab" onclick="showBusinessExample('india-business')">
+                    <div class="india-flag flag-icon" style="display: inline-block; margin: 0 10px 0 0;"></div>
+                    India Examples
+                </button>
+            </div>
+
+            <div id="singapore-business" class="country-content active">
+                <div class="elasticity-grid">
+                    <div class="elasticity-card">
+                        <span class="product-icon">🚇</span>
+                        <h3>SMRT/SBS Transit</h3>
+                        <p><strong>Strategy:</strong> Inelastic demand allows steady fare increases</p>
+                        <p><strong>Result:</strong> Revenue optimization with minimal ridership loss</p>
+                    </div>
+                    <div class="elasticity-card">
+                        <span class="product-icon">🏪</span>
+                        <h3>NTUC FairPrice</h3>
+                        <p><strong>Strategy:</strong> Competitive pricing on elastic goods (snacks, drinks)</p>
+                        <p><strong>Result:</strong> Market share protection through price sensitivity</p>
+                    </div>
+                    <div class="elasticity-card">
+                        <span class="product-icon">🏨</span>
+                        <h3>Singapore Airlines</h3>
+                        <p><strong>Strategy:</strong> Premium pricing due to brand loyalty (less elastic)</p>
+                        <p><strong>Result:</strong> Higher margins despite higher prices</p>
+                    </div>
+                    <div class="elasticity-card">
+                        <span class="product-icon">🍔</span>
+                        <h3>McDonald's Singapore</h3>
+                        <p><strong>Strategy:</strong> Value meals to address elastic demand</p>
+                        <p><strong>Result:</strong> Volume-based revenue growth</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="india-business" class="country-content">
+                <div class="elasticity-grid">
+                    <div class="elasticity-card">
+                        <span class="product-icon">📞</span>
+                        <h3>Reliance Jio</h3>
+                        <p><strong>Strategy:</strong> Aggressive pricing due to elastic demand</p>
+                        <p><strong>Result:</strong> Massive market share gain through low prices</p>
+                    </div>
+                    <div class="elasticity-card">
+                        <span class="product-icon">🚗</span>
+                        <h3>Maruti Suzuki</h3>
+                        <p><strong>Strategy:</strong> Budget car focus (highly elastic market)</p>
+                        <p><strong>Result:</strong> Market leadership through affordability</p>
+                    </div>
+                    <div class="elasticity-card">
+                        <span class="product-icon">🛒</span>
+                        <h3>Big Basket/Grofers</h3>
+                        <p><strong>Strategy:</strong> Heavy discounts on elastic goods</p>
+                        <p><strong>Result:</strong> Customer acquisition through price competition</p>
+                    </div>
+                    <div class="elasticity-card">
+                        <span class="product-icon">🎬</span>
+                        <h3>BookMyShow</h3>
+                        <p><strong>Strategy:</strong> Dynamic pricing based on demand elasticity</p>
+                        <p><strong>Result:</strong> Revenue optimization across different income segments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Government Policy Applications -->
+        <div class="slide">
+            <h2>🏛️ Government Policy Applications</h2>
+            <p>How governments use elasticity concepts in policy making:</p>
+            
+            <div class="real-world-impact">
+                <div class="impact-box positive-impact">
+                    <h3><div class="singapore-flag flag-icon" style="display: inline-block;"></div>Singapore Policies</h3>
+                    <div style="margin-top: 15px;">
+                        <p><strong>🚗 COE System:</strong> Elastic demand allows effective quantity control</p>
+                        <p><strong>🚭 Tobacco Tax:</strong> High elasticity reduces consumption effectively</p>
+                        <p><strong>🏠 HDB Pricing:</strong> Inelastic housing demand allows controlled increases</p>
+                        <p><strong>⛽ Petrol Tax:</strong> Moderate elasticity balances revenue and consumption</p>
+                    </div>
+                </div>
+                <div class="impact-box negative-impact">
+                    <h3><div class="india-flag flag-icon" style="display: inline-block;"></div>India Policies</h3>
+                    <div style="margin-top: 15px;">
+                        <p><strong>🌾 Food Subsidies:</strong> Inelastic demand justifies price support</p>
+                        <p><strong>⛽ Fuel Subsidies:</strong> Inelastic demand creates fiscal burden</p>
+                        <p><strong>📱 GST on Phones:</strong> Elastic demand led to rate reductions</p>
+                        <p><strong>🚗 Auto Policy:</strong> High elasticity influenced import duty structure</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-example">
+                <h3>📊 Policy Impact Analysis</h3>
+                <p>Understanding elasticity helps predict policy outcomes:</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div style="background: rgba(46, 204, 113, 0.2); padding: 20px; border-radius: 10px;">
+                        <h4>✅ Effective Tax Policies</h4>
+                        <p>• Elastic goods: Taxes reduce consumption (sin taxes)</p>
+                        <p>• Inelastic goods: Taxes generate revenue (fuel, utilities)</p>
+                    </div>
+                    <div style="background: rgba(231, 76, 60, 0.2); padding: 20px; border-radius: 10px;">
+                        <h4>❌ Policy Challenges</h4>
+                        <p>• Elastic goods: Subsidies create fiscal burden</p>
+                        <p>• Inelastic goods: Price controls create shortages</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Quiz -->
+        <div class="slide">
+            <h2>🧠 Knowledge Check</h2>
+            <div class="quiz-container">
+                <h3>In India, if the price of rice increases by 20% and quantity demanded decreases by 5%, what is the price elasticity of demand?</h3>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">
+                    A) PED = -4.0 (Highly elastic)
+                </div>
+                <div class="quiz-option" onclick="selectAnswer(this, true)">
+                    B) PED = -0.25 (Inelastic)
+                </div>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">
+                    C) PED = +0.25 (Positive elasticity)
+                </div>
+                <div class="quiz-option" onclick="selectAnswer(this, false)">
+                    D) PED = -1.0 (Unitary elastic)
+                </div>
+                <div id="quizResult" style="margin-top: 20px; font-weight: bold;"></div>
+            </div>
+
+            <div class="interactive-example" style="margin-top: 30px;">
+                <h3>💡 Think About It:</h3>
+                <p>Why would rice have inelastic demand in India? Consider factors like income levels, cultural importance, and availability of substitutes.</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Conclusion -->
+        <div class="slide">
+            <h2>🎯 Key Takeaways</h2>
+            <div class="interactive-example">
+                <h3>Essential Concepts to Remember:</h3>
+                <div style="font-size: 1.3em; line-height: 1.8; margin: 20px 0;">
+                    <p>✅ <span class="highlight">PED = % Change in Quantity / % Change in Price</span></p>
+                    <p>✅ Income levels significantly affect elasticity patterns</p>
+                    <p>✅ Cultural and regional factors influence consumer behavior</p>
+                    <p>✅ Businesses use elasticity for pricing strategies</p>
+                    <p>✅ Governments consider elasticity in policy design</p>
+                </div>
+            </div>
+            
+            <div class="real-world-impact">
+                <div class="impact-box positive-impact">
+                    <h3>🎯 For Business Success</h3>
+                    <p>• Understand your market's elasticity</p>
+                    <p>• Price elastic goods competitively</p>
+                    <p>• Premium price inelastic goods</p>
+                    <p>• Consider regional differences</p>
+                </div>
+                <div class="impact-box negative-impact">
+                    <h3>📊 For Policy Makers</h3>
+                    <p>• Tax elastic goods to reduce consumption</p>
+                    <p>• Tax inelastic goods for revenue</p>
+                    <p>• Consider income effects on elasticity</p>
+                    <p>• Monitor substitution possibilities</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 40px 0;">
+                <h3 style="color: #ffd700;">🌟 Thank You for Learning! 🌟</h3>
+                <p style="font-size: 1.1em; opacity: 0.8;">Apply these concepts to understand consumer behavior in Singapore and India</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function updateSlideCounter() {
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateSlideCounter();
+            updateProgressBar();
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Elasticity type selection
+        function selectElasticity(card, type) {
+            // Reset all cards
+            document.querySelectorAll('.elasticity-card').forEach(c => {
+                c.classList.remove('selected');
+            });
+            
+            card.classList.add('selected');
+            
+            const details = {
+                elastic: {
+                    title: '🏃‍♂️ Elastic Demand (PED > 1)',
+                    description: 'When price increases by 10%, quantity demanded decreases by more than 10%. Consumers are very responsive to price changes. Common with luxury goods, entertainment, and items with many substitutes.',
+                    pointer: '80%'
+                },
+                inelastic: {
+                    title: '🐌 Inelastic Demand (PED < 1)',
+                    description: 'When price increases by 10%, quantity demanded decreases by less than 10%. Consumers are not very responsive to price changes. Common with necessities like food, medicine, and utilities.',
+                    pointer: '20%'
+                },
+                unitary: {
+                    title: '⚖️ Unitary Elastic (PED = 1)',
+                    description: 'When price increases by 10%, quantity demanded decreases by exactly 10%. Price and quantity changes are perfectly proportional. This is relatively rare in real markets.',
+                    pointer: '50%'
+                }
+            };
+            
+            const detailsBox = document.getElementById('elasticityDetails');
+            const title = document.getElementById('elasticityTitle');
+            const description = document.getElementById('elasticityDescription');
+            const pointer = document.getElementById('elasticityPointer');
+            
+            title.textContent = details[type].title;
+            description.textContent = details[type].description;
+            pointer.style.left = details[type].pointer;
+            detailsBox.style.display = 'block';
+        }
+
+        // Country tab functionality
+        function showCountry(country) {
+            document.querySelectorAll('.country-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.country-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(country).classList.add('active');
+        }
+
+        // Business example functionality
+        function showBusinessExample(example) {
+            document.querySelectorAll('.country-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.country-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(example).classList.add('active');
+        }
+
+        // Product elasticity details
+        function showProductElasticity(card, product) {
+            const products = {
+                rice: {
+                    title: '🍚 Rice - The Ultimate Necessity',
+                    singapore: 'PED ≈ -0.3. Despite higher income, rice remains a staple. Consumers may switch brands but not stop buying rice.',
+                    india: 'PED ≈ -0.2. Extremely inelastic due to cultural importance and low income. Government subsidies keep prices stable.'
+                },
+                cars: {
+                    title: '🚗 Cars - Luxury vs Regulated Necessity',
+                    singapore: 'PED ≈ -1.8. COE system makes cars expensive. Many alternatives (public transport, ride-sharing) increase elasticity.',
+                    india: 'PED ≈ -2.5. Cars are luxury for most. High sensitivity to price changes. Used car market provides substitutes.'
+                },
+                smartphones: {
+                    title: '📱 Smartphones - Modern Essential',
+                    singapore: 'PED ≈ -1.1. High income allows brand switching. Contract plans reduce price sensitivity.',
+                    india: 'PED ≈ -1.6. More price sensitive. Chinese brands gained market share through competitive pricing.'
+                },
+                petrol: {
+                    title: '⛽ Petrol - Transportation Necessity',
+                    singapore: 'PED ≈ -0.4. Excellent public transport provides alternatives. Government taxes don\'t significantly reduce demand.',
+                    india: 'PED ≈ -0.6. Less public transport alternatives. Government subsidies keep prices artificially low.'
+                },
+                dining: {
+                    title: '🍽️ Restaurant Dining - Discretionary Spending',
+                    singapore: 'PED ≈ -1.4. High income allows dining out. Hawker centers provide cheaper alternatives.',
+                    india: 'PED ≈ -2.2. More elastic due to income constraints. Home cooking is the main substitute.'
+                },
+                medicines: {
+                    title: '💊 Medicines - Life Essential',
+                    singapore: 'PED ≈ -0.2. Subsidized healthcare and insurance coverage reduce price sensitivity.',
+                    india: 'PED ≈ -0.4. Essential but income constraints matter. Generic drugs provide some substitution.'
+                }
+            };
+            
+            const detailsBox = document.getElementById('productDetails');
+            const title = document.getElementById('productTitle');
+            const singaporeDetails = document.getElementById('singaporeDetails');
+            const indiaDetails = document.getElementById('indiaDetails');
+            
+            title.textContent = products[product].title;
+            singaporeDetails.textContent = products[product].singapore;
+            indiaDetails.textContent = products[product].india;
+            detailsBox.style.display = 'block';
+            detailsBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Elasticity calculator
+        function calculateElasticity() {
+            const originalPrice = parseFloat(document.getElementById('originalPrice').value);
+            const newPrice = parseFloat(document.getElementById('newPrice').value);
+            const originalQuantity = parseInt(document.getElementById('originalQuantity').value);
+            const newQuantity = parseInt(document.getElementById('newQuantity').value);
+            
+            // Update display values
+            document.getElementById('originalPriceValue').textContent = originalPrice.toFixed(2);
+            document.getElementById('newPriceValue').textContent = newPrice.toFixed(2);
+            document.getElementById('originalQuantityValue').textContent = originalQuantity;
+            document.getElementById('newQuantityValue').textContent = newQuantity;
+            
+            // Calculate percentage changes
+            const priceChangePercent = ((newPrice - originalPrice) / originalPrice) * 100;
+            const quantityChangePercent = ((newQuantity - originalQuantity) / originalQuantity) * 100;
+            
+            // Calculate PED
+            const ped = quantityChangePercent / priceChangePercent;
+            
+            // Update results
+            document.getElementById('priceChange').textContent = priceChangePercent.toFixed(1) + '%';
+            document.getElementById('quantityChange').textContent = quantityChangePercent.toFixed(1) + '%';
+            document.getElementById('pedResult').textContent = ped.toFixed(2);
+            
+            // Interpretation
+            const interpretation = document.getElementById('interpretation');
+            if (Math.abs(ped) > 1) {
+                interpretation.textContent = 'Elastic Demand - Consumers are responsive to price changes';
+                interpretation.className = 'elastic';
+            } else if (Math.abs(ped) < 1) {
+                interpretation.textContent = 'Inelastic Demand - Consumers are not very responsive to price changes';
+                interpretation.className = 'inelastic';
+            } else {
+                interpretation.textContent = 'Unitary Elastic - Proportional response to price changes';
+                interpretation.className = 'unitary';
+            }
+        }
+
+        function selectAnswer(option, isCorrect) {
+            const options = document.querySelectorAll('.quiz-option');
+            const result = document.getElementById('quizResult');
+            
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                if (opt === option) {
+                    if (isCorrect) {
+                        opt.classList.add('correct');
+                        result.innerHTML = '✅ Correct! PED = -5%/20% = -0.25. This indicates inelastic demand, typical for essential foods like rice.';
+                        result.style.color = '#00ff00';
+                    } else {
+                        opt.classList.add('incorrect');
+                        result.innerHTML = '❌ Incorrect. PED = % change in quantity / % change in price = -5%/20% = -0.25 (inelastic).';
+                        result.style.color = '#ff6b6b';
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        updateSlideCounter();
+        updateProgressBar();
+        
+        // Initialize calculator
+        setTimeout(() => {
+            calculateElasticity();
+        }, 500);
+    </script>
+</body>
+</html>

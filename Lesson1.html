@@ -1,0 +1,1194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics Fundamentals - Interactive Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #3e7cb1 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .slide {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            display: none;
+            animation: slideIn 0.6s ease-out;
+            min-height: 500px;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(45deg, #1e3c72, #3e7cb1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h3 {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin: 20px 0 10px 0;
+        }
+
+        p, li {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .concept-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .concept-box {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 10px;
+            flex: 1;
+            min-width: 200px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .concept-box:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.3);
+        }
+
+        .interactive-demo {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+            margin: 10px 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .demo-input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .demo-button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .demo-output {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-family: monospace;
+            min-height: 60px;
+            line-height: 1.6;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-button:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        .economic-system {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px;
+            flex: 1;
+            min-width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .economic-system:hover {
+            border-color: #2980b9;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .cost-comparison {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .choice-option {
+            background: #3498db;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            flex: 1;
+        }
+
+        .choice-option:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .choice-option.selected {
+            background: #e74c3c;
+            transform: scale(1.1);
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .method-card {
+            background: linear-gradient(45deg, #16a085, #27ae60);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .quiz-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #dee2e6;
+        }
+
+        .quiz-question {
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 1.2em;
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 15px 0;
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .quiz-option:hover {
+            border-color: #3498db;
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .stats-display {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        ul {
+            margin-left: 25px;
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .example-box {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .floating-icon {
+            position: fixed;
+            font-size: 24px;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>📊 Economics Fundamentals</h1>
+            <div style="text-align: center; margin: 40px 0;">
+                <p style="font-size: 1.4em; color: #7f8c8d;">Understanding How the World Works</p>
+            </div>
+            
+            <div class="concept-visual">
+                <div class="concept-box">
+                    <h3>🏛️ Theory</h3>
+                    <p>Learn fundamental economic principles</p>
+                </div>
+                <div class="concept-box">
+                    <h3>🧪 Practice</h3>
+                    <p>Interactive exercises and real examples</p>
+                </div>
+                <div class="concept-box">
+                    <h3>🌍 Apply</h3>
+                    <p>See economics in everyday life</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; padding: 25px; background: rgba(52, 152, 219, 0.1); border-radius: 15px;">
+                <p><strong>What you'll master:</strong></p>
+                <p>Economic Overview • Why Study Economics • Research Methods • Scarcity & Choice • Opportunity Cost • Economic Systems</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Overview of Economics -->
+        <div class="slide">
+            <h2>🔍 Overview of Economics</h2>
+            
+            <div class="definition-box">
+                <h3>📖 What is Economics?</h3>
+                <p>Economics is the <span class="highlight">social science</span> that studies how individuals, businesses, governments, and societies make choices about allocating scarce resources to satisfy unlimited wants and needs.</p>
+            </div>
+
+            <div class="concept-visual">
+                <div class="concept-box">
+                    <h3>📈 Microeconomics</h3>
+                    <p>Individual and business decisions</p>
+                </div>
+                <div class="concept-box">
+                    <h3>🌐 Macroeconomics</h3>
+                    <p>Economy-wide phenomena</p>
+                </div>
+            </div>
+
+            <h3>🎯 Key Economic Questions:</h3>
+            <div class="methods-grid">
+                <div class="method-card">
+                    <h3>What to produce?</h3>
+                    <p>Which goods and services should be created?</p>
+                </div>
+                <div class="method-card">
+                    <h3>How to produce?</h3>
+                    <p>What methods and resources to use?</p>
+                </div>
+                <div class="method-card">
+                    <h3>For whom to produce?</h3>
+                    <p>Who gets the goods and services?</p>
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Economics in Action: Personal Budget</h3>
+                <p>You have $1000 monthly income. Allocate it across different categories:</p>
+                <input type="number" class="demo-input" id="housing" placeholder="Housing ($)" max="1000">
+                <input type="number" class="demo-input" id="food" placeholder="Food ($)" max="1000">
+                <input type="number" class="demo-input" id="entertainment" placeholder="Entertainment ($)" max="1000">
+                <input type="number" class="demo-input" id="savings" placeholder="Savings ($)" max="1000">
+                <button class="demo-button" onclick="calculateBudget()">Check Budget</button>
+                <div class="demo-output" id="budgetOutput">Enter your allocation to see if it balances!</div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Why Study Economics -->
+        <div class="slide">
+            <h2>🤔 Why Study Economics?</h2>
+            
+            <p>Economics helps us understand and navigate the complex world of choices, trade-offs, and decision-making that affects every aspect of our lives.</p>
+
+            <div class="concept-visual">
+                <div class="concept-box">
+                    <h3>💡 Better Decisions</h3>
+                    <p>Make informed personal and professional choices</p>
+                </div>
+                <div class="concept-box">
+                    <h3>🗳️ Informed Citizenship</h3>
+                    <p>Understand policy debates and elections</p>
+                </div>
+                <div class="concept-box">
+                    <h3>💼 Career Benefits</h3>
+                    <p>Valuable skills for any profession</p>
+                </div>
+            </div>
+
+            <h3>🌟 Real-World Applications:</h3>
+            <ul>
+                <li><strong>Personal Finance:</strong> Budgeting, investing, loan decisions</li>
+                <li><strong>Business Strategy:</strong> Pricing, market analysis, resource allocation</li>
+                <li><strong>Public Policy:</strong> Healthcare, education, environmental policies</li>
+                <li><strong>Global Issues:</strong> Trade, development, inequality</li>
+            </ul>
+
+            <div class="example-box">
+                <h3>📱 Example: Should you buy the latest smartphone?</h3>
+                <p><strong>Economic thinking considers:</strong></p>
+                <ul>
+                    <li>Cost vs. benefit analysis</li>
+                    <li>What you give up (opportunity cost)</li>
+                    <li>Your budget constraints</li>
+                    <li>Marginal utility of upgrade</li>
+                </ul>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🧠 Decision Analysis Tool</h3>
+                <p>Analyze a purchase decision:</p>
+                <input type="text" class="demo-input" id="itemName" placeholder="What do you want to buy?">
+                <input type="number" class="demo-input" id="itemCost" placeholder="Cost ($)">
+                <input type="number" class="demo-input" id="monthlyIncome" placeholder="Monthly income ($)">
+                <button class="demo-button" onclick="analyzeDecision()">Analyze Decision</button>
+                <div class="demo-output" id="decisionOutput">Enter details for economic analysis!</div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Methods of Economics -->
+        <div class="slide">
+            <h2>🔬 The Methods of Economics</h2>
+            
+            <p>Economists use <span class="highlight">scientific methods</span> to study human behavior and economic phenomena through both theoretical models and empirical analysis.</p>
+
+            <div class="methods-grid">
+                <div class="method-card">
+                    <h3>🔍 Positive Economics</h3>
+                    <p><strong>"What is"</strong><br>
+                    Objective, testable statements about economic facts</p>
+                </div>
+                <div class="method-card">
+                    <h3>💭 Normative Economics</h3>
+                    <p><strong>"What should be"</strong><br>
+                    Value judgments and policy recommendations</p>
+                </div>
+            </div>
+
+            <h3>📊 Economic Research Methods:</h3>
+            <div class="concept-visual">
+                <div class="concept-box">
+                    <h3>📐 Models</h3>
+                    <p>Simplified representations of reality</p>
+                </div>
+                <div class="concept-box">
+                    <h3>📈 Data Analysis</h3>
+                    <p>Statistical examination of economic data</p>
+                </div>
+                <div class="concept-box">
+                    <h3>🧪 Experiments</h3>
+                    <p>Controlled studies of economic behavior</p>
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎯 Positive vs. Normative Statements</h3>
+                <p>Classify these statements as Positive (factual) or Normative (opinion-based):</p>
+                <div id="statementGame">
+                    <div class="stats-display">
+                        Score: <span id="gameScore">0</span> | Statements: <span id="currentStatement">1</span>/5
+                    </div>
+                    <div class="quiz-question" id="statementText">Loading...</div>
+                    <div class="concept-visual">
+                        <div class="choice-option" onclick="classifyStatement('positive')">📊 Positive</div>
+                        <div class="choice-option" onclick="classifyStatement('normative')">💭 Normative</div>
+                    </div>
+                    <div class="demo-output" id="classificationOutput">Choose your classification!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Scarcity and Choice -->
+        <div class="slide">
+            <h2>⚠️ Scarcity and Choice</h2>
+            
+            <div class="definition-box">
+                <h3>🏜️ Scarcity</h3>
+                <p>The fundamental economic problem: <span class="highlight">unlimited human wants</span> exceed the limited resources available to satisfy them.</p>
+            </div>
+
+            <div class="concept-visual">
+                <div class="concept-box">
+                    <h3>🌍 Natural Resources</h3>
+                    <p>Land, water, minerals, oil</p>
+                </div>
+                <div class="concept-box">
+                    <h3>👥 Human Resources</h3>
+                    <p>Labor, skills, knowledge</p>
+                </div>
+                <div class="concept-box">
+                    <h3>🏭 Capital Resources</h3>
+                    <p>Tools, machines, buildings</p>
+                </div>
+            </div>
+
+            <h3>🔄 The Scarcity-Choice Relationship:</h3>
+            <div class="example-box">
+                <p><strong>Because resources are scarce → We must make choices → Every choice has a cost</strong></p>
+                <ul>
+                    <li>Time: You can't study and sleep simultaneously</li>
+                    <li>Money: Buying a car means less money for other things</li>
+                    <li>Resources: Using steel for cars means less for buildings</li>
+                </ul>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>⏰ Time Scarcity Simulator</h3>
+                <p>You have 24 hours in a day. Allocate your time:</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label>Sleep: <span id="sleepValue">8</span> hours</label>
+                        <input type="range" id="sleepSlider" min="4" max="12" value="8" onchange="updateTimeAllocation()">
+                    </div>
+                    <div>
+                        <label>Work/Study: <span id="workValue">8</span> hours</label>
+                        <input type="range" id="workSlider" min="0" max="16" value="8" onchange="updateTimeAllocation()">
+                    </div>
+                    <div>
+                        <label>Exercise: <span id="exerciseValue">1</span> hours</label>
+                        <input type="range" id="exerciseSlider" min="0" max="6" value="1" onchange="updateTimeAllocation()">
+                    </div>
+                    <div>
+                        <label>Entertainment: <span id="funValue">4</span> hours</label>
+                        <input type="range" id="funSlider" min="0" max="12" value="4" onchange="updateTimeAllocation()">
+                    </div>
+                </div>
+                <div class="demo-output" id="timeOutput">Adjust the sliders to see how scarcity forces choices!</div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Opportunity Cost -->
+        <div class="slide">
+            <h2>💰 The Concept of Opportunity Cost</h2>
+            
+            <div class="definition-box">
+                <h3>🎯 Opportunity Cost</h3>
+                <p>The <span class="highlight">value of the next best alternative</span> that you give up when making a choice. It's what you sacrifice to get something else.</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📖 Classic Example: College Decision</h3>
+                <div class="cost-comparison">
+                    <div>
+                        <strong>Go to College:</strong><br>
+                        Direct costs: $40,000/year<br>
+                        Opportunity cost: $30,000/year (forgone salary)
+                        <hr>
+                        <strong>Total cost: $70,000/year</strong>
+                    </div>
+                    <div style="text-align: center; font-size: 2em;">VS</div>
+                    <div>
+                        <strong>Work Immediately:</strong><br>
+                        Earn: $30,000/year<br>
+                        Opportunity cost: Future higher earnings
+                        <hr>
+                        <strong>Trade-off decision!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <h3>💡 Key Principles:</h3>
+            <ul>
+                <li><strong>Everything has an opportunity cost</strong> - even "free" things</li>
+                <li><strong>Opportunity cost varies by person</strong> - different alternatives, different values</li>
+                <li><strong>Consider opportunity cost in all decisions</strong> - personal and business</li>
+                <li><strong>Sunk costs don't matter</strong> - only future costs and benefits</li>
+            </ul>
+
+            <div class="interactive-demo">
+                <h3>🎪 Opportunity Cost Calculator</h3>
+                <p>Weekend Decision: Movie night or study session?</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>🎬 Movie Option</h4>
+                        <input type="number" class="demo-input" id="movieCost" placeholder="Ticket price ($)" value="15">
+                        <input type="number" class="demo-input" id="movieEnjoyment" placeholder="Enjoyment (1-10)" value="8">
+                    </div>
+                    <div>
+                        <h4>📚 Study Option</h4>
+                        <input type="number" class="demo-input" id="studyBenefit" placeholder="Grade improvement value ($)" value="50">
+                        <input type="number" class="demo-input" id="studySatisfaction" placeholder="Satisfaction (1-10)" value="6">
+                    </div>
+                </div>
+                <button class="demo-button" onclick="calculateOpportunityCost()">Calculate Opportunity Cost</button>
+                <div class="demo-output" id="opportunityOutput">Enter values to see the opportunity cost analysis!</div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Economic Systems -->
+        <div class="slide">
+            <h2>🏛️ Economic Systems</h2>
+            
+            <p>Different societies organize their economies in various ways to answer the fundamental economic questions of what, how, and for whom to produce.</p>
+
+            <div class="methods-grid">
+                <div class="economic-system">
+                    <h3>🏛️ Traditional Economy</h3>
+                    <p><strong>Based on:</strong> Custom, tradition, and ritual</p>
+                    <p><strong>Examples:</strong> Rural communities, tribal societies</p>
+                    <p><strong>Pros:</strong> Stable, predictable</p>
+                    <p><strong>Cons:</strong> Limited growth, inflexible</p>
+                </div>
+                <div class="economic-system">
+                    <h3>📋 Command Economy</h3>
+                    <p><strong>Based on:</strong> Government central planning</p>
+                    <p><strong>Examples:</strong> Former Soviet Union, North Korea</p>
+                    <p><strong>Pros:</strong> Equal distribution possible</p>
+                    <p><strong>Cons:</strong> Inefficient, lacks incentives</p>
+                </div>
+                <div class="economic-system">
+                    <h3>🆓 Market Economy</h3>
+                    <p><strong>Based on:</strong> Supply and demand, private ownership</p>
+                    <p><strong>Examples:</strong> Hong Kong, Singapore</p>
+                    <p><strong>Pros:</strong> Efficient, innovative</p>
+                    <p><strong>Cons:</strong> Income inequality, market failures</p>
+                </div>
+                <div class="economic-system">
+                    <h3>⚖️ Mixed Economy</h3>
+                    <p><strong>Based on:</strong> Market forces + government intervention</p>
+                    <p><strong>Examples:</strong> USA, Canada, most modern economies</p>
+                    <p><strong>Pros:</strong> Balances efficiency and equity</p>
+                    <p><strong>Cons:</strong> Can be complex to manage</p>
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎯 Economic System Identifier</h3>
+                <p>Read the scenario and identify the economic system:</p>
+                <div class="quiz-question" id="systemScenario">Loading scenario...</div>
+                <div class="concept-visual">
+                    <div class="choice-option" onclick="selectSystem('traditional')">🏛️ Traditional</div>
+                    <div class="choice-option" onclick="selectSystem('command')">📋 Command</div>
+                    <div class="choice-option" onclick="selectSystem('market')">🆓 Market</div>
+                    <div class="choice-option" onclick="selectSystem('mixed')">⚖️ Mixed</div>
+                </div>
+                <div class="demo-output" id="systemOutput">Choose the economic system that best matches the scenario!</div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Comprehensive Quiz -->
+        <div class="slide">
+            <h2>🧠 Economics Knowledge Check</h2>
+            
+            <div class="quiz-container">
+                <div class="quiz-question">1. What is the fundamental economic problem?</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A. Unemployment</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">B. Inflation</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, true)">C. Scarcity - unlimited wants vs. limited resources</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D. Income inequality</div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">2. Opportunity cost is...</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, true)">A. The value of the next best alternative you give up</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">B. The total cost of a purchase</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C. The price you pay for something</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D. The cost of production</div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">3. Which statement is normative (opinion-based)?</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A. Unemployment rate is 5%</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, true)">B. The government should reduce taxes</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C. GDP grew by 3% last year</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D. Inflation is currently 2%</div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">4. In a market economy, who decides what to produce?</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A. Government planners</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">B. Traditional customs</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, true)">C. Consumer demand and business decisions</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D. International organizations</div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">5. Which best describes microeconomics?</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A. Study of national economic growth</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, true)">B. Study of individual and business decisions</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C. Study of global trade</div>
+                <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D. Study of government policies only</div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Summary and Next Steps -->
+        <div class="slide">
+            <h2>🎓 Your Economics Journey</h2>
+            
+            <p>Congratulations! You've mastered the fundamental concepts of economics. Let's review what you've learned and explore next steps.</p>
+
+            <div class="concept-visual">
+                <div class="concept-box">
+                    <h3>🎯 Core Concepts</h3>
+                    <p>Scarcity, choice, opportunity cost, economic systems</p>
+                </div>
+                <div class="concept-box">
+                    <h3>🔬 Methods</h3>
+                    <p>Positive vs normative analysis, models, data</p>
+                </div>
+                <div class="concept-box">
+                    <h3>🌍 Applications</h3>
+                    <p>Personal decisions, business strategy, policy</p>
+                </div>
+            </div>
+
+            <h3>🚀 Key Takeaways:</h3>
+            <ul>
+                <li><strong>Economics is everywhere:</strong> Every choice involves economic thinking</li>
+                <li><strong>Trade-offs are inevitable:</strong> Understanding opportunity cost improves decisions</li>
+                <li><strong>Systems matter:</strong> How societies organize production affects outcomes</li>
+                <li><strong>Analysis helps:</strong> Economic methods provide tools for better understanding</li>
+            </ul>
+
+            <h3>📚 Continue Your Learning:</h3>
+            <div class="methods-grid">
+                <div class="method-card">
+                    <h3>📈 Advanced Topics</h3>
+                    <p>Supply & demand, elasticity, market structures, game theory</p>
+                </div>
+                <div class="method-card">
+                    <h3>🌐 Real Applications</h3>
+                    <p>Follow economic news, analyze current events, track markets</p>
+                </div>
+                <div class="method-card">
+                    <h3>🎓 Further Study</h3>
+                    <p>Economics courses, business programs, policy analysis</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 40px 0; padding: 30px; background: linear-gradient(45deg, #3498db, #2980b9); color: white; border-radius: 15px;">
+                <h3>🎉 Economics: The Science of Smart Choices!</h3>
+                <p>You now have the foundation to think like an economist and make better decisions in all areas of life.</p>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🏆 Final Challenge: Personal Economics Plan</h3>
+                <p>Create a personal action plan using economic principles:</p>
+                <textarea class="demo-input" id="personalPlan" rows="4" placeholder="How will you apply economic thinking in your life? Consider opportunity costs, trade-offs, and resource allocation..."></textarea>
+                <button class="demo-button" onclick="analyzePlan()">Analyze My Plan</button>
+                <div class="demo-output" id="planOutput">Share your economics action plan!</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-button" onclick="previousSlide()">← Previous</button>
+        <button class="nav-button" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        // Game states
+        let gameScore = 0;
+        let currentStatementIndex = 0;
+        let currentSystemIndex = 0;
+        
+        const statements = [
+            { text: "The minimum wage is $15 per hour", type: "positive" },
+            { text: "The government should increase minimum wage", type: "normative" },
+            { text: "Unemployment decreased by 2% this year", type: "positive" },
+            { text: "High unemployment is the most serious economic problem", type: "normative" },
+            { text: "We should prioritize environmental protection over economic growth", type: "normative" }
+        ];
+        
+        const systemScenarios = [
+            { 
+                text: "In this country, the government decides what factories produce, sets all prices, and assigns jobs to workers.",
+                answer: "command"
+            },
+            { 
+                text: "Businesses compete freely, consumers choose what to buy, and prices are set by supply and demand with minimal government involvement.",
+                answer: "market"
+            },
+            { 
+                text: "Families have farmed the same land for generations, using methods passed down from ancestors and trading in traditional patterns.",
+                answer: "traditional"
+            },
+            { 
+                text: "Most businesses operate freely, but the government provides healthcare, education, and regulates some industries for public safety.",
+                answer: "mixed"
+            }
+        ];
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateProgressBar();
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Budget calculator
+        function calculateBudget() {
+            const housing = parseFloat(document.getElementById('housing').value) || 0;
+            const food = parseFloat(document.getElementById('food').value) || 0;
+            const entertainment = parseFloat(document.getElementById('entertainment').value) || 0;
+            const savings = parseFloat(document.getElementById('savings').value) || 0;
+            
+            const total = housing + food + entertainment + savings;
+            const income = 1000;
+            const remaining = income - total;
+            
+            let output = `💰 Budget Analysis:\n`;
+            output += `Housing: ${housing} (${(housing/income*100).toFixed(1)}%)\n`;
+            output += `Food: ${food} (${(food/income*100).toFixed(1)}%)\n`;
+            output += `Entertainment: ${entertainment} (${(entertainment/income*100).toFixed(1)}%)\n`;
+            output += `Savings: ${savings} (${(savings/income*100).toFixed(1)}%)\n`;
+            output += `\nTotal Allocated: ${total}\n`;
+            output += `Remaining: ${remaining}\n\n`;
+            
+            if (remaining === 0) {
+                output += "✅ Perfect! You've allocated all your income.";
+            } else if (remaining > 0) {
+                output += `💡 You have ${remaining} unallocated. Consider increasing savings!`;
+            } else {
+                output += `⚠️ Over budget by ${Math.abs(remaining)}! You need to make trade-offs.`;
+            }
+            
+            document.getElementById('budgetOutput').innerHTML = output;
+        }
+
+        // Decision analysis
+        function analyzeDecision() {
+            const item = document.getElementById('itemName').value || 'Item';
+            const cost = parseFloat(document.getElementById('itemCost').value) || 0;
+            const income = parseFloat(document.getElementById('monthlyIncome').value) || 1;
+            
+            const percentage = (cost / income * 100).toFixed(1);
+            
+            let output = `📊 Economic Analysis for "${item}":\n\n`;
+            output += `Cost: ${cost}\n`;
+            output += `Percentage of income: ${percentage}%\n\n`;
+            
+            if (percentage < 5) {
+                output += "✅ Low cost relative to income - probably affordable!";
+            } else if (percentage < 15) {
+                output += "⚠️ Moderate cost - consider the opportunity cost carefully.";
+            } else if (percentage < 30) {
+                output += "🚨 High cost - make sure this aligns with your priorities!";
+            } else {
+                output += "❌ Very expensive relative to income - reconsider this purchase.";
+            }
+            
+            output += `\n\n💡 Ask yourself:\n- What am I giving up?\n- Will this provide lasting value?\n- Are there cheaper alternatives?`;
+            
+            document.getElementById('decisionOutput').innerHTML = output;
+        }
+
+        // Statement classification game
+        function loadStatement() {
+            if (currentStatementIndex < statements.length) {
+                document.getElementById('statementText').innerHTML = statements[currentStatementIndex].text;
+                document.getElementById('currentStatement').innerHTML = currentStatementIndex + 1;
+            } else {
+                endStatementGame();
+            }
+        }
+
+        function classifyStatement(classification) {
+            const correct = statements[currentStatementIndex].type === classification;
+            let output = '';
+            
+            if (correct) {
+                gameScore++;
+                output = `✅ Correct! This is a ${classification} statement.`;
+            } else {
+                output = `❌ Incorrect. This is a ${statements[currentStatementIndex].type} statement.`;
+            }
+            
+            if (statements[currentStatementIndex].type === 'positive') {
+                output += '\n💡 Positive statements describe what IS - they can be tested and verified.';
+            } else {
+                output += '\n💭 Normative statements express what SHOULD BE - they involve value judgments.';
+            }
+            
+            document.getElementById('classificationOutput').innerHTML = output;
+            document.getElementById('gameScore').innerHTML = gameScore;
+            
+            currentStatementIndex++;
+            setTimeout(loadStatement, 2000);
+        }
+
+        function endStatementGame() {
+            document.getElementById('statementText').innerHTML = `Game Complete! Final Score: ${gameScore}/5`;
+            document.getElementById('classificationOutput').innerHTML = `🎉 Great job learning about positive vs normative economics!`;
+        }
+
+        // Time allocation
+        function updateTimeAllocation() {
+            const sleep = parseInt(document.getElementById('sleepSlider').value);
+            const work = parseInt(document.getElementById('workSlider').value);
+            const exercise = parseInt(document.getElementById('exerciseSlider').value);
+            const fun = parseInt(document.getElementById('funSlider').value);
+            
+            document.getElementById('sleepValue').innerHTML = sleep;
+            document.getElementById('workValue').innerHTML = work;
+            document.getElementById('exerciseValue').innerHTML = exercise;
+            document.getElementById('funValue').innerHTML = fun;
+            
+            const total = sleep + work + exercise + fun;
+            const remaining = 24 - total;
+            
+            let output = `⏰ Time Allocation Analysis:\n`;
+            output += `Total allocated: ${total} hours\n`;
+            output += `Remaining: ${remaining} hours\n\n`;
+            
+            if (remaining === 0) {
+                output += `✅ Perfect 24-hour allocation!`;
+            } else if (remaining > 0) {
+                output += `💡 You have ${remaining} hours unallocated for meals, commuting, etc.`;
+            } else {
+                output += `⚠️ Over-allocated by ${Math.abs(remaining)} hours! Scarcity forces you to choose.`;
+            }
+            
+            output += `\n\n🎯 This demonstrates how scarcity (24 hours) forces choices and trade-offs!`;
+            
+            document.getElementById('timeOutput').innerHTML = output;
+        }
+
+        // Opportunity cost calculator
+        function calculateOpportunityCost() {
+            const movieCost = parseFloat(document.getElementById('movieCost').value) || 0;
+            const movieEnjoyment = parseFloat(document.getElementById('movieEnjoyment').value) || 0;
+            const studyBenefit = parseFloat(document.getElementById('studyBenefit').value) || 0;
+            const studySatisfaction = parseFloat(document.getElementById('studySatisfaction').value) || 0;
+            
+            const movieValue = movieEnjoyment * 10 - movieCost; // Enjoyment worth $10 per point
+            const studyValue = studyBenefit + studySatisfaction * 5; // Satisfaction worth $5 per point
+            
+            let output = `🎯 Opportunity Cost Analysis:\n\n`;
+            output += `🎬 Movie Option:\n`;
+            output += `  Value: ${movieValue.toFixed(2)} (enjoyment worth - cost)\n`;
+            output += `  Opportunity cost: Give up study benefits worth ${studyValue.toFixed(2)}\n\n`;
+            
+            output += `📚 Study Option:\n`;
+            output += `  Value: ${studyValue.toFixed(2)} (grade benefit + satisfaction)\n`;
+            output += `  Opportunity cost: Give up movie enjoyment worth ${movieValue.toFixed(2)}\n\n`;
+            
+            if (movieValue > studyValue) {
+                output += `✅ Recommendation: Choose the movie! (Higher net value)\n`;
+                output += `💡 Opportunity cost of choosing movie: ${studyValue.toFixed(2)}`;
+            } else {
+                output += `✅ Recommendation: Choose studying! (Higher net value)\n`;
+                output += `💡 Opportunity cost of choosing study: ${movieValue.toFixed(2)}`;
+            }
+            
+            document.getElementById('opportunityOutput').innerHTML = output;
+        }
+
+        // System identification
+        function loadSystemScenario() {
+            if (currentSystemIndex < systemScenarios.length) {
+                document.getElementById('systemScenario').innerHTML = systemScenarios[currentSystemIndex].text;
+                // Reset choice selections
+                document.querySelectorAll('.choice-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+            }
+        }
+
+        function selectSystem(system) {
+            const correct = systemScenarios[currentSystemIndex].answer === system;
+            let output = '';
+            
+            if (correct) {
+                output = `✅ Correct! This describes a ${system} economy.`;
+            } else {
+                output = `❌ Incorrect. This describes a ${systemScenarios[currentSystemIndex].answer} economy.`;
+            }
+            
+            // Add explanation
+            const explanations = {
+                traditional: "Traditional economies rely on customs and historical precedent.",
+                command: "Command economies have centralized government control.",
+                market: "Market economies rely on supply, demand, and competition.",
+                mixed: "Mixed economies combine market forces with government intervention."
+            };
+            
+            output += `\n💡 ${explanations[systemScenarios[currentSystemIndex].answer]}`;
+            
+            document.getElementById('systemOutput').innerHTML = output;
+            
+            currentSystemIndex++;
+            setTimeout(() => {
+                if (currentSystemIndex < systemScenarios.length) {
+                    loadSystemScenario();
+                } else {
+                    document.getElementById('systemScenario').innerHTML = "🎉 Great job identifying economic systems!";
+                    document.getElementById('systemOutput').innerHTML = "You've completed all scenarios!";
+                }
+            }, 3000);
+        }
+
+        // Quiz functions
+        function selectQuizAnswer(element, isCorrect) {
+            const siblings = element.parentNode.querySelectorAll('.quiz-option');
+            siblings.forEach(sibling => {
+                sibling.classList.remove('correct', 'incorrect');
+            });
+
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+                siblings.forEach(sibling => {
+                    if (sibling.onclick.toString().includes('true')) {
+                        sibling.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        // Personal plan analyzer
+        function analyzePlan() {
+            const plan = document.getElementById('personalPlan').value;
+            
+            if (!plan.trim()) {
+                document.getElementById('planOutput').innerHTML = "Please enter your personal economics plan!";
+                return;
+            }
+            
+            let output = `📋 Your Economics Action Plan Analysis:\n\n`;
+            
+            // Simple keyword analysis
+            const keywords = {
+                'opportunity cost': 'Great! You\'re thinking about trade-offs.',
+                'scarcity': 'Excellent recognition of limited resources.',
+                'budget': 'Smart financial planning approach.',
+                'choice': 'Good focus on decision-making.',
+                'trade-off': 'Perfect understanding of economic thinking!',
+                'invest': 'Forward-thinking economic strategy.',
+                'save': 'Wise resource allocation planning.'
+            };
+            
+            let foundKeywords = 0;
+            for (let keyword in keywords) {
+                if (plan.toLowerCase().includes(keyword)) {
+                    output += `✅ ${keywords[keyword]}\n`;
+                    foundKeywords++;
+                }
+            }
+            
+            if (foundKeywords === 0) {
+                output += `💡 Consider adding more economic concepts like opportunity cost, trade-offs, or resource allocation!\n`;
+            }
+            
+            output += `\n🎯 Your plan shows ${foundKeywords > 2 ? 'excellent' : foundKeywords > 0 ? 'good' : 'basic'} economic thinking!`;
+            output += `\n\n🚀 Remember: Every choice is an economic choice. Think like an economist!`;
+            
+            document.getElementById('planOutput').innerHTML = output;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        updateProgressBar();
+        loadStatement();
+        loadSystemScenario();
+        
+        // Create floating economic icons
+        function createFloatingElements() {
+            const container = document.body;
+            const elements = ['💰', '📈', '💼', '🏦', '💳', '📊', '💵', '⚖️'];
+            
+            setInterval(() => {
+                const element = document.createElement('div');
+                element.innerHTML = elements[Math.floor(Math.random() * elements.length)];
+                element.className = 'floating-icon';
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.top = '100vh';
+                element.style.fontSize = '24px';
+                element.style.transition = 'all 12s linear';
+                
+                container.appendChild(element);
+                
+                setTimeout(() => {
+                    element.style.transform = 'translateY(-120vh) rotate(360deg)';
+                    element.style.opacity = '0';
+                }, 100);
+                
+                setTimeout(() => {
+                    if (element.parentNode) {
+                        element.parentNode.removeChild(element);
+                    }
+                }, 12000);
+            }, 4000);
+        }
+
+        setTimeout(createFloatingElements, 3000);
+    </script>
+</body>
+</html>
+                
